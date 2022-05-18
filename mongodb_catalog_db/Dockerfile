@@ -1,0 +1,10 @@
+FROM mongo
+
+COPY ./mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
+ENV MONGODB_INITDB_ROOT_USERNAME=root
+ENV MONGODB_INITDB_ROOT_PASSWORD=password
+ENV MONGO_INITDB_DATABASE=catalog
+ENV MONGO_INIT_USER=client
+ENV MONGO_INITDB_PWD=password
+
+EXPOSE 27017

@@ -17,16 +17,15 @@ function Copyright(props) {
   );
 }
 const footers = [
-  {
-    title: "Company",
-    description: ["Team"],
-  },
+  // {
+  //   title: "Company",
+  //   description: ["Team"],
+  // },
 ];
 
 export default function Footer() {
   return (
     <Container
-      maxWidth="md"
       component="footer"
       sx={{
         borderTop: (theme) => `1px solid ${theme.palette.divider}`,

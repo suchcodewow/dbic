@@ -10,6 +10,14 @@ const theme = createTheme({
       main: teal[500],
     },
   },
+  components: {
+    MuiLink: {
+      defaultProps: {
+        underline: "none",
+        fontWeight: "bold",
+      },
+    },
+  },
 });
 
 export default theme;

@@ -1,4 +1,17 @@
 //login
+/*
+The fetch wrapper is a lightweight wrapper around the native browser fetch() function 
+used to simplify the code for making HTTP requests. It contains methods for get, post, 
+put and delete requests, it automatically handles the parsing of JSON data from responses, 
+and throws an error if the HTTP response is not successful (!response.ok). If the response 
+is 401 Unauthorized or 403 Forbidden the user is automatically logged out of the Next.js app.
+The authHeader() function is used to automatically add a JWT auth token to the HTTP 
+Authorization header of the request if the user is logged in and the request is to the 
+application api url.
+With the fetch wrapper a POST request can be made as simply as this: 
+fetchWrapper.post(url, body);. It's used in the example app by the user service. 
+For more info see Fetch API - A Lightweight Fetch Wrapper to Simplify HTTP Requests.
+*/
 import getConfig from "next/config";
 
 import { userService } from "services";

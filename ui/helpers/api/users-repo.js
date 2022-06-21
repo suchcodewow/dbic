@@ -1,4 +1,13 @@
 //login
+/*
+The users repo encapsulates all access to user data stored in the users JSON data 
+file and exposes a standard set of CRUD methods for reading and managing the data. 
+It's used on the server-side by the Next.js users API route handlers 
+(authenticate.js, register.js, [id].js, index.js).
+Data is stored in a JSON file for simplicity to keep the tutorial simple and focused 
+on how to implement user registration and login functionality in Next.js. A real database 
+(e.g. MySQL, MongoDB, PostgreSQL etc) is recommended for production applications.
+*/
 const fs = require("fs");
 
 // users in JSON file for simplicity, store in a db for production applications

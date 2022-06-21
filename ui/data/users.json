@@ -1,0 +1,29 @@
+[
+    {
+        "firstName": "Shawn",
+        "lastName": "Pearson",
+        "username": "Vorrek",
+        "hash": "$2a$10$p.Lmbnr.pLcONMpb3LNisOZBXo5gXlB6f3FY1ulGoPcj9QWVT2Sk6",
+        "id": 1,
+        "dateCreated": "2022-06-21T13:12:59.279Z",
+        "dateUpdated": "2022-06-21T13:12:59.279Z"
+    },
+    {
+        "firstName": "asdf",
+        "lastName": "asdf",
+        "username": "asdf",
+        "hash": "$2a$10$TLdmw8wrWrWFMyQNhxiq3u.KvofXCpxIYBdKnbLZVuMFVlGvRYXwy",
+        "id": 2,
+        "dateCreated": "2022-06-21T18:15:17.760Z",
+        "dateUpdated": "2022-06-21T18:15:17.760Z"
+    },
+    {
+        "firstName": "fasdf",
+        "lastName": "asdfasf",
+        "username": "fffsfsf",
+        "hash": "$2a$10$uRg8VoBiJQlB1gNxRsYHbOPx/3/H.QXoXF3eoyQnDOS5vORJKc5LK",
+        "id": 3,
+        "dateCreated": "2022-06-21T18:22:43.495Z",
+        "dateUpdated": "2022-06-21T18:22:43.495Z"
+    }
+]

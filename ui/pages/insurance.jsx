@@ -1,5 +1,5 @@
-import { Button, Link } from "@mui/material";
-import Layout from "../components/layout";
+import { Button } from "@mui/material";
+import Layout from "../components/Layout";
 
 export default function insurance() {
   return (
@@ -7,7 +7,6 @@ export default function insurance() {
       {" "}
       <h1>We sell insurance!</h1>
       <h1 className="title">
-        <Link href="/insurance">Check out our insurance offering!</Link>
         <Button variant="contained">Click the Butt!</Button>
       </h1>
     </Layout>

@@ -1,5 +1,5 @@
+import Head from "next/head";
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -58,6 +58,10 @@ const tiers = [
 function PricingContent() {
   return (
     <React.Fragment>
+      <Head>
+        <title>DBIC - Operations</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />

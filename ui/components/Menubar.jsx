@@ -11,7 +11,7 @@ export default function MenuBar() {
   useEffect(() => {
     const subscription = userService.user.subscribe((x) => setUser(x));
     return () => subscription.unsubscribe();
-  }, []);
+  });
   function logout() {
     userService.logout();
   }

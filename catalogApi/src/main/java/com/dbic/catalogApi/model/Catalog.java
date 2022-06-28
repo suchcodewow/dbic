@@ -1,4 +1,5 @@
 package com.dbic.catalogApi.model;
+import java.sql.Timestamp;
 
 public class Catalog {
 
@@ -6,8 +7,8 @@ public class Catalog {
     private String title;
     private String img;
     private String shortDesc;
-    private String createDate;
-    private String updateDate;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
     public long getId() {
         return id;

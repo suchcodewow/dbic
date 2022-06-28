@@ -1,7 +1,6 @@
 package com.dbic.catalogApi.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "catalog")
@@ -13,8 +12,8 @@ public class CatalogEntity {
     private String title;
     private String img;
     private String shortDesc;
-    private Timestamp createDate;
-    private Timestamp updateDate;
+    private String createDate;
+    private String updateDate;
 
     public CatalogEntity() {
     }
@@ -42,20 +41,20 @@ public class CatalogEntity {
     public void setShortDesc(String shortDesc) {
         this.shortDesc = shortDesc;
     }
-    public Timestamp getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
-    public Timestamp getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
-    public void setUpdateDate(Timestamp updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
     
-    public CatalogEntity(long id, String title, String img, String shortDesc, Timestamp createDate, Timestamp updateDate) {
+    public CatalogEntity(long id, String title, String img, String shortDesc, String createDate, String updateDate) {
         this.id = id;
         this.title = title;
         this.img = img;

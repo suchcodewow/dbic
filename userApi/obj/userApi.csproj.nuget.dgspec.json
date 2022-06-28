@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\source\\dbic\\userApi\\userApi.csproj": {}
+    "/Users/shawn.pearson/source/dbic/userApi/userApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\source\\dbic\\userApi\\userApi.csproj": {
+    "/Users/shawn.pearson/source/dbic/userApi/userApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\source\\dbic\\userApi\\userApi.csproj",
+        "projectUniqueName": "/Users/shawn.pearson/source/dbic/userApi/userApi.csproj",
         "projectName": "userApi",
-        "projectPath": "C:\\Users\\admin\\source\\dbic\\userApi\\userApi.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\source\\dbic\\userApi\\obj\\",
+        "projectPath": "/Users/shawn.pearson/source/dbic/userApi/userApi.csproj",
+        "packagesPath": "/Users/shawn.pearson/.nuget/packages/",
+        "outputPath": "/Users/shawn.pearson/source/dbic/userApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/shawn.pearson/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -24,7 +24,6 @@
         },
         "frameworks": {
           "net6.0": {
-            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -36,7 +35,6 @@
       },
       "frameworks": {
         "net6.0": {
-          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -75,25 +73,7 @@
               "version": "[6.3.0, )"
             }
           },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
         }
       }
     }

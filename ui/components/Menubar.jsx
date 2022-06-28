@@ -43,6 +43,14 @@ export default function MenuBar() {
           >
             Insurance
           </Link>
+          <Link
+            variant="button"
+            color="text.primary"
+            href="/shopping"
+            sx={{ my: 1, mx: 1.5 }}
+          >
+            Shopping
+          </Link>
         </nav>
 
         {user ? (

@@ -1,7 +1,7 @@
 #When building tag as 'catalog:latest'
 FROM mysql
 
-COPY ./setup.sql /docker-entrypoint-initdb.d
+#COPY ./setup.sql /docker-entrypoint-initdb.d
 ENV MYSQL_USER=api
 ENV MYSQL_PASSWORD=password
 ENV MYSQL_ROOT_PASSWORD=password

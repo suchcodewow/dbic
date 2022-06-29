@@ -6,7 +6,7 @@ import Router from "next/router";
 import { fetchWrapper } from "helpers";
 
 const { publicRuntimeConfig } = getConfig();
-const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
+const baseUrl = `${publicRuntimeConfig.apiUser}/users`;
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user"))
 );

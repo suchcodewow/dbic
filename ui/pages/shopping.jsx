@@ -1,10 +1,12 @@
 import Head from "next/head";
 import { React, useState, useEffect } from "react";
-import Layout from "../components/Layout";
+const { publicRuntimeConfig } = require("next.config");
+import NewItem from "components/NewItem";
+import { Grid } from "@mui/material";
 
-const Shopping = ({ catalog }) => {
-  const BASE_URL = "http://localhost:8080/api/v1/catalog";
-  const [catalogs, setCatalogs] = useState(null);
+export default function Shopping({ asdf }) {
+  const BASE_URL = publicRuntimeConfig.apiCatalog;
+  const [catalog, setCatalog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [itemId, setItemId] = useState(null);
   const [responseUser, setResponseUser] = useState(null);
@@ -19,36 +21,57 @@ const Shopping = ({ catalog }) => {
             "Content-Type": "application/json",
           },
         });
-        const catalogs = await response.json();
-        setCatalogs(catalogs);
+        const catalog = await response.json();
+        setCatalog(catalog);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [asdf]);
+
+  const deleteItem = (e, id) => {
+    e.preventDefault();
+    fetch(BASE_URL + "/" + id, {
+      method: "DELETE",
+    }).then((res) => {
+      if (catalog) {
+        setCatalog((prevElement) => {
+          return prevElement.filter((item) => item.id !== id);
+        });
+      }
+    });
+  };
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>DBIC - Shopping</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NewItem catalog={catalog} setCatalog={setCatalog} />
       <h2>We sell stuff!</h2>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          1
+        </Grid>
+      </Grid>
       <table>
         {!loading && (
           <tbody>
-            {catalogs?.map((item) => (
+            {catalog?.map((item) => (
               <tr key={item.id}>
                 <td>{item.title}</td>
+                <td>{item.shortDesc}</td>
+                <td>
+                  <a onClick={(e, id) => deleteItem(e, item.id)}>Delete</a>
+                </td>
               </tr>
             ))}
           </tbody>
         )}
       </table>
-    </Layout>
+    </>
   );
-};
-
-export default Shopping;
+}

@@ -1,10 +1,41 @@
-import Head from "next/head";
 import { React, useState, useEffect } from "react";
 const { publicRuntimeConfig } = require("next.config");
 import NewItem from "components/NewItem";
-import { Grid } from "@mui/material";
+import { alpha, Grid, Box, styled } from "@mui/material";
+import Link from "next/link";
 
-export default function Shopping({ asdf }) {
+const StyledBox = styled(Box)(({ theme }) => ({
+  height: "100%",
+  borderRadius: 6,
+  boxShadow: theme.shadows[1],
+  transition: "all 250ms ease-in-out",
+  backgroundColor: alpha(theme.palette.background.paper, 0.5),
+  "&:hover": {
+    boxShadow: theme.shadows[4],
+  },
+  [theme.breakpoints.between("sm", "md")]: {
+    "&": {
+      display: "flex",
+      alignItems: "center",
+      padding: "2rem",
+    },
+    "& .content": {
+      padding: "0",
+      width: "50%",
+    },
+  },
+  [theme.breakpoints.down("sm")]: {
+    "&": {
+      padding: "2rem",
+    },
+    "& .content": {
+      padding: 0,
+      marginTop: 10,
+    },
+  },
+}));
+
+export default function Store({ asdf }) {
   const BASE_URL = publicRuntimeConfig.apiCatalog;
   const [catalog, setCatalog] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,15 +77,22 @@ export default function Shopping({ asdf }) {
 
   return (
     <>
-      <Head>
-        <title>DBIC - Shopping</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <NewItem catalog={catalog} setCatalog={setCatalog} />
       <h2>We sell stuff!</h2>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          1
+          <Link href="/">
+            <a>
+              <StyledBox>
+                <Box
+                  component="img"
+                  src="/images/store/shoes-1.png"
+                  alt="shoes"
+                  sx={{ padding: "2.5rem" }}
+                />
+              </StyledBox>
+            </a>
+          </Link>
         </Grid>
       </Grid>
       <table>

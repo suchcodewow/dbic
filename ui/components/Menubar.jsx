@@ -46,10 +46,10 @@ export default function MenuBar() {
           <Link
             variant="button"
             color="text.primary"
-            href="/shopping"
+            href="/store"
             sx={{ my: 1, mx: 1.5 }}
           >
-            Shopping
+            Store
           </Link>
         </nav>
 

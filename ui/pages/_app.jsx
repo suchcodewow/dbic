@@ -54,9 +54,9 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Alert />
+        <MenuBar />
         <Layout>
-          <Alert />
-          <MenuBar />
           <Component {...pageProps} />
           <Footer />
         </Layout>

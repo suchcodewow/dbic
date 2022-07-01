@@ -1,11 +1,5 @@
-//export { Layout };
-
-import { Box } from "@mui/material";
+import Container from "@mui/material/Container";
 
 export default function Layout({ children }) {
-  return (
-    <Box padding={2}>
-      <div>{children}</div>
-    </Box>
-  );
+  return <Container>{children}</Container>;
 }

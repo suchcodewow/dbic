@@ -3,37 +3,7 @@ const { publicRuntimeConfig } = require("next.config");
 import NewItem from "components/NewItem";
 import { alpha, Grid, Box, styled } from "@mui/material";
 import Link from "next/link";
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  height: "100%",
-  borderRadius: 6,
-  boxShadow: theme.shadows[1],
-  transition: "all 250ms ease-in-out",
-  backgroundColor: alpha(theme.palette.background.paper, 0.5),
-  "&:hover": {
-    boxShadow: theme.shadows[4],
-  },
-  [theme.breakpoints.between("sm", "md")]: {
-    "&": {
-      display: "flex",
-      alignItems: "center",
-      padding: "2rem",
-    },
-    "& .content": {
-      padding: "0",
-      width: "50%",
-    },
-  },
-  [theme.breakpoints.down("sm")]: {
-    "&": {
-      padding: "2rem",
-    },
-    "& .content": {
-      padding: 0,
-      marginTop: 10,
-    },
-  },
-}));
+import ItemCard from "components/ItemCard";
 
 export default function Store({ asdf }) {
   const BASE_URL = publicRuntimeConfig.apiCatalog;
@@ -60,56 +30,33 @@ export default function Store({ asdf }) {
       setLoading(false);
     };
     fetchData();
-  }, [asdf]);
+  }, []);
 
-  const deleteItem = (e, id) => {
-    e.preventDefault();
+  const handleDelete = (id) => {
     fetch(BASE_URL + "/" + id, {
       method: "DELETE",
     }).then((res) => {
       if (catalog) {
-        setCatalog((prevElement) => {
-          return prevElement.filter((item) => item.id !== id);
+        setCatalog((newList) => {
+          return newList.filter((item) => item.id !== id);
         });
       }
     });
   };
 
   return (
-    <>
+    <div>
       <NewItem catalog={catalog} setCatalog={setCatalog} />
-      <h2>We sell stuff!</h2>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <Link href="/">
-            <a>
-              <StyledBox>
-                <Box
-                  component="img"
-                  src="/images/store/shoes-1.png"
-                  alt="shoes"
-                  sx={{ padding: "2.5rem" }}
-                />
-              </StyledBox>
-            </a>
-          </Link>
+
+      {!loading && (
+        <Grid container spacing={3}>
+          {catalog?.map((item) => (
+            <Grid item key={item.id} xs={12} md={6} lg={4}>
+              <ItemCard item={item} handleDelete={handleDelete} />
+            </Grid>
+          ))}
         </Grid>
-      </Grid>
-      <table>
-        {!loading && (
-          <tbody>
-            {catalog?.map((item) => (
-              <tr key={item.id}>
-                <td>{item.title}</td>
-                <td>{item.shortDesc}</td>
-                <td>
-                  <a onClick={(e, id) => deleteItem(e, item.id)}>Delete</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        )}
-      </table>
-    </>
+      )}
+    </div>
   );
 }

@@ -16,18 +16,12 @@ export default function MenuBar() {
     userService.logout();
   }
   return (
-    <AppBar
-      position="static"
-      color="default"
-      elevation={3}
-      sx={{
-        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-      }}
-    >
-      <Toolbar sx={{ flexWrap: "wrap" }}>
+    <AppBar position="static" color="" elevation={1} sx={{ mb: 3 }}>
+      <Toolbar>
         <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-          dynabankinsuracart.com
+          DBIC
         </Typography>
+
         <nav>
           <Link
             variant="button"

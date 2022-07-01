@@ -12,8 +12,7 @@ public class CatalogEntity {
     private String title;
     private String img;
     private String shortDesc;
-    private String createDate;
-    private String updateDate;
+    private Integer price;
 
     public CatalogEntity() {
     }
@@ -41,25 +40,18 @@ public class CatalogEntity {
     public void setShortDesc(String shortDesc) {
         this.shortDesc = shortDesc;
     }
-    public String getCreateDate() {
-        return createDate;
+    public Integer getPrice() {
+        return price;
     }
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-    public String getUpdateDate() {
-        return updateDate;
-    }
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
     
-    public CatalogEntity(long id, String title, String img, String shortDesc, String createDate, String updateDate) {
+    public CatalogEntity(long id, String title, String img, String shortDesc, Integer price) {
         this.id = id;
         this.title = title;
         this.img = img;
         this.shortDesc = shortDesc;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
+        this.price = price;
     }
 }

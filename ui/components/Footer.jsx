@@ -2,18 +2,21 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Container from "@mui/material/Container";
+import { format } from "date-fns";
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"© "}
-      {new Date().getFullYear()}
-      {" dynabankinsuracart.com"}
-    </Typography>
+    <div>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"© "}
+        {new Date().getFullYear()}
+        {" dynabankinsuracart.com"}
+      </Typography>
+    </div>
   );
 }
 const footers = [
@@ -39,15 +42,6 @@ export default function Footer() {
             <Typography variant="h6" color="text.primary" gutterBottom>
               {footer.title}
             </Typography>
-            <ul>
-              {footer.description.map((item) => (
-                <li key={item}>
-                  <Link href="#" variant="subtitle1" color="text.secondary">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </Grid>
         ))}
       </Grid>

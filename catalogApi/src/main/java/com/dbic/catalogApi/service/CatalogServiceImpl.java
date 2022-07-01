@@ -39,8 +39,7 @@ public class CatalogServiceImpl implements CatalogService{
                     catalogEntity.getTitle(),
                     catalogEntity.getImg(),
                     catalogEntity.getShortDesc(),
-                    catalogEntity.getCreateDate(),
-                    catalogEntity.getUpdateDate()
+                    catalogEntity.getPrice()
                 ))
                 .collect(Collectors.toList());
 
@@ -70,13 +69,11 @@ public class CatalogServiceImpl implements CatalogService{
         catalogEntity.setTitle(catalog.getTitle());
         catalogEntity.setImg(catalog.getImg());
         catalogEntity.setShortDesc(catalog.getShortDesc());
-        catalogEntity.setCreateDate(catalog.getCreateDate());
-        catalogEntity.setUpdateDate(catalog.getUpdateDate());
+        catalogEntity.setPrice(catalog.getPrice());
 
         catalogRepository.save(catalogEntity);
         return catalog;
     }
-
 }
 
 

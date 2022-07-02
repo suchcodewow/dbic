@@ -8,7 +8,8 @@ public class CatalogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;    
+    private long id; 
+    private String category;   
     private String title;
     private String img;
     private String shortDesc;
@@ -21,6 +22,12 @@ public class CatalogEntity {
     }
     public void setId(long id) {
         this.id = id;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
     }
     public String getTitle() {
         return title;
@@ -47,8 +54,9 @@ public class CatalogEntity {
         this.price = price;
     }
     
-    public CatalogEntity(long id, String title, String img, String shortDesc, Integer price) {
+    public CatalogEntity(long id, String category, String title, String img, String shortDesc, Integer price) {
         this.id = id;
+        this.category = category;
         this.title = title;
         this.img = img;
         this.shortDesc = shortDesc;

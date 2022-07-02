@@ -27,13 +27,16 @@ export default function ItemCard({ item, handleDelete }) {
             <DeleteOutlineIcon />
           </IconButton>
         }
+        titleTypographyProps={{
+          fontSize: 16,
+        }}
         title={item.title}
+        subheader={item.category}
       ></CardHeader>
       <CardMedia
         component="img"
         width="300"
-        border="1"
-        image="/images/store/flash-1.png"
+        image={`/images/store/${item.img}`}
         alt={item.title}
       />
     </Card>

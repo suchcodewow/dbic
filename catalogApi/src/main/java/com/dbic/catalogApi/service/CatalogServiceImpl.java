@@ -5,7 +5,6 @@ import com.dbic.catalogApi.model.Catalog;
 import com.dbic.catalogApi.repository.CatalogRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +35,7 @@ public class CatalogServiceImpl implements CatalogService{
                 .stream()
                 .map(catalogEntity -> new Catalog(
                     catalogEntity.getId(),
+                    catalogEntity.getCategory(),
                     catalogEntity.getTitle(),
                     catalogEntity.getImg(),
                     catalogEntity.getShortDesc(),
@@ -66,6 +66,7 @@ public class CatalogServiceImpl implements CatalogService{
     public Catalog updateCatalog(Long id, Catalog catalog) {
         CatalogEntity catalogEntity =
         catalogRepository.findById(id).get();
+        catalogEntity.setCategory(catalog.getCategory());
         catalogEntity.setTitle(catalog.getTitle());
         catalogEntity.setImg(catalog.getImg());
         catalogEntity.setShortDesc(catalog.getShortDesc());

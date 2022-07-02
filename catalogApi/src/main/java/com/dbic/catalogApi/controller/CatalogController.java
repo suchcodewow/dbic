@@ -2,7 +2,6 @@ package com.dbic.catalogApi.controller;
 
 import com.dbic.catalogApi.model.Catalog;
 import com.dbic.catalogApi.service.CatalogService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

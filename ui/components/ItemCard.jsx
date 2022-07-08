@@ -14,7 +14,8 @@ export default function ItemCard({ item, handleDelete }) {
     <Card
       sx={{
         "&:hover": { boxShadow: 3 },
-        width: 300,
+        width: 270,
+        height: 400,
       }}
     >
       <CardHeader
@@ -35,7 +36,6 @@ export default function ItemCard({ item, handleDelete }) {
       ></CardHeader>
       <CardMedia
         component="img"
-        width="300"
         image={`/images/store/${item.img}`}
         alt={item.title}
       />

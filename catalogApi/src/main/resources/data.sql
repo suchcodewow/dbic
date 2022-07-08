@@ -6,7 +6,7 @@ INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Beauty','Makeu
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','Circle Half-Back Chair','bgchair1.png','The iconic circular button back chair.',280);
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','The Square Chair','bgchair2.png','An ultra-functional chair specifically designed for extended sitting.',260);
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','Tipsy Stool','bgchair3.png','A mildly disconcerting stool to sit prone to tipping over.  Perfect seating option to offer our mother-in-law.',320);
-INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','The Highback','bgchair4','Quality meets fashion in this two-piece highback chair.',230);
+INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','The Highback','bgchair4.png','Quality meets fashion in this two-piece highback chair.',230);
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','The Minimalist','bgchair5.png','Light but sturdy, this chair prefers sitting keeping a comfortable distance from you and bathing in slits of light.',140);
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Home','Retro Masterpiece','bgchair6.png','Relive the uncomfortable seating of the 1960s in a chair built to survive World War 3.',89);
 INSERT INTO catalog (category,title,img,short_desc,price) VALUES('Tech','Earbuds','bgearphone.png','Active noise-cancelling, latest generation.',230);

@@ -10,7 +10,7 @@ public class CatalogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; 
     private String category;   
-    private String title;
+    private String rating;
     private String img;
     private String shortDesc;
     private Integer price;
@@ -29,11 +29,11 @@ public class CatalogEntity {
     public void setCategory(String category) {
         this.category = category;
     }
-    public String getTitle() {
-        return title;
+    public String getRating() {
+        return rating;
     }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
     public String getImg() {
         return img;
@@ -54,10 +54,10 @@ public class CatalogEntity {
         this.price = price;
     }
     
-    public CatalogEntity(long id, String category, String title, String img, String shortDesc, Integer price) {
+    public CatalogEntity(long id, String category, String rating, String img, String shortDesc, Integer price) {
         this.id = id;
         this.category = category;
-        this.title = title;
+        this.rating = rating;
         this.img = img;
         this.shortDesc = shortDesc;
         this.price = price;

@@ -36,7 +36,7 @@ public class CatalogServiceImpl implements CatalogService{
                 .map(catalogEntity -> new Catalog(
                     catalogEntity.getId(),
                     catalogEntity.getCategory(),
-                    catalogEntity.getTitle(),
+                    catalogEntity.getRating(),
                     catalogEntity.getImg(),
                     catalogEntity.getShortDesc(),
                     catalogEntity.getPrice()
@@ -67,7 +67,7 @@ public class CatalogServiceImpl implements CatalogService{
         CatalogEntity catalogEntity =
         catalogRepository.findById(id).get();
         catalogEntity.setCategory(catalog.getCategory());
-        catalogEntity.setTitle(catalog.getTitle());
+        catalogEntity.setRating(catalog.getRating());
         catalogEntity.setImg(catalog.getImg());
         catalogEntity.setShortDesc(catalog.getShortDesc());
         catalogEntity.setPrice(catalog.getPrice());

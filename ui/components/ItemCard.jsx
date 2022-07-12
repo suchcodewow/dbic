@@ -14,11 +14,11 @@ export default function ItemCard({ item, handleDelete }) {
     <Card
       sx={{
         "&:hover": { boxShadow: 3 },
-        width: 270,
-        height: 400,
+        width: 220,
+        height: 300,
       }}
     >
-      <CardHeader
+      {/* <CardHeader
         action={
           <IconButton
             onClick={() => {
@@ -33,11 +33,12 @@ export default function ItemCard({ item, handleDelete }) {
         }}
         title={item.title}
         subheader={item.category}
-      ></CardHeader>
+      ></CardHeader> */}
       <CardMedia
         component="img"
         image={`/images/store/${item.img}`}
         alt={item.title}
+        height={300}
       />
     </Card>
   );

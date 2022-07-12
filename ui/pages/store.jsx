@@ -51,7 +51,17 @@ export default function Store({ asdf }) {
       {!loading && (
         <Grid container spacing={2} flexGrow>
           {catalog?.map((item) => (
-            <Grid item key={item.id} xs={12} sm={6} md={6} lg={4} xl={3}>
+            <Grid
+              item
+              key={item.id}
+              xs={12}
+              sm={6}
+              md={6}
+              lg={4}
+              xl={3}
+              alignItems="center"
+              justifyContent="center"
+            >
               <ItemCard item={item} handleDelete={handleDelete} />
             </Grid>
           ))}

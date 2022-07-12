@@ -13,7 +13,7 @@ export default function ItemCard({ item, handleDelete }) {
   return (
     <Card
       sx={{
-        "&:hover": { boxShadow: 3 },
+        "&:hover": { boxShadow: 0, border: 1, borderColor: "#EFEFEF" },
         width: 220,
         height: 300,
       }}
@@ -38,7 +38,7 @@ export default function ItemCard({ item, handleDelete }) {
         component="img"
         image={`/images/store/${item.img}`}
         alt={item.title}
-        height={300}
+        height={280}
       />
     </Card>
   );

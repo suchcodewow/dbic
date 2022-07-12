@@ -45,23 +45,13 @@ export default function Store({ asdf }) {
   };
 
   return (
-    <div>
+    <div style="justify-content:center">
       <NewItem catalog={catalog} setCatalog={setCatalog} />
 
       {!loading && (
-        <Grid container spacing={2} flexGrow>
+        <Grid maxwidth={1080} container spacing={1}>
           {catalog?.map((item) => (
-            <Grid
-              item
-              key={item.id}
-              xs={12}
-              sm={6}
-              md={6}
-              lg={4}
-              xl={3}
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
               <ItemCard item={item} handleDelete={handleDelete} />
             </Grid>
           ))}

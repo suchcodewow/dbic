@@ -9,7 +9,7 @@ const theme = createTheme({
     secondary: {
       main: teal[500],
     },
-    background: { default: "#EFEFEF" },
+    background: { default: "#FFFFFF" },
   },
   components: {
     MuiLink: {
@@ -19,7 +19,7 @@ const theme = createTheme({
       },
     },
     MuiCard: {
-      defaultProps: { elevation: "1" },
+      defaultProps: { elevation: "0", border: "1", borderColor: "#FFFFFF" },
       styleOverrides: { "&:hover": { boxShadow: "5" } },
     },
   },

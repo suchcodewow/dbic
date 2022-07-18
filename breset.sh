@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Stop Apps
-kill $(ps -ef | grep maven | grep -v grep | awk '{ print $2 }')
-kill $(ps -ef | grep npm | grep -v grep | awk '{ print $2 }')
+#kill $(ps -ef | grep maven | grep -v grep | awk '{ print $2 }')
+#kill $(ps -ef | grep npm | grep -v grep | awk '{ print $2 }')
 
 # Tear down Docker images
 docker kill $(docker ps -q)
@@ -18,5 +18,5 @@ docker build --rm -f "catalogApi/Dockerfile" -t dbiccatapi:latest "catalogApi"
 docker run --rm -d -p 8080:8080/tcp dbiccatapi:latest
 
 #Start Apps
-mvn -f ./catalogApi/ spring-boot:run >catalogApi.log &
-npm run dev --prefix ./ui/ >ui.log &
+#mvn -f ./catalogApi/ spring-boot:run >catalogApi.log &
+#npm run dev --prefix ./ui/ >ui.log &

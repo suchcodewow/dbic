@@ -10,8 +10,9 @@
 	</parent>
 	<groupId>com.dbic</groupId>
 	<artifactId>catalogApi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>catalog-api</name>
+	<packaging>jar</packaging>
 	<description>catalog API</description>
 	<properties>
 		<java.version>11</java.version>

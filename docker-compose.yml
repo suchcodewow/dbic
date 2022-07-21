@@ -5,18 +5,19 @@ services:
     restart: always
     ports:
       - 3306:3306
-
     environment:
       MYSQL_USER: api
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: catalogDb
+
   term:
     #docker exec -it term /bin/sh
     build: ./terminal
     image: term
     tty: true
     container_name: term
+
   catalogApi:
     build: ./catalogApi
     image: catalogapi

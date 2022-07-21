@@ -1,2 +1,2 @@
 FROM busybox
-CMD [ "BASH" ] 
+CMD [ "sh" ] 

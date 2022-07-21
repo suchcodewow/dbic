@@ -1,10 +1,6 @@
-#When building tag as 'catalog:latest'
 FROM mysql
-
 ENV MYSQL_USER=api
 ENV MYSQL_PASSWORD=password
 ENV MYSQL_ROOT_PASSWORD=password
 ENV MYSQL_DATABASE=catalogDb
-
-
 EXPOSE 3306

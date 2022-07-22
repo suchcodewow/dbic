@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 const { publicRuntimeConfig } = require("next.config");
 import NewItem from "components/NewItem";
-import { alpha, Grid, Box, styled } from "@mui/material";
-import Link from "next/link";
+import { Grid, Typography } from "@mui/material";
+
 import ItemCard from "components/ItemCard";
 
 export default function Store({ asdf }) {
@@ -45,9 +45,9 @@ export default function Store({ asdf }) {
   };
 
   return (
-    <div style="justify-content:center">
+    <div>
       <NewItem catalog={catalog} setCatalog={setCatalog} />
-
+      {loading && <Typography>loading...</Typography>}
       {!loading && (
         <Grid maxwidth={1080} container spacing={1}>
           {catalog?.map((item) => (

@@ -18,10 +18,6 @@ const theme = createTheme({
         fontWeight: "bold",
       },
     },
-    MuiCard: {
-      defaultProps: { elevation: "0", border: "1", borderColor: "#FFFFFF" },
-      styleOverrides: { "&:hover": { boxShadow: "5" } },
-    },
   },
 });
 

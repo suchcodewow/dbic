@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 const { publicRuntimeConfig } = require("next.config");
 import NewItem from "components/NewItem";
 import { Grid, Typography } from "@mui/material";
-
+import MenuBar from "components/Menubar";
 import ItemCard from "components/ItemCard";
 
 export default function Store() {
@@ -39,7 +39,6 @@ export default function Store() {
   useEffect(() => {
     var localCart = JSON.parse(localStorage.getItem("cart"));
     if (localCart) {
-      console.log(localCart);
       setCartItems(localCart);
     }
     const fetchData = async () => {
@@ -79,12 +78,8 @@ export default function Store() {
 
   return (
     <div>
+      <MenuBar cartItems={cartItems} />
       <NewItem catalog={catalog} setCatalog={setCatalog} />
-      <Typography>total items: {cartItems.length}</Typography>
-      {cartItems.map((item) => (
-        <Typography key={item.id}>{item.id + ":" + item.qty}</Typography>
-      ))}
-      {loading && <Typography>loading...</Typography>}
       {!loading && (
         <Grid maxwidth={1080} container spacing={1}>
           {catalog?.map((item) => (

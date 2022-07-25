@@ -9,7 +9,7 @@ const theme = createTheme({
     secondary: {
       main: teal[500],
     },
-    background: { default: "#FFFFFF" },
+    background: { default: "#EFEFEF" },
   },
   components: {
     MuiLink: {

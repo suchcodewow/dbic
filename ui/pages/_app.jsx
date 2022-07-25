@@ -8,7 +8,6 @@ import { CacheProvider } from "@emotion/react";
 import theme from "src/theme";
 import createEmotionCache from "src/createEmotionCache";
 import Layout from "components/Layout";
-import MenuBar from "components/Menubar";
 import Footer from "components/Footer";
 import { Alert } from "components/Alert";
 import { userService } from "services";
@@ -55,7 +54,7 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Alert />
-        <MenuBar />
+
         <Layout>
           <Component {...pageProps} />
           <Footer />

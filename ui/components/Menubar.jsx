@@ -6,22 +6,26 @@ import Link from "@mui/material/Link";
 import { Button } from "@mui/material";
 import { userService } from "services";
 
-export default function MenuBar() {
+export default function MenuBar(props) {
   const [user, setUser] = useState(null);
+  const { cartItems } = props;
+  cartItems.total = 0;
+  cartItems.map((item) => (cartItems.total += item.qty));
   useEffect(() => {
     const subscription = userService.user.subscribe((x) => setUser(x));
     return () => subscription.unsubscribe();
   });
+
   function logout() {
     userService.logout();
   }
+
   return (
     <AppBar position="static" color="" elevation={1} sx={{ mb: 3 }}>
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
           DBIC
         </Typography>
-
         <nav>
           <Link
             variant="button"
@@ -47,6 +51,11 @@ export default function MenuBar() {
           >
             Store
           </Link>
+          {cartItems.length > 0 && (
+            <Link variant="button" color="text.primary" href="/cart">
+              cart ({cartItems.total})
+            </Link>
+          )}
         </nav>
 
         {user ? (

@@ -41,7 +41,7 @@ export default function ItemCard({ item, handleDelete, onAdd }) {
         alt={item.title}
         height={280}
       />
-      <button onClick={() => onAdd(item)}>Add To Cart</button>
+      <button onClick={() => onAdd(item)}>Add To Cart{item.rating}</button>
     </Card>
   );
 }

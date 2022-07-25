@@ -11,12 +11,12 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: catalogDb
 
-  term:
-    #docker exec -it term /bin/sh
-    build: ./terminal
-    image: term
-    tty: true
-    container_name: term
+  # term:
+  #   #docker exec -it term /bin/sh
+  #   build: ./terminal
+  #   image: term
+  #   tty: true
+  #   container_name: term
 
   catalogApi:
     build: ./catalogApi

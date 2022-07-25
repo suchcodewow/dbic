@@ -2,7 +2,7 @@
 
 #Stop Apps
 #kill $(ps -ef | grep maven | grep -v grep | awk '{ print $2 }')
-#kill $(ps -ef | grep npm | grep -v grep | awk '{ print $2 }')
+kill $(ps -ef | grep npm | grep -v grep | awk '{ print $2 }')
 
 # Tear down Docker images
 docker compose down
@@ -20,6 +20,6 @@ docker compose rm -f
 #docker run --rm -d -p 8080:8080/tcp dbiccatapi:latest
 
 #Start Apps
-mvn -f ./catalogApi/ clean install -DskipTests=true >catalogApi.log
-docker compose up --build -d
-#npm run dev --prefix ./ui/ >ui.log &
+mvn -f ./catalogApi/ clean install -DskipTests=true
+docker compose up --build -d --remove-orphans
+npm run dev --prefix ./ui/ >ui.log &

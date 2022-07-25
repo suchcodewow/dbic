@@ -5,13 +5,13 @@ import { Grid, Typography } from "@mui/material";
 
 import ItemCard from "components/ItemCard";
 
-export default function Store({ asdf }) {
+export default function Store() {
   const BASE_URL = publicRuntimeConfig.apiCatalog;
   const [catalog, setCatalog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
+
   const onAdd = (product) => {
-    console.log(product);
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
       setCartItems(
@@ -37,6 +37,11 @@ export default function Store({ asdf }) {
   };
 
   useEffect(() => {
+    var localCart = JSON.parse(localStorage.getItem("cart"));
+    if (localCart) {
+      console.log(localCart);
+      setCartItems(localCart);
+    }
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -56,6 +61,10 @@ export default function Store({ asdf }) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const handleDelete = (id) => {
     fetch(BASE_URL + "/" + id, {
       method: "DELETE",
@@ -72,11 +81,14 @@ export default function Store({ asdf }) {
     <div>
       <NewItem catalog={catalog} setCatalog={setCatalog} />
       <Typography>total items: {cartItems.length}</Typography>
+      {cartItems.map((item) => (
+        <Typography key={item.id}>{item.id + ":" + item.qty}</Typography>
+      ))}
       {loading && <Typography>loading...</Typography>}
       {!loading && (
         <Grid maxwidth={1080} container spacing={1}>
           {catalog?.map((item) => (
-            <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid item s={12} sm={6} md={4} lg={3} key={item.id}>
               <ItemCard onAdd={onAdd} item={item} handleDelete={handleDelete} />
             </Grid>
           ))}

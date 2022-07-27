@@ -81,40 +81,36 @@ export default function cart() {
                     sx={{ width: 151, maxheight: 200 }}
                     image={`/images/store/${item.img}`}
                   />
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <CardContent>
-                      <div style={{ display: "flex" }}>
-                        <Typography variant="h5">${item.price}</Typography>
-                        <Typography variant="subtitle1">.00</Typography>
-                      </div>
-
-                      <Typography variant="body">{item.shortDesc}</Typography>
-                    </CardContent>
-                  </Box>
+                  <CardContent>
+                    <Box
+                      component="div"
+                      sx={{ display: "inline", alignItems: "center" }}
+                      lineHeight="1.5rem"
+                      fontSize="1.5rem"
+                    >
+                      ${item.price}
+                    </Box>
+                    <Box
+                      component="div"
+                      sx={{ display: "inline" }}
+                      fontSize=".9rem"
+                      lineHeight=".9rem"
+                      textAlignVertical="top"
+                    >
+                      .00
+                    </Box>
+                    <Box
+                      component="div"
+                      sx={{ display: "inline" }}
+                      fontSize="1rem"
+                      ml="1rem"
+                    >
+                      quantity: {item.qty}
+                    </Box>
+                    <Rating readOnly value={item.rating} />
+                  </CardContent>
+                  <Typography variant="body">{item.shortDesc}</Typography>
                 </Card>
-                // <Box key={item.id}>
-                //   <Grid container>
-                //     <Grid container item xs={2}>
-                //       <Box
-                //         component="img"
-                //         sx={{ width: 100 }}
-                //         src={`/images/store/${item.img}`}
-                //       />
-                //     </Grid>
-                //     <Grid container item xs={10}>
-                //       <Rating value={parseInt(item.rating)} readOnly />
-                //       <Typography variant="body">
-                //         {" "}
-                //         ${item.price}.00 {parseInt(item.rating)}
-                //       </Typography>
-
-                //       <Typography variant="body">{item.shortDesc}</Typography>
-                //       <Divider />
-
-                //       <Button disableElevation>remove</Button>
-                //     </Grid>
-                //   </Grid>
-                // </Box>
               ))}
             </Stack>
           </Item>

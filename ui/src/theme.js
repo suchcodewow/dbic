@@ -19,6 +19,9 @@ const theme = createTheme({
       },
     },
   },
+  pricebox: {
+    color: "#FF0000",
+  },
 });
 
 export default theme;

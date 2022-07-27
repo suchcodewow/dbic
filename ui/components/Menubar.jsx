@@ -9,8 +9,10 @@ import { userService } from "services";
 export default function MenuBar(props) {
   const [user, setUser] = useState(null);
   const { cartItems } = props;
-  cartItems.total = 0;
-  cartItems.map((item) => (cartItems.total += item.qty));
+  if (cartItems) {
+    cartItems.total = 0;
+    cartItems.map((item) => (cartItems.total += item.qty));
+  }
   useEffect(() => {
     const subscription = userService.user.subscribe((x) => setUser(x));
     return () => subscription.unsubscribe();
@@ -51,7 +53,7 @@ export default function MenuBar(props) {
           >
             Store
           </Link>
-          {cartItems.length > 0 && (
+          {cartItems && cartItems.length > 0 && (
             <Link variant="button" color="text.primary" href="/cart">
               cart ({cartItems.total})
             </Link>

@@ -19,7 +19,7 @@ export default function MenuBar(props) {
   function logout() {
     userService.logout();
   }
-
+  g;
   return (
     <AppBar position="static" color="" elevation={1} sx={{ mb: 3 }}>
       <Toolbar>

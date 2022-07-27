@@ -87,6 +87,7 @@ export default function cart() {
                         <Typography variant="h5">${item.price}</Typography>
                         <Typography variant="subtitle1">.00</Typography>
                       </div>
+
                       <Typography variant="body">{item.shortDesc}</Typography>
                     </CardContent>
                   </Box>

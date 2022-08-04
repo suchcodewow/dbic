@@ -10,10 +10,11 @@ const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
 }
 body {
-background: #040C18;
-font-family: 'Manrope';
+  background: #040C18;
+font-family: 'Manrope', sans-serif;
 }
 .bgdiv {
+
   background:-moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
 
   /* safari 5.1+,chrome 10+ */

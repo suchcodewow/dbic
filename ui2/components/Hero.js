@@ -105,7 +105,7 @@ const HeroH1 = styled.h1`
 `;
 
 const HeroContent = styled.div`
-  min-height: 1500px;
+  max-width: 1300px;
   background-image: url("/images/hero.png");
   background-repeat: no-repeat;
   background-size: 1200px;

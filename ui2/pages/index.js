@@ -3,9 +3,9 @@ import { NavBar } from "components";
 
 export default function Home() {
   return (
-    <main>
+    <div>
       <NavBar />
       <Hero />
-    </main>
+    </div>
   );
 }

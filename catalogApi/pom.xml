@@ -14,9 +14,7 @@
 	<name>catalog-api</name>
 	<packaging>jar</packaging>
 	<description>catalog API</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

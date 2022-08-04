@@ -30,9 +30,10 @@ export default function Store() {
     };
     fetchData();
   }, []);
+
   return (
-    <main>
+    <div>
       <NavBar />
-    </main>
+    </div>
   );
 }

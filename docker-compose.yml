@@ -12,7 +12,7 @@ services:
       MYSQL_DATABASE: catalogDb
 
   # term:
-  #   #docker exec -it term /bin/sh
+  #   #CMD -> docker exec -it term /bin/sh
   #   build: ./terminal
   #   image: term
   #   tty: true

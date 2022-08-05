@@ -1,4 +1,4 @@
-import { Button, Hero } from "components";
+import { Hero } from "components";
 import { NavBar } from "components";
 
 export default function Home() {

@@ -70,7 +70,7 @@ const FeatureText = styled.div`
 `;
 
 const FeatureContainer = styled.div`
-  width: 100%;
+  width: 280px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -105,7 +105,7 @@ const HeroH1 = styled.h1`
 `;
 
 const HeroContent = styled.div`
-  max-width: 1300px;
+  width: 100%;
   background-image: url("/images/hero.png");
   background-repeat: no-repeat;
   background-size: 1200px;

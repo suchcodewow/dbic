@@ -1,10 +1,8 @@
 import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-const Rate = ({ count, rating, color, onRating }) => {
-  const [hoverRating, setHoverRating] = useState(0);
-
+const Rating = ({ count, rating, color, onRating }) => {
   const getColor = (index) => {
     if (hoverRating >= index) {
       return color.filled;
@@ -35,7 +33,7 @@ const Rate = ({ count, rating, color, onRating }) => {
   return <div>{starRating}</div>;
 };
 
-Rate.propTypes = {
+Rating.propTypes = {
   count: PropTypes.number,
   rating: PropTypes.number,
   onChange: PropTypes.func,
@@ -45,7 +43,7 @@ Rate.propTypes = {
   },
 };
 
-Rate.defaultProps = {
+Rating.defaultProps = {
   count: 5,
   rating: 0,
   color: {
@@ -54,4 +52,4 @@ Rate.defaultProps = {
   },
 };
 
-export default Rate;
+export default Rating;

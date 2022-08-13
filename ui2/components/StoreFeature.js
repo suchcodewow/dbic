@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DefaultArea } from "styles/Common";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import React from "react";
 import Rating from "react-rating";
-const { publicRuntimeConfig } = require("next.config");
 
 export default function StoreFeature({ catalog, onAdd }) {
   return (

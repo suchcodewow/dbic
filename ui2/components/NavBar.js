@@ -3,8 +3,12 @@ import styled from "styled-components";
 const logo = "images/wow.png";
 import { useState } from "react";
 
-const Menu = (props) => {
-  const { cartTotal } = props;
+const Menu = ({ props }) => {
+  const { cartItems } = props;
+  var cartTotal = 0;
+  if (cartItems) {
+    cartItems.map((item) => (cartTotal += item.qty));
+  }
   return (
     <>
       <Link as="a" href="/">
@@ -47,11 +51,11 @@ const Cart = styled.div`
 `;
 
 export default function NavBar(props) {
-  const { cartItems } = props;
-  if (cartItems) {
-    cartItems.total = 0;
-    cartItems.map((item) => (cartItems.total += item.qty));
-  }
+  // const { cartItems } = props;
+  // cartItems.total = 0;
+  // if (cartItems) {
+  //   cartItems.map((item) => (cartItems.total += item.qty));
+  // }
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <Container>
@@ -60,7 +64,7 @@ export default function NavBar(props) {
           <img width="32px" src={logo} alt="logo" />
         </Logo>
         <NavContainer>
-          <Menu cartTotal={cartItems.total} />
+          <Menu props={props} />
         </NavContainer>
       </TopBar>
       <Sign>Sign in</Sign>

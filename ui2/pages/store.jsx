@@ -9,13 +9,14 @@ export default function Store({ catalog, carousel }) {
   // const BASE_URL = publicRuntimeConfig.apiCatalog;
   // const [catalog, setCatalog] = useState(null);
 
-  const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     // Check for existing  cart
+
     const localCart = JSON.parse(localStorage.getItem("cart"));
     if (localCart) {
+      console.log(localCart);
       setCartItems(localCart);
     }
   }, []);
@@ -34,7 +35,9 @@ export default function Store({ catalog, carousel }) {
   };
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    if (cartItems.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
   }, [cartItems]);
 
   return (

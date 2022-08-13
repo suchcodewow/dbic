@@ -3,16 +3,16 @@ import styled from "styled-components";
 import { DefaultArea } from "styles/Common";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import React from "react";
-import { Rating } from "components";
+import Rating from "react-rating";
 const { publicRuntimeConfig } = require("next.config");
 
-export default function StoreFeature({ catalog }) {
+export default function StoreFeature({ catalog, onAdd }) {
   return (
     <DefaultArea>
       <StoreContainer>
         <Allitems>
           {/* id,category,rating,img,price,shortDesc */}
-          {catalog.catalog.map((item) => (
+          {catalog.map((item) => (
             <ItemContainer key={item.id} onClick={() => onAdd(item)}>
               <ItemImage>
                 <img src={`/images/store/${item.img}`} alt="" />

@@ -50,7 +50,7 @@ export default function EmblaCarousel({ catalog }) {
   return (
     <CarouselArea>
       <CarouselHeader>
-        <h2>Suggestions from your search history...</h2>
+        <h2>Suggestions for you</h2>
       </CarouselHeader>
       <CarouselViewPort ref={viewportRef}>
         <CarouselContainer>
@@ -60,30 +60,42 @@ export default function EmblaCarousel({ catalog }) {
             </CarouselSlide>
           ))}
         </CarouselContainer>
+        <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
+        <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
       </CarouselViewPort>
-      <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
-      <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
+      <CarouselFooter />
     </CarouselArea>
   );
 }
 
+const CarouselFooter = styled.div`
+  height: 20px;
+  background-color: #fff;
+`;
+
 const CarouselHeader = styled.div`
   padding: 20px;
+  background-color: #fff;
   h2 {
     font-size: 18px;
     font-weight: 800;
+    color: #333;
   }
 `;
 const CarouselSlide = styled.div`
   position: relative;
   /* flex: 0 0 100%; */
-  max-width: 100%;
-  margin-left: 10px;
+  width: 200px;
+
   height: 300px;
+  background-color: #fff;
+  display: flex;
   img {
-    width: 300px;
-    height: 100%;
-    object-fit: cover;
+    padding: 15px;
+    width: 200px;
+    vertical-align: middle;
+    max-height: 300px;
+    margin: auto;
   }
 `;
 
@@ -102,40 +114,44 @@ const CarouselViewPort = styled.div`
 
 const CarouselArea = styled.div`
   position: relative;
-  background-color: #f7f7f7;
-  //padding: 20px;
-  /* max-width: 670px; */
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 10px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+
   .embla__button__svg {
     width: 100%;
     height: 100%;
+    padding: 8px;
   }
   .embla__button {
     outline: 0;
     cursor: pointer;
-    background-color: transparent;
+    background-color: #333;
     touch-action: manipulation;
     position: absolute;
     z-index: 1;
     top: 50%;
-    transform: translateY(-50%);
     border: 0;
-    width: 30px;
-    height: 30px;
     justify-content: center;
     align-items: center;
-    fill: #1bcacd;
+    fill: #fff;
     padding: 0;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
   }
   button&:disabled {
     cursor: default;
     opacity: 0.3;
   }
   .embla__button--prev {
-    left: 27px;
+    left: 5px;
+    width: 45px;
+    height: 45px;
   }
   .embla__button--next {
-    right: 27px;
+    right: 5px;
+    width: 45px;
+    height: 45px;
   }
 `;

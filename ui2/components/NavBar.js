@@ -1,26 +1,57 @@
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { RiMenu3Line, RiCloseLine, RiShoppingCartLine } from "react-icons/ri";
 import styled from "styled-components";
 const logo = "images/wow.png";
 import { useState } from "react";
 
-const Menu = () => (
-  <>
-    <Link as="a" href="/">
-      Home
-    </Link>
-    <Link as="a" href="/Banking">
-      Banking
-    </Link>
-    <Link as="a" href="/Insurance">
-      Insurance
-    </Link>
-    <Link as="a" href="/store">
-      Store
-    </Link>
-  </>
-);
+const Menu = (props) => {
+  const { cartTotal } = props;
+  return (
+    <>
+      <Link as="a" href="/">
+        Home
+      </Link>
+      <Link as="a" href="/Banking">
+        Banking
+      </Link>
+      <Link as="a" href="/Insurance">
+        Insurance
+      </Link>
+      <Link as="a" href="/store">
+        Store
+      </Link>
+      {cartTotal > 0 && (
+        <Link as="a" href="/cart">
+          <Cart>
+            <p>{cartTotal}</p>
+            <RiShoppingCartLine size={27} color={"green"} />
+          </Cart>
+        </Link>
+      )}
+    </>
+  );
+};
 
-export default function NavBar() {
+const Cart = styled.div`
+  display: flex;
+  background-color: #fff;
+  padding: 8px 10px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  p {
+    color: green;
+    font-weight: 800;
+    font-size: 24px;
+    margin-right: 5px;
+  }
+`;
+
+export default function NavBar(props) {
+  const { cartItems } = props;
+  if (cartItems) {
+    cartItems.total = 0;
+    cartItems.map((item) => (cartItems.total += item.qty));
+  }
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <Container>
@@ -29,7 +60,7 @@ export default function NavBar() {
           <img width="32px" src={logo} alt="logo" />
         </Logo>
         <NavContainer>
-          <Menu />
+          <Menu cartTotal={cartItems.total} />
         </NavContainer>
       </TopBar>
       <Sign>Sign in</Sign>
@@ -111,6 +142,8 @@ const Link = styled.button`
 const NavContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  height: 40px;
   @media screen and (max-width: 700px) {
     display: none;
   }

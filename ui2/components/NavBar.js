@@ -51,11 +51,6 @@ const Cart = styled.div`
 `;
 
 export default function NavBar(props) {
-  // const { cartItems } = props;
-  // cartItems.total = 0;
-  // if (cartItems) {
-  //   cartItems.map((item) => (cartItems.total += item.qty));
-  // }
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
     <Container>

@@ -28,7 +28,7 @@ const NextButton = ({ enabled, onClick }) => (
 );
 
 export default function EmblaCarousel({ catalog }) {
-  const cartDispatch = useCartDispatchContext();
+  const { cartDispatch } = useCartContext();
   const [viewportRef, embla] = useEmblaCarousel({
     loop: true,
     slidesToScroll: 3,

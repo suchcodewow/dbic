@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import { DefaultArea } from "styles/Common";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-// import { useContext } from "react";
-import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
+import { useCartContext } from "contexts/CartContext";
 import Rating from "react-rating";
 
 export default function StoreFeature({ catalog }) {
-  const cart = useCartContext();
-  const cartDispatch = useCartDispatchContext();
-  // const dispatch = useCartDispatchContext();
-  console.log(cart);
+  const { cart, cartDispatch } = useCartContext();
   return (
     <DefaultArea>
       <StoreContainer>

@@ -6,7 +6,7 @@ import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
 
 const Menu = () => {
   // const { cartItems } = props;
-  const cart = useCartContext();
+  const { cart } = useCartContext();
   var cartTotal = 0;
   if (cart) {
     cart.map((item) => (cartTotal += item.qty));

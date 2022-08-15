@@ -33,21 +33,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <CartProvider>
       <GlobalStyles />
-
       <Component {...pageProps} />
     </CartProvider>
   );
 }
-
-// class MyApp extends App {
-//   render() {
-//     const { Component, pageProps } = this.props;
-//     return (
-//       <AppWrapper>
-//         <Component {...pageProps} />
-//       </AppWrapper>
-//     );
-//   }
-// }
-
-// export default MyApp;

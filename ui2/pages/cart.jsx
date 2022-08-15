@@ -1,175 +1,171 @@
-import { NavBar } from "components";
+import { Carousel, NavBar } from "components";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useCartContext } from "contexts/CartContext";
+import { RiAddFill, RiSubtractFill, RiDeleteBin2Line } from "react-icons/ri";
+import Dynacard from "components/Dynacard";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    // Check for existing  cart
-
-    const localCart = JSON.parse(localStorage.getItem("cart"));
-    if (localCart) {
-      console.log(localCart);
-      setCartItems(localCart);
-    }
-  }, []);
-  console.log(cartItems);
+  const { cart, cartDispatch } = useCartContext();
   return (
     <div>
-      <NavBar cartItems={cartItems} />
-      <Section1>
-        1
-        <Section2>
-          2<Section3>3</Section3>
-        </Section2>
-      </Section1>
-      <Section4>
-        4<Section5>5</Section5>
-        <Section6>6</Section6>
-        <Section5>5</Section5>
-      </Section4>
-      <Section7>
-        7
-        <Section8>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-          <Section9>A</Section9>
-        </Section8>
-      </Section7>
-      <Section10>
-        <Section11>
-          {cartItems?.map((item) => (
-            <Section13 key={item.id}>
-              <SectionPicture>
-                <img src={`/images/store/${item.img}`} alt="" />
-              </SectionPicture>
-              {item.shortDesc}
-            </Section13>
+      <NavBar />
+      <Dynacard />
+      <CartArea>
+        <CartDetails>
+          <h1>Shopping Cart</h1>
+          <ItemRow>
+            <ItemPicture>PRODUCT</ItemPicture>
+            <ItemHeader>PRICE</ItemHeader>
+            <ItemHeader>QUANTITY</ItemHeader>
+            <ItemHeader>TOTAL</ItemHeader>
+          </ItemRow>
+          {cart?.map((item) => (
+            <CartItem key={item.id}>
+              <ItemRow>
+                <RiDeleteBin2Line
+                  style={{ cursor: "pointer" }}
+                  size={24}
+                  color="green"
+                  onClick={() => cartDispatch({ type: "REMOVE_ITEM", item })}
+                />
+                <ItemPicture>
+                  <img src={`/images/store/${item.img}`} alt="" />
+                  <h4>{item.shortDesc}</h4>
+                </ItemPicture>
+                <ItemText>
+                  <h4>${item.price}</h4>
+                  <h6>.00</h6>
+                </ItemText>
+                <ItemText>
+                  <RiSubtractFill
+                    style={{ cursor: "pointer" }}
+                    size={24}
+                    color="red"
+                    onClick={() =>
+                      cartDispatch({ type: "SUBTRACT_ITEM", item })
+                    }
+                  />
+                  <p>{item.qty}</p>
+                  <RiAddFill
+                    style={{ cursor: "pointer" }}
+                    size={24}
+                    color="green"
+                    onClick={() => cartDispatch({ type: "ADD_ITEM", item })}
+                  />
+                </ItemText>
+                <ItemText>
+                  <h4>${item.price * item.qty}</h4>
+                  <h6>.00</h6>
+                </ItemText>
+              </ItemRow>
+            </CartItem>
           ))}
-        </Section11>
-        <Section12>12 Checkout</Section12>
-      </Section10>
+        </CartDetails>
+        <Checkout>
+          <CheckoutHeader>
+            <h1>Checkout</h1>
+          </CheckoutHeader>
+          <CheckoutTotal>Sub-Total: </CheckoutTotal>
+        </Checkout>
+      </CartArea>
     </div>
   );
 }
-
-const SectionPicture = styled.div`
-  img {
-    width: 100px;
+const CheckoutTotal = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+const CheckoutHeader = styled.div`
+  width: 100%;
+  text-align: center;
+  h1 {
+    margin: auto;
+    font-size: 38px;
+    line-height: 75px;
+    font-weight: 800;
+    background: linear-gradient(89.97deg, #ae67fa 1.84%, #f49867 102.67%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 `;
-const Section13 = styled.div`
-  border: 1px solid cyan;
+const ItemHeader = styled.div`
+  flex: 1;
   display: flex;
-  gap: 10px;
   flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  h4 {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    margin: 0px 15px;
+  }
+  h6 {
+    font-size: 14px;
+  }
 `;
-
-const Section12 = styled.div`
+const ItemText = styled.div`
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  h4 {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    margin: 0px 15px;
+  }
+  h6 {
+    font-size: 14px;
+    line-height: 16px;
+  }
+`;
+const ItemRow = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const ItemPicture = styled.div`
+  flex: 2;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  img {
+    width: 100px;
+    margin: 0px 20px 0px 0px;
+  }
+`;
+const CartItem = styled.div`
+  padding: 10px 0px 0px 0px;
+  border-top: 1px solid #eee;
+`;
+const Checkout = styled.div`
   width: 400px;
   border: 2px solid green;
 `;
-
-const Section11 = styled.div`
-  padding: 0rem 1rem;
+const CartDetails = styled.div`
+  padding: 1rem 3rem;
   display: flex;
   flex-flow: column wrap;
   flex: 1;
-  gap: 20px;
-  border: 2px solid blue;
-`;
-
-const Section10 = styled.div`
-  //new start
-  display: flex;
-  padding: 2rem 1rem; //vertical horizontal
-  background-color: #fff;
-  width: 100%;
-  margin: auto;
-`;
-const Section9 = styled.div`
-  width: 200px;
-  height: 30px;
-  border: 2px solid green;
-`;
-
-const Section8 = styled.div`
-  //new start
   gap: 10px;
-  width: 834px;
-  display: flex;
-  align-items: flex-start;
-  flex-flow: row wrap;
-  /* flex-direction: column;
-  justify-content: center; */
-  margin: auto;
-  border: 2px solid blue;
-  @media all and (max-width: 950px) {
-    width: 624px;
+  h1 {
+    margin-bottom: 10px;
   }
 `;
-
-const Section7 = styled.div`
+const CartArea = styled.div`
+  //new start
   display: flex;
-  /* flex-direction: row;
-  justify-content: center; */
-  background-color: #fff;
-  border: 2px solid green;
-`;
-
-const Section6 = styled.div`
-  width: 150px;
-  height: 100px;
-  align-items: center;
-  border: 4px solid green;
-  line-height: 28px;
-`;
-
-const Section5 = styled.div`
-  width: 150px;
-  height: 100px;
-  align-items: center;
-  border: 4px solid green;
-  font-size: 28px;
-  line-height: 28px;
-`;
-
-const Section4 = styled.div`
-  display: flex;
-  justify-content: top;
-  align-items: flex-start;
-  padding: 0rem 2rem;
-  border: 4px solid blue;
-  background-color: #fff;
-`;
-
-const Section3 = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 40px;
-  border: 4px solid red;
-`;
-const Section2 = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border: 4px solid green;
-`;
-
-const Section1 = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 2rem;
-  border: 4px solid blue;
+  margin: 2rem 6rem;
   background-color: #fff;
 `;

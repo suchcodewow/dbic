@@ -1,6 +1,6 @@
 import { Carousel, StoreFeature } from "components";
 import { NavBar } from "components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const { publicRuntimeConfig } = require("next.config");
 import { DefaultArea } from "styles/Common";
 import styled from "styled-components";
@@ -29,7 +29,6 @@ export default function Store({ catalog, carousel }) {
     <div>
       <NavBar cartItems={cartItems} />
       <DefaultArea>
-        {" "}
         <StoreHeading>
           <h1>Welcome to the ultimate shopping experience!</h1>
         </StoreHeading>

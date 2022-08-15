@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { DefaultArea } from "styles/Common";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useContext } from "react";
-import { CartContext } from "contexts/CartContext";
+// import { useContext } from "react";
+import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
 import Rating from "react-rating";
 
 export default function StoreFeature({ catalog }) {
-  const { cart, dispatch } = useContext(CartContext);
+  const cart = useCartContext();
+  const cartDispatch = useCartDispatchContext();
+  // const dispatch = useCartDispatchContext();
+  console.log(cart);
   return (
     <DefaultArea>
       <StoreContainer>
@@ -15,7 +18,7 @@ export default function StoreFeature({ catalog }) {
           {catalog.map((item) => (
             <ItemContainer
               key={item.id}
-              onClick={() => dispatch({ type: "ADD_ITEM", item })}
+              onClick={() => cartDispatch({ type: "ADD_ITEM", item })}
             >
               <ItemImage>
                 <img src={`/images/store/${item.img}`} alt="" />

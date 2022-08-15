@@ -8,48 +8,22 @@ import styled from "styled-components";
 export default function Store({ catalog, carousel }) {
   const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    // Check for existing  cart
+  // useEffect(() => {
+  //   // Check for existing  cart
 
-    const localCart = JSON.parse(localStorage.getItem("cart"));
-    if (localCart) {
-      console.log(localCart);
-      setCartItems(localCart);
-    }
-  }, []);
+  //   const localCart = JSON.parse(localStorage.getItem("cart"));
+  //   if (localCart) {
+  //     console.log(localCart);
+  //     setCartItems(localCart);
+  //   }
+  // }, []);
 
-  const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
-    }
-  };
-
-  const onRemove = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
-    if (exist.qty === 1) {
-      setCartItems(cartItems.filter((x) => x.id !== product.id));
-    } else {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
-        )
-      );
-    }
-  };
-
-  useEffect(() => {
-    // if (cartItems.length > 0) {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-    }
-  }, [cartItems]);
+  // useEffect(() => {
+  //   // if (cartItems.length > 0) {
+  //   if (typeof window !== "undefined") {
+  //     localStorage.setItem("cart", JSON.stringify(cartItems));
+  //   }
+  // }, [cartItems]);
 
   return (
     <div>
@@ -59,8 +33,8 @@ export default function Store({ catalog, carousel }) {
         <StoreHeading>
           <h1>Welcome to the ultimate shopping experience!</h1>
         </StoreHeading>
-        <Carousel cartItems={cartItems} onAdd={onAdd} catalog={carousel} />
-        <StoreFeature cartItems={cartItems} onAdd={onAdd} catalog={catalog} />
+        <Carousel catalog={carousel} />
+        <StoreFeature catalog={catalog} />
       </DefaultArea>
     </div>
   );

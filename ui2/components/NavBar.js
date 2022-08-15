@@ -2,12 +2,14 @@ import { RiMenu3Line, RiCloseLine, RiShoppingCartLine } from "react-icons/ri";
 import styled from "styled-components";
 const logo = "images/wow.png";
 import { useState } from "react";
+import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
 
-const Menu = ({ props }) => {
-  const { cartItems } = props;
+const Menu = () => {
+  // const { cartItems } = props;
+  const cart = useCartContext();
   var cartTotal = 0;
-  if (cartItems) {
-    cartItems.map((item) => (cartTotal += item.qty));
+  if (cart) {
+    cart.map((item) => (cartTotal += item.qty));
   }
   return (
     <>

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { CartProvider } from "contexts/CartContext";
 const GlobalStyles = createGlobalStyle`
 * {
     box-sizing: border-box;
@@ -30,10 +31,23 @@ font-family: 'Manrope', sans-serif;
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <CartProvider>
       <GlobalStyles />
 
       <Component {...pageProps} />
-    </>
+    </CartProvider>
   );
 }
+
+// class MyApp extends App {
+//   render() {
+//     const { Component, pageProps } = this.props;
+//     return (
+//       <AppWrapper>
+//         <Component {...pageProps} />
+//       </AppWrapper>
+//     );
+//   }
+// }
+
+// export default MyApp;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import styled from "styled-components";
+import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
 
 const PrevButton = ({ enabled, onClick }) => (
   <button
@@ -27,6 +28,7 @@ const NextButton = ({ enabled, onClick }) => (
 );
 
 export default function EmblaCarousel({ catalog }) {
+  const cartDispatch = useCartDispatchContext();
   const [viewportRef, embla] = useEmblaCarousel({
     loop: true,
     slidesToScroll: 3,
@@ -55,7 +57,10 @@ export default function EmblaCarousel({ catalog }) {
       <CarouselViewPort ref={viewportRef}>
         <CarouselContainer>
           {catalog.map((item) => (
-            <CarouselSlide key={item.id}>
+            <CarouselSlide
+              key={item.id}
+              onClick={() => cartDispatch({ type: "ADD_ITEM", item })}
+            >
               <img src={`images/store/${item.img}`} alt="item" />
             </CarouselSlide>
           ))}

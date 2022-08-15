@@ -1,3 +1,5 @@
+export const initialState = [];
+
 export const CartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
@@ -27,11 +29,11 @@ export const CartReducer = (state, action) => {
     //       id: uuid(),
     //     },
     //   ];
-    case "REMOVE_ITEM":
-      return state.filter((book) => book.id !== action.id);
-    case "REDUCE_ITEM":
-      // add option to lower quantiy
-      return state.filter((book) => book.id !== action.id);
+    // case "REMOVE_ITEM":
+    //   return state.filter((book) => book.id !== action.id);
+    // case "REDUCE_ITEM":
+    //   // add option to lower quantiy
+    //   return state.filter((book) => book.id !== action.id);
     default:
       return state;
   }

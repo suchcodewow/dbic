@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
 body {
   background: #040C18;
 font-family: 'Manrope', sans-serif;
+min-height:100vh;
 }
 .bgdiv {
 

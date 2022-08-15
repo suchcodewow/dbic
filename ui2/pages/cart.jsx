@@ -6,6 +6,9 @@ import Dynacard from "components/Dynacard";
 
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
+  let cartTotal = 0;
+  cart.map((item) => (cartTotal += item.price * item.qty));
+  //const cartTotal = 500;
   return (
     <div>
       <NavBar />
@@ -65,7 +68,10 @@ export default function Cart() {
           <CheckoutHeader>
             <h1>Checkout</h1>
           </CheckoutHeader>
-          <CheckoutTotal>Sub-Total: </CheckoutTotal>
+          <CheckoutTotal>
+            <h2>Sub-Total: ${cartTotal}</h2>
+            <h4>.00</h4>
+          </CheckoutTotal>
         </Checkout>
       </CartArea>
     </div>
@@ -73,7 +79,10 @@ export default function Cart() {
 }
 const CheckoutTotal = styled.div`
   width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
   text-align: center;
+  padding: 50px;
 `;
 const CheckoutHeader = styled.div`
   width: 100%;
@@ -151,7 +160,6 @@ const CartItem = styled.div`
 `;
 const Checkout = styled.div`
   width: 400px;
-  border: 2px solid green;
 `;
 const CartDetails = styled.div`
   padding: 1rem 3rem;

@@ -1,23 +1,8 @@
-import { NavBar } from "components";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    // Check for existing  cart
-
-    const localCart = JSON.parse(localStorage.getItem("cart"));
-    if (localCart) {
-      console.log(localCart);
-      setCartItems(localCart);
-    }
-  }, []);
-  console.log(cartItems);
   return (
     <div>
-      <NavBar cartItems={cartItems} />
       <Section1>
         1
         <Section2>
@@ -45,14 +30,10 @@ export default function Cart() {
       </Section7>
       <Section10>
         <Section11>
-          {cartItems?.map((item) => (
-            <Section13 key={item.id}>
-              <SectionPicture>
-                <img src={`/images/store/${item.img}`} alt="" />
-              </SectionPicture>
-              {item.shortDesc}
-            </Section13>
-          ))}
+          <Section13 key="1">
+            <SectionPicture>img here</SectionPicture>
+            description
+          </Section13>
         </Section11>
         <Section12>12 Checkout</Section12>
       </Section10>

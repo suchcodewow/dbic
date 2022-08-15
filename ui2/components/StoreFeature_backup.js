@@ -1,22 +1,17 @@
 import styled from "styled-components";
 import { DefaultArea } from "styles/Common";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useContext } from "react";
-import { CartContext } from "contexts/CartContext";
+import React from "react";
 import Rating from "react-rating";
 
-export default function StoreFeature({ catalog }) {
-  const { cart, dispatch } = useContext(CartContext);
+export default function StoreFeature({ catalog, onAdd }) {
   return (
     <DefaultArea>
       <StoreContainer>
         <Allitems>
           {/* id,category,rating,img,price,shortDesc */}
           {catalog.map((item) => (
-            <ItemContainer
-              key={item.id}
-              onClick={() => dispatch({ type: "ADD_ITEM", item })}
-            >
+            <ItemContainer key={item.id} onClick={() => onAdd(item)}>
               <ItemImage>
                 <img src={`/images/store/${item.img}`} alt="" />
               </ItemImage>

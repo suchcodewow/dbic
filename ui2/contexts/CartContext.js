@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useEffect, useContext } from "react";
-import { RiContactsBookLine } from "react-icons/ri";
 
 const CartContext = createContext();
 

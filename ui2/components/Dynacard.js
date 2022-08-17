@@ -4,8 +4,9 @@ export default function Dynacard() {
   return (
     <AdArea>
       <p>
-        Save <span> up to $95 on your order</span> when you open a new DynaCard
-        during checkout.
+        Save <span className="highlight"> up to $95 on your order</span> when
+        you open a new <span className="dynacard">DynaCard</span> during
+        checkout.
       </p>
     </AdArea>
   );
@@ -20,7 +21,13 @@ const AdArea = styled.div`
     font-size: 18px;
     font-weight: 600;
   }
-  span {
+  .highlight {
     color: red;
+  }
+  .dynacard {
+    background: linear-gradient(90deg, #ae67fa 30%, #f49867 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 `;

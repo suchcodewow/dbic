@@ -2,18 +2,18 @@ import { createGlobalStyle } from "styled-components";
 import { CartProvider } from "contexts/CartContext";
 const GlobalStyles = createGlobalStyle`
 * {
-    box-sizing: border-box;
-    padding: 0;
+  box-sizing: border-box;
+  padding: 0;
     margin: 0;
     scroll-behavior: smooth;
+    
 }
 body {
-  background: #040C18;
-font-family: 'Manrope', sans-serif;
-min-height:100vh;
+    
 }
 .bgdiv {
-
+  min-height:100vh;
+  font-family: 'Manrope', sans-serif;
   background:-moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
 
   /* safari 5.1+,chrome 10+ */

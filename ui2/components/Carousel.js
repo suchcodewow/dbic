@@ -72,17 +72,15 @@ export default function EmblaCarousel({ catalog }) {
     </CarouselArea>
   );
 }
-
 const CarouselFooter = styled.div`
   height: 20px;
   background-color: #fff;
 `;
-
 const CarouselHeader = styled.div`
   padding: 20px;
   background-color: #fff;
   h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 800;
     color: #333;
   }

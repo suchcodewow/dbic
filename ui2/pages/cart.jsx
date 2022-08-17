@@ -1,14 +1,16 @@
-import { Carousel, NavBar } from "components";
+import { Carousel, CheckoutPanel, NavBar } from "components";
 import styled from "styled-components";
 import { useCartContext } from "contexts/CartContext";
 import { RiAddFill, RiSubtractFill, RiDeleteBin2Line } from "react-icons/ri";
 import Dynacard from "components/Dynacard";
+import { useState } from "react";
 
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
+  const [CheckoutOpen, setCheckoutOpen] = useState(true);
   let cartTotal = 0;
   cart.map((item) => (cartTotal += item.price * item.qty));
-  //const cartTotal = 500;
+
   return (
     <div>
       <NavBar />
@@ -72,21 +74,40 @@ export default function Cart() {
             <h2>Sub-Total: ${cartTotal}</h2>
             <h4>.00</h4>
           </CheckoutTotal>
+          <CheckoutButton onClick={() => setCheckoutOpen(true)}>
+            checkout
+          </CheckoutButton>
         </Checkout>
+        <CheckoutPanel
+          cartTotal={cartTotal}
+          CheckoutOpen={CheckoutOpen}
+          setCheckoutOpen={setCheckoutOpen}
+        />
       </CartArea>
     </div>
   );
 }
+
+const CheckoutButton = styled.button`
+  padding: 0.5rem 3rem;
+  color: #fff;
+  background: #ff4820;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+`;
 const CheckoutTotal = styled.div`
-  width: 100%;
   display: flex;
   flex-flow: row nowrap;
-  text-align: center;
-  padding: 50px;
+  margin: 20px 0px;
 `;
 const CheckoutHeader = styled.div`
   width: 100%;
-  text-align: center;
+
   h1 {
     margin: auto;
     font-size: 38px;
@@ -159,7 +180,7 @@ const CartItem = styled.div`
   border-top: 1px solid #eee;
 `;
 const Checkout = styled.div`
-  width: 400px;
+  width: 300px;
 `;
 const CartDetails = styled.div`
   padding: 1rem 3rem;

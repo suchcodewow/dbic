@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { CartProvider } from "contexts/CartContext";
+import { UserProvider } from "contexts/UserContext";
 const GlobalStyles = createGlobalStyle`
 * {
   box-sizing: border-box;
@@ -32,9 +33,11 @@ body {
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <CartProvider>
-      <GlobalStyles />
-      <Component {...pageProps} />
-    </CartProvider>
+    <UserProvider>
+      <CartProvider>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </CartProvider>
+    </UserProvider>
   );
 }

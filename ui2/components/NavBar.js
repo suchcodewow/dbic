@@ -64,7 +64,9 @@ export default function NavBar(props) {
           <Menu props={props} />
         </NavContainer>
       </TopBar>
-      <Sign>Sign in</Sign>
+      <Link as="a" href="/login">
+        <Sign>Sign in</Sign>
+      </Link>
       <NavBarMenu>
         {toggleMenu ? (
           <RiCloseLine

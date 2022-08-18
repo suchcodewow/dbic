@@ -5,32 +5,23 @@ const UserContext = createContext();
 // User related functions
 
 export const initialState = {
-  userDetails: "",
-  token: "",
   loading: false,
   errorMessage: null,
 };
 
 export const reducer = (initialState, action) => {
   switch (action.type) {
-    case "REQUEST_LOGIN":
-      console.log(action);
+    case "LOGIN":
       return {
         ...initialState,
-        loading: true,
-      };
-    case "LOGIN_SUCCESS":
-      return {
-        ...initialState,
-        user: action.payload.user,
-        token: action.payload.auth_token,
+        user: action.userId,
         loading: false,
+        address1: "123 Yemen Road",
       };
     case "LOGOUT":
       return {
         ...initialState,
         user: "",
-        token: "",
       };
 
     case "LOGIN_ERROR":
@@ -39,7 +30,8 @@ export const reducer = (initialState, action) => {
         loading: false,
         errorMessage: action.error,
       };
-
+    case "INIT":
+      return action.value;
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -49,27 +41,19 @@ export const reducer = (initialState, action) => {
 export const UserProvider = ({ children }) => {
   const [user, userDispatch] = useReducer(reducer, initialState);
   useEffect(() => {
-    let localUser = localStorage.getItem("currentUser")
-      ? JSON.parse(localStorage.getItem("currentUser")).user
-      : "";
-
-    let localToken = localStorage.getItem("currentUser")
-      ? JSON.parse(localStorage.getItem("currentUser")).auth_token
-      : "";
-    // might need this when things get overwritten thanks to NeXt.Js
-    // const localuser = JSON.parse(localStorage.getItem("user"));
-    // if (localuser && localuser.length > 0) {
-    //   userDispatch({
-    //     type: "INIT",
-    //     value: JSON.parse(localStorage.getItem("user")),
-    //   });
-    // }
+    const localUser = JSON.parse(localStorage.getItem("localUser"));
+    if (localUser && localUser.length > 0) {
+      userDispatch({
+        type: "INIT",
+        value: JSON.parse(localStorage.getItem("localUser")),
+      });
+    }
   }, []);
-  //   useEffect(() => {
-  //     if (typeof window !== "undefined") {
-  //       localStorage.setItem("user", JSON.stringify(user));
-  //     }
-  //   }, [user]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [user]);
   return (
     // <userDispatchContext.Provider value={dispatch}>
     <UserContext.Provider value={{ user, userDispatch }}>

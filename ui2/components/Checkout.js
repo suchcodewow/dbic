@@ -1,11 +1,13 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+
 import styled from "styled-components";
 
 export default function CheckoutPanel({
   CheckoutOpen,
   setCheckoutOpen,
   cartTotal,
+  user,
 }) {
   const [submitting, setSubmitting] = useState(false);
   const handleSubmit = (event) => {
@@ -15,6 +17,7 @@ export default function CheckoutPanel({
       setSubmitting(false);
     }, 3000);
   };
+  console.log("checkout user:", user);
   return (
     <Transition
       show={CheckoutOpen}
@@ -36,6 +39,7 @@ export default function CheckoutPanel({
                   <br />
                 </HeaderText>
                 <Subtotal>
+                  {user}
                   <h4>subtotal: ${cartTotal}</h4>
                   <h6>.00</h6>
                 </Subtotal>

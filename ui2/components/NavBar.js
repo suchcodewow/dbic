@@ -2,10 +2,10 @@ import { RiMenu3Line, RiCloseLine, RiShoppingCartLine } from "react-icons/ri";
 import styled from "styled-components";
 const logo = "images/wow.png";
 import { useState } from "react";
-import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
+import { useCartContext } from "contexts/CartContext";
+import { useUserContext } from "contexts/UserContext";
 
 const Menu = () => {
-  // const { cartItems } = props;
   const { cart } = useCartContext();
   var cartTotal = 0;
   if (cart) {
@@ -54,6 +54,7 @@ const Cart = styled.div`
 
 export default function NavBar(props) {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const { user } = useUserContext();
   return (
     <Container>
       <TopBar>
@@ -65,7 +66,7 @@ export default function NavBar(props) {
         </NavContainer>
       </TopBar>
       <Link as="a" href="/login">
-        <Sign>Sign in</Sign>
+        <Sign>Sign in{user.user}</Sign>
       </Link>
       <NavBarMenu>
         {toggleMenu ? (

@@ -2,8 +2,18 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useUserContext } from "contexts/UserContext";
 import { Prefix, Name, NavBar } from "components";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  if (typeof window !== "undefined") {
+    console.log(
+      "getting local user",
+      localStorage.getItem("localUser", JSON.stringify(user))
+    );
+  } else {
+    console.log("undefined window");
+  }
+  const router = useRouter();
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
   const selectedName = Name[Math.floor(Math.random() * Name.length)];
   const randomId =
@@ -24,7 +34,7 @@ export default function Login() {
       <Container>
         <FormContainer>
           <TextBlock>
-            <h1>Login</h1>
+            <h1>Sign Up & Sign In</h1>
             <blockquote>
               psst! hey there! This application is real and has a full suite of
               backend services spanning lots of technologies- but it's just for
@@ -65,7 +75,7 @@ export default function Login() {
               id="password"
             />
             <DefaultButton type="submit" disabled={loading}>
-              login
+              Sign in
             </DefaultButton>
           </Form>
         </FormContainer>

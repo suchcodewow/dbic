@@ -1,12 +1,14 @@
 import { Carousel, CheckoutPanel, NavBar } from "components";
 import styled from "styled-components";
 import { useCartContext } from "contexts/CartContext";
+import { useUserContext } from "contexts/UserContext";
 import { RiAddFill, RiSubtractFill, RiDeleteBin2Line } from "react-icons/ri";
 import Dynacard from "components/Dynacard";
 import { useState } from "react";
 
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
+  const { user } = useCartContext();
   const [CheckoutOpen, setCheckoutOpen] = useState(true);
   let cartTotal = 0;
   cart.map((item) => (cartTotal += item.price * item.qty));
@@ -80,6 +82,7 @@ export default function Cart() {
         </Checkout>
         <CheckoutPanel
           cartTotal={cartTotal}
+          user={user}
           CheckoutOpen={CheckoutOpen}
           setCheckoutOpen={setCheckoutOpen}
         />

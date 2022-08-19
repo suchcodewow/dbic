@@ -1,16 +1,11 @@
-import Head from "next/head";
-import { useState } from "react";
-import MenuBar from "components/Menubar";
+import { Hero } from "components";
+import { NavBar } from "components";
 
 export default function Home() {
-  const user = useState(null);
   return (
-    <div className="container">
-      <Head>
-        <title>DBIC</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <MenuBar />
+    <div>
+      <NavBar />
+      <Hero />
     </div>
   );
 }

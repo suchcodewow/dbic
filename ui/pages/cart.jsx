@@ -1,126 +1,203 @@
-import {
-  Button,
-  Grid,
-  Stack,
-  Typography,
-  Rating,
-  Divider,
-  Card,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
-import { Box, styled } from "@mui/system";
-import Paper from "@mui/material/Paper";
-import MenuBar from "components/Menubar";
-import { useEffect, useState } from "react";
+import { Carousel, CheckoutPanel, NavBar } from "components";
+import styled from "styled-components";
+import { useCartContext } from "contexts/CartContext";
+import { useUserContext } from "contexts/UserContext";
+import { RiAddFill, RiSubtractFill, RiDeleteBin2Line } from "react-icons/ri";
+import Dynacard from "components/Dynacard";
+import { useState } from "react";
 
-export default function cart() {
-  const [cartItems, setCartItems] = useState([]);
-  const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
-    }
-  };
-  const onRemove = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
-    if (exist.qty === 1) {
-      setCartItems(cartItems.filter((x) => x.id !== product.id));
-    } else {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
-        )
-      );
-    }
-  };
+export default function Cart() {
+  const { cart, cartDispatch } = useCartContext();
+  const { user } = useUserContext();
+  const [CheckoutOpen, setCheckoutOpen] = useState(true);
+  let cartTotal = 0;
+  cart.map((item) => (cartTotal += item.price * item.qty));
 
-  useEffect(() => {
-    var localCart = JSON.parse(localStorage.getItem("cart"));
-    if (localCart) {
-      setCartItems(localCart);
-    }
-  }, []);
-
-  const Item = styled(
-    Paper,
-    {}
-  )({
-    backgroundColor: "#FFFFFF",
-    textAlign: "left",
-    margin: "auto",
-    borderRadius: 5,
-    padding: 15,
-    elevation: 0,
-    height: "100%",
-  });
   return (
     <div>
-      <MenuBar cartItems={cartItems} />
-      <Grid container spacing={1}>
-        <Grid item xs={7}>
-          <Item elevation={0}>
-            {cartItems.length === 0 ? (
-              <Typography>There is nothing in your cart! :/</Typography>
-            ) : null}
-            <Stack spacing={2}>
-              {cartItems.map((item) => (
-                <Card
-                  elevation={0}
-                  sx={{ display: "flex", padding: 1 }}
-                  key={item.id}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{ width: 151, maxheight: 200 }}
-                    image={`/images/store/${item.img}`}
+      <NavBar />
+      <Dynacard />
+      <CartArea>
+        <CartDetails>
+          <h1>Shopping Cart</h1>
+          <ItemRow>
+            <ItemPicture>PRODUCT</ItemPicture>
+            <ItemHeader>PRICE</ItemHeader>
+            <ItemHeader>QUANTITY</ItemHeader>
+            <ItemHeader>TOTAL</ItemHeader>
+          </ItemRow>
+          {cart?.map((item) => (
+            <CartItem key={item.id}>
+              <ItemRow>
+                <RiDeleteBin2Line
+                  style={{ cursor: "pointer" }}
+                  size={24}
+                  color="green"
+                  onClick={() => cartDispatch({ type: "REMOVE_ITEM", item })}
+                />
+                <ItemPicture>
+                  <img src={`/images/store/${item.img}`} alt="" />
+                  <h4>{item.shortDesc}</h4>
+                </ItemPicture>
+                <ItemText>
+                  <h4>${item.price}</h4>
+                  <h6>.00</h6>
+                </ItemText>
+                <ItemText>
+                  <RiSubtractFill
+                    style={{ cursor: "pointer" }}
+                    size={24}
+                    color="red"
+                    onClick={() =>
+                      cartDispatch({ type: "SUBTRACT_ITEM", item })
+                    }
                   />
-                  <CardContent>
-                    <Box
-                      component="div"
-                      sx={{ display: "inline", alignItems: "center" }}
-                      lineHeight="1.5rem"
-                      fontSize="1.5rem"
-                    >
-                      ${item.price}
-                    </Box>
-                    <Box
-                      component="div"
-                      sx={{ display: "inline" }}
-                      fontSize=".9rem"
-                      lineHeight=".9rem"
-                      textAlignVertical="top"
-                    >
-                      .00
-                    </Box>
-                    <Box
-                      component="div"
-                      sx={{ display: "inline" }}
-                      fontSize="1rem"
-                      ml="1rem"
-                    >
-                      quantity: {item.qty}
-                    </Box>
-                    <Rating readOnly value={item.rating} />
-                  </CardContent>
-                  <Typography variant="body">{item.shortDesc}</Typography>
-                </Card>
-              ))}
-            </Stack>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
-          <Item elevation={0}>
-            <Typography>Total</Typography>
-          </Item>
-        </Grid>
-      </Grid>
+                  <p>{item.qty}</p>
+                  <RiAddFill
+                    style={{ cursor: "pointer" }}
+                    size={24}
+                    color="green"
+                    onClick={() => cartDispatch({ type: "ADD_ITEM", item })}
+                  />
+                </ItemText>
+                <ItemText>
+                  <h4>${item.price * item.qty}</h4>
+                  <h6>.00</h6>
+                </ItemText>
+              </ItemRow>
+            </CartItem>
+          ))}
+        </CartDetails>
+        <Checkout>
+          <CheckoutHeader>
+            <h1>Checkout</h1>
+          </CheckoutHeader>
+          <CheckoutTotal>
+            <h2>Sub-Total: ${cartTotal}</h2>
+            <h4>.00</h4>
+          </CheckoutTotal>
+          <CheckoutButton onClick={() => setCheckoutOpen(true)}>
+            checkout
+          </CheckoutButton>
+        </Checkout>
+        <CheckoutPanel
+          cartTotal={cartTotal}
+          user={user}
+          CheckoutOpen={CheckoutOpen}
+          setCheckoutOpen={setCheckoutOpen}
+        />
+      </CartArea>
     </div>
   );
 }
+
+const CheckoutButton = styled.button`
+  padding: 0.5rem 3rem;
+  color: #fff;
+  background: #ff4820;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+`;
+const CheckoutTotal = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 20px 0px;
+`;
+const CheckoutHeader = styled.div`
+  width: 100%;
+
+  h1 {
+    margin: auto;
+    font-size: 38px;
+    line-height: 75px;
+    font-weight: 800;
+    background: linear-gradient(89.97deg, #ae67fa 1.84%, #f49867 102.67%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+`;
+const ItemHeader = styled.div`
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  h4 {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    margin: 0px 15px;
+  }
+  h6 {
+    font-size: 14px;
+  }
+`;
+const ItemText = styled.div`
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  h4 {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    margin: 0px 15px;
+  }
+  h6 {
+    font-size: 14px;
+    line-height: 16px;
+  }
+`;
+const ItemRow = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const ItemPicture = styled.div`
+  flex: 2;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  img {
+    width: 100px;
+    margin: 0px 20px 0px 0px;
+  }
+`;
+const CartItem = styled.div`
+  padding: 10px 0px 0px 0px;
+  border-top: 1px solid #eee;
+`;
+const Checkout = styled.div`
+  width: 300px;
+`;
+const CartDetails = styled.div`
+  padding: 1rem 3rem;
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+  gap: 10px;
+  h1 {
+    margin-bottom: 10px;
+  }
+`;
+const CartArea = styled.div`
+  //new start
+  display: flex;
+  margin: 2rem 6rem;
+  background-color: #fff;
+`;

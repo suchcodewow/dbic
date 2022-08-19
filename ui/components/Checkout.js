@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 export default function CheckoutPanel({
@@ -10,13 +10,18 @@ export default function CheckoutPanel({
   user,
 }) {
   const [submitting, setSubmitting] = useState(false);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 3000);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
+
+  const onSubmit = (data) => {
+    console.log(data);
   };
+  //console.log(watch("address1")); // watch input value by passing the name of it
 
   return (
     <Transition
@@ -45,14 +50,24 @@ export default function CheckoutPanel({
               </div>
               <DefaultButton>use my saved address</DefaultButton>
               <DetailsDiv>
-                <form onSubmit={handleSubmit}>
-                  <Fieldset disabled={submitting}>
-                    <Input name="address1" placeholder="Shipping Address" />
-                    <Input name="address2" placeholder="Shipping Address 2" />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    className={errors.address1?.type}
+                    {...register("address1", {
+                      required: "This is required",
+                      minLength: {
+                        value: 3,
+                        message: "must be 3 characters or more",
+                      },
+                    })}
+                    // {...register("address1")}
+                    placeholder="Shipping Address"
+                  />
+                  {/* <Input name="address2" placeholder="Shipping Address 2" />
                     <Input name="city" placeholder="City" />
                     <Input name="state" placeholder="State" />
-                    <Input name="zip" placeholder="Zip" />
-                  </Fieldset>
+                    <Input name="zip" placeholder="Zip" /> */}
+
                   <ActionsBar>
                     <CancelButton
                       type="button"
@@ -96,21 +111,25 @@ const Subtotal = styled.div`
 `;
 const Input = styled.input`
   font-size: 18px;
+  color: #000;
+  width: 100%;
   padding: 5px;
   margin: 10px;
-  border: none;
-  border-radius: 3px;
-`;
-const Fieldset = styled.fieldset`
-  display: flex;
-  flex-flow: column;
-  border: 0px;
-  input: {
-    font-size: 22px;
+  border: 2px solid black;
+  border-radius: 5px;
+  ::placeholder {
+    color: #333;
+    font-weight: 700;
   }
 `;
-
-const DetailsDiv = styled.div``;
+const DetailsDiv = styled.div`
+  .required {
+    color: #f72331;
+    ::placeholder {
+      color: #f72331;
+    }
+  }
+`;
 const ActionsBar = styled.div`
   display: flex;
   flex-flow: row nowrap;

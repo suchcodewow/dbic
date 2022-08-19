@@ -16,10 +16,10 @@ const Menu = () => {
       <Link as="a" href="/">
         Home
       </Link>
-      <Link as="a" href="/Banking">
+      <Link as="a" href="/banking">
         Banking
       </Link>
-      <Link as="a" href="/Insurance">
+      <Link as="a" href="/insurance">
         Insurance
       </Link>
       <Link as="a" href="/store">
@@ -66,7 +66,7 @@ export default function NavBar(props) {
         </NavContainer>
       </TopBar>
       <Link as="a" href="/login">
-        <Sign>Sign in{user.user}</Sign>
+        {user ? <Sign>user</Sign> : <Sign>Sign in{user}</Sign>}
       </Link>
       <NavBarMenu>
         {toggleMenu ? (

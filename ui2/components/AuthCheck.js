@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
 import { useUserContext } from "contexts/UserContext";
-// export { RouteGuard };
 
 export function RouteGuard({ children }) {
   const { user } = useUserContext();
@@ -25,27 +23,30 @@ export function RouteGuard({ children }) {
       router.events.off("routeChangeStart", hideContent);
       router.events.off("routeChangeComplete", authCheck);
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in
-    console.log("authcheck user:", user);
+
     const publicPaths = ["/", "/login", "/store"];
     const path = url.split("?")[0];
-    // if (user) {
-    if (!user.user && !publicPaths.includes(path)) {
-      setAuthorized(false);
-      router.push({
-        pathname: "/login",
-        query: { returnUrl: router.asPath },
-      });
+    if (user.user) {
+      if (!user.user && !publicPaths.includes(path)) {
+        console.log("send to login", user);
+        setAuthorized(false);
+        router.push({
+          pathname: "/login",
+          query: { returnUrl: router.asPath },
+        });
+      } else {
+        setAuthorized(true);
+        console.log("public site or user loggedin: ", user);
+      }
     } else {
+      console.log("skipping", user);
       setAuthorized(true);
     }
-    // }
   }
   // return authorized && children;
-  return children;
+  return authorized && children;
 }

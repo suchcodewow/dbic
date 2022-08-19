@@ -41,7 +41,6 @@ export default function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </RouteGuard>
       </CartProvider>
-      //{" "}
     </UserProvider>
   );
 }

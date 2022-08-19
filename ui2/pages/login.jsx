@@ -5,14 +5,8 @@ import { Prefix, Name, NavBar } from "components";
 import { useRouter } from "next/router";
 
 export default function Login() {
-  if (typeof window !== "undefined") {
-    console.log(
-      "getting local user",
-      localStorage.getItem("localUser", JSON.stringify(user))
-    );
-  } else {
-    console.log("undefined window");
-  }
+  const { user, userDispatch, loading, errorMessage } = useUserContext();
+
   const router = useRouter();
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
   const selectedName = Name[Math.floor(Math.random() * Name.length)];
@@ -21,7 +15,6 @@ export default function Login() {
     selectedPrefix.slice(1) +
     selectedName.charAt(0).toUpperCase() +
     selectedName.slice(1);
-  const { user, userDispatch, loading, errorMessage } = useUserContext();
   const [userId, setUserId] = useState(randomId);
   const handleLogin = (e) => {
     e.preventDefault();

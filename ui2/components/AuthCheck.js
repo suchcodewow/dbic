@@ -30,22 +30,36 @@ export function RouteGuard({ children }) {
 
     const publicPaths = ["/", "/login", "/store"];
     const path = url.split("?")[0];
-    if (user.user) {
-      if (!user.user && !publicPaths.includes(path)) {
-        console.log("send to login", user);
-        setAuthorized(false);
-        router.push({
-          pathname: "/login",
-          query: { returnUrl: router.asPath },
-        });
-      } else {
-        setAuthorized(true);
-        console.log("public site or user loggedin: ", user);
-      }
-    } else {
-      console.log("skipping", user);
-      setAuthorized(true);
+    // console.log("*Auth for user: ", user);
+    // if (!user) {
+    //   console.log("skip this pass", user);
+    // } else {
+    if (user.prerender) {
+      // console.log("server loading so no user yet. skip", user);
+      return;
     }
+    if (!user.user && !publicPaths.includes(path)) {
+      // console.log(
+      //   "*Auth: REDIRECT! Private URL:",
+      //   path,
+      //   "and user false=",
+      //   user
+      // );
+      setAuthorized(false);
+      router.push({
+        pathname: "/login",
+        query: { returnUrl: router.asPath },
+      });
+    } else {
+      setAuthorized(true);
+      console.log(
+        "*Auth ALLOW! due to public URL:",
+        path,
+        " or user logged in=",
+        user
+      );
+    }
+    // }
   }
   // return authorized && children;
   return authorized && children;

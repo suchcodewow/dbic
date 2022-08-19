@@ -17,7 +17,7 @@ export default function CheckoutPanel({
       setSubmitting(false);
     }, 3000);
   };
-  console.log("checkout user:", user);
+
   return (
     <Transition
       show={CheckoutOpen}
@@ -35,11 +35,10 @@ export default function CheckoutPanel({
             <Dialog.Panel className="modal">
               <div>
                 <HeaderText>
-                  <p>Checkout</p>
+                  <p>{user?.user}'s Cart</p>
                   <br />
                 </HeaderText>
                 <Subtotal>
-                  {user}
                   <h4>subtotal: ${cartTotal}</h4>
                   <h6>.00</h6>
                 </Subtotal>

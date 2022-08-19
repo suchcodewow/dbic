@@ -1,8 +1,9 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
 
 const UserContext = createContext();
-export const initialState = { user: false };
+export const initialState = { prerender: true };
 
+//The reducer function makes it easier to add many commands without more imports
 export const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
@@ -16,14 +17,16 @@ export const reducer = (state, action) => {
         user: "",
       };
     case "INIT":
-      // console.log("reducer", action.value);
+      // console.log("reducer init:", action.value);
       return action.value;
   }
 };
 
 // Handle all user functions in a handy provider. initalized in _app.js
 export const UserProvider = ({ children }) => {
+  //Setup functions with a reducer
   const [user, userDispatch] = useReducer(reducer, initialState);
+  //Load user details from storage if found
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("localUser")) || false;
     userDispatch({
@@ -31,6 +34,7 @@ export const UserProvider = ({ children }) => {
       value: localUser,
     });
   }, []);
+  //When the user details change on the site, save to localstorage
   useEffect(() => {
     if (user.user) {
       // console.log("storing user", user);
@@ -39,6 +43,7 @@ export const UserProvider = ({ children }) => {
       // console.log("skip!", user);
     }
   }, [user]);
+  //Return a provider to wrap in _app.js
   return (
     <UserContext.Provider value={{ user, userDispatch }}>
       {children}

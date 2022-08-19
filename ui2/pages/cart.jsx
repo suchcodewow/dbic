@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
-  const { user } = useCartContext();
+  const { user } = useUserContext();
   const [CheckoutOpen, setCheckoutOpen] = useState(true);
   let cartTotal = 0;
   cart.map((item) => (cartTotal += item.price * item.qty));

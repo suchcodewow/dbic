@@ -54,7 +54,7 @@ const Cart = styled.div`
 
 export default function NavBar(props) {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const { user } = useUserContext();
+  const { user, userDispatch } = useUserContext();
   return (
     <Container>
       <TopBar>
@@ -65,9 +65,14 @@ export default function NavBar(props) {
           <Menu props={props} />
         </NavContainer>
       </TopBar>
-      <Link as="a" href="/login">
-        {user ? <Sign>user</Sign> : <Sign>Sign in{user}</Sign>}
-      </Link>
+      {user.user ? (
+        <Link as="a" href="/logout">
+          <Sign>{user.user}</Sign>
+        </Link>
+      ) : (
+        <Sign>Sign in</Sign>
+      )}
+
       <NavBarMenu>
         {toggleMenu ? (
           <RiCloseLine

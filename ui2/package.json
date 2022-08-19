@@ -16,7 +16,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-rating": "github:Selectra-Dev/react-rating",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.21.0",

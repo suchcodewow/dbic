@@ -1,11 +1,17 @@
-import { RiMenu3Line, RiCloseLine, RiShoppingCartLine } from "react-icons/ri";
+import {
+  RiMenu3Line,
+  RiCloseLine,
+  RiShoppingCartLine,
+  RiUserLine,
+} from "react-icons/ri";
 import styled from "styled-components";
 const logo = "images/wow.png";
 import { useState } from "react";
 import { useCartContext } from "contexts/CartContext";
 import { useUserContext } from "contexts/UserContext";
+import { DropDown } from "components";
 
-const Menu = () => {
+const MenuItems = () => {
   const { cart } = useCartContext();
   var cartTotal = 0;
   if (cart) {
@@ -55,6 +61,7 @@ const Cart = styled.div`
 export default function NavBar(props) {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { user, userDispatch } = useUserContext();
+  // console.log("userName", user.user);
   return (
     <Container>
       <TopBar>
@@ -62,15 +69,18 @@ export default function NavBar(props) {
           <img width="32px" src={logo} alt="logo" />
         </Logo>
         <NavContainer>
-          <Menu props={props} />
+          <MenuItems props={props} />
         </NavContainer>
       </TopBar>
       {user.user ? (
-        <Link as="a" href="/logout">
-          <Sign>{user.user}</Sign>
-        </Link>
+        // <Link as="a" href="/logout">
+        <div>
+          {/* <Sign>{user.user}</Sign> */} <DropDown userName={user.user} />
+        </div>
       ) : (
-        <Sign>Sign in</Sign>
+        <Link as="a" href="/login">
+          <Sign>Sign in</Sign>
+        </Link>
       )}
 
       <NavBarMenu>
@@ -89,7 +99,7 @@ export default function NavBar(props) {
         )}
         {toggleMenu && (
           <PopoutMenu>
-            <Menu />
+            <MenuItems />
           </PopoutMenu>
         )}
       </NavBarMenu>

@@ -52,12 +52,12 @@ export function RouteGuard({ children }) {
       });
     } else {
       setAuthorized(true);
-      console.log(
-        "*Auth ALLOW! due to public URL:",
-        path,
-        " or user logged in=",
-        user
-      );
+      // console.log(
+      //   "*Auth ALLOW! due to public URL:",
+      //   path,
+      //   " or user logged in=",
+      //   user
+      // );
     }
     // }
   }

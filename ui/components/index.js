@@ -5,3 +5,4 @@ export { default as StoreFeature } from "components/StoreFeature";
 export { default as Carousel } from "components/Carousel";
 export { default as CheckoutPanel } from "components/Checkout";
 export { Prefix, Name } from "components/Library";
+export { default as DropDown } from "components/Account";

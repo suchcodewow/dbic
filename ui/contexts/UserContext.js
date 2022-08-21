@@ -12,8 +12,8 @@ export const reducer = (state, action) => {
         address1: "123 Yemen Road",
       };
     case "LOGOUT":
+      localStorage.clear();
       return {
-        ...state,
         user: "",
       };
     case "INIT":

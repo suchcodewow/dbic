@@ -88,16 +88,15 @@ const CarouselHeader = styled.div`
 const CarouselSlide = styled.div`
   position: relative;
   /* flex: 0 0 100%; */
-  width: 200px;
-
-  height: 300px;
+  width: 132px;
+  height: 200px;
   background-color: #fff;
   display: flex;
   img {
     padding: 15px;
-    width: 200px;
+    width: 132px;
     vertical-align: middle;
-    max-height: 300px;
+    max-height: 200px;
     margin: auto;
   }
 `;

@@ -7,7 +7,7 @@ const reducer = (cart, action) => {
   const item = action.item;
   switch (action.type) {
     case "ADD_ITEM":
-      const addExist = cart.find((cart) => cart.id === action.item.id);
+      var addExist = cart.find((cart) => cart.id === action.item.id);
       if (addExist) {
         return cart.map((x) =>
           x.id === item.id ? { ...addExist, qty: addExist.qty + 1 } : x
@@ -16,7 +16,7 @@ const reducer = (cart, action) => {
         return [...cart, { ...item, qty: 1 }];
       }
     case "SUBTRACT_ITEM":
-      const removeExist = cart.find((cart) => cart.id === action.item.id);
+      var removeExist = cart.find((cart) => cart.id === action.item.id);
       if (removeExist.qty === 1) {
         return cart.filter((x) => x.id !== item.id);
       } else {

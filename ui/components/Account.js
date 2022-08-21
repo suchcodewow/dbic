@@ -16,7 +16,6 @@ export default function DropDown({ userName }) {
       pathname: "/",
     });
   };
-  console.log("userName", userName);
   return (
     <DropDownStyled>
       <Menu>

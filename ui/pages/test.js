@@ -26,6 +26,5 @@ const Frame = styled.div`
   flex-flow: column nowrap;
   font-size: 52px;
   padding: 3rem;
-
   background-color: #fff;
 `;

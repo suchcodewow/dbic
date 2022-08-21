@@ -19,7 +19,7 @@ export default function CheckoutPanel({
     setValue,
   } = useForm();
 
-  const AddressFill = (user, form) => {
+  const AddressFill = (user) => {
     if (!user.shippingAddress) {
       console.log("DEBUG: No shipping address!");
     } else {
@@ -35,8 +35,6 @@ export default function CheckoutPanel({
   const onSubmit = (data) => {
     console.log(data);
   };
-  //console.log(watch("address1")); // watch input value by passing the name of it
-
   return (
     <Transition
       show={CheckoutOpen}
@@ -174,7 +172,7 @@ const Subtotal = styled.div`
 `;
 const Input = styled.input`
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: #000;
   width: 100%;
   padding: 5px;

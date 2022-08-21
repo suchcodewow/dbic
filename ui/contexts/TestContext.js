@@ -11,16 +11,17 @@ const reducer = (test, action) => {
       // if (!test.list) {
       //   test.list = [];
       // }
-      const addExist = test.list.find((item) => item === todo);
+      var addExist = test.list.find((item) => item === todo);
       if (addExist) {
         test.list.map((x) =>
           x === todo ? { ...addExist, qty: addExist.qty + 1 } : x
         );
       } else {
-        console.log("didn't exist");
-        // [...test.list, { ...todo, qty: 1 }];
+        console.log("didn't exist", addExist);
+        return { ...test, list: { ...test.list.addExist, qty: 1 } };
       }
-      return test;
+      break;
+    // return test;
     default:
       console.log("nuthin");
   }

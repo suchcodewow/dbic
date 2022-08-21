@@ -75,8 +75,12 @@ export default function EmblaCarousel({ catalog }) {
 const CarouselFooter = styled.div`
   height: 20px;
   background-color: #fff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;
 const CarouselHeader = styled.div`
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   padding: 20px;
   background-color: #fff;
   h2 {
@@ -91,7 +95,7 @@ const CarouselSlide = styled.div`
   width: 132px;
   height: 200px;
   background-color: #fff;
-  display: flex;
+  /* display: flex; */
   img {
     padding: 15px;
     width: 132px;
@@ -103,6 +107,7 @@ const CarouselSlide = styled.div`
 
 const CarouselContainer = styled.div`
   display: flex;
+  padding: 0px;
   user-select: none;
   -webkit-touch-callout: none;
   -khtml-user-select: none;

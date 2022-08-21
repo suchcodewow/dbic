@@ -15,7 +15,7 @@ export default function Dynacard() {
 const AdArea = styled.div`
   background-color: #fff;
   text-align: center;
-  margin: 2rem 24rem;
+  margin: 2rem 8rem;
   padding: 1rem;
   p {
     font-size: 18px;

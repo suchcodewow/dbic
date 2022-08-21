@@ -2,6 +2,7 @@ import { Fragment, useState, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { GenerateAddress } from "components";
 
 export default function CheckoutPanel({
   CheckoutOpen,
@@ -15,8 +16,21 @@ export default function CheckoutPanel({
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm();
-  console.log(errors);
+
+  const AddressFill = (user, form) => {
+    if (!user.shippingAddress) {
+      console.log("DEBUG: No shipping address!");
+    } else {
+      console.log(user.shippingAddress);
+      setValue("address1", user.shippingAddress.address1);
+      setValue("address2", user.shippingAddress.address2);
+      setValue("city", user.shippingAddress.city);
+      setValue("state", user.shippingAddress.state);
+      setValue("zip", user.shippingAddress.zip);
+    }
+  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -48,11 +62,19 @@ export default function CheckoutPanel({
                   <h6>.00</h6>
                 </Subtotal>
               </div>
-              <DefaultButton>use my saved address</DefaultButton>
+
               <DetailsDiv>
                 <form onSubmit={handleSubmit(onSubmit)}>
+                  <DefaultButton
+                    onClick={(form) => {
+                      AddressFill(user, form);
+                    }}
+                  >
+                    use my saved address
+                  </DefaultButton>
                   <Input
                     className={errors.address1?.type}
+                    name="address1"
                     {...register("address1", {
                       required: "This is required",
                       minLength: {
@@ -61,7 +83,48 @@ export default function CheckoutPanel({
                       },
                     })}
                     // {...register("address1")}
-                    placeholder="Shipping Address"
+                    placeholder="Shipping Address 1"
+                  />
+                  <Input
+                    className={errors.address2?.type}
+                    {...register("address2")}
+                    placeholder="Shipping Address 2"
+                  />
+                  <Input
+                    className={errors.city?.type}
+                    {...register("city", {
+                      required: "This is required",
+                      minLength: {
+                        value: 3,
+                        message: "must be 3 characters or more",
+                      },
+                    })}
+                    // {...register("address1")}
+                    placeholder="City"
+                  />
+                  <Input
+                    className={errors.state?.type}
+                    {...register("state", {
+                      required: "This is required",
+                      minLength: {
+                        value: 2,
+                        message: "State must be at least 2 characters",
+                      },
+                    })}
+                    // {...register("address1")}
+                    placeholder="State"
+                  />
+                  <Input
+                    className={errors.Zip?.type}
+                    {...register("zip", {
+                      required: "This is required",
+                      minLength: {
+                        value: 5,
+                        message: "Must be at least 5 digits",
+                      },
+                    })}
+                    // {...register("address1")}
+                    placeholder="Zip"
                   />
                   {/* <Input name="address2" placeholder="Shipping Address 2" />
                     <Input name="city" placeholder="City" />
@@ -111,6 +174,7 @@ const Subtotal = styled.div`
 `;
 const Input = styled.input`
   font-size: 18px;
+  font-weight: 600;
   color: #000;
   width: 100%;
   padding: 5px;
@@ -118,8 +182,8 @@ const Input = styled.input`
   border: 2px solid black;
   border-radius: 5px;
   ::placeholder {
-    color: #333;
-    font-weight: 700;
+    color: #777;
+    font-weight: 500;
   }
 `;
 const DetailsDiv = styled.div`
@@ -127,6 +191,7 @@ const DetailsDiv = styled.div`
     color: #f72331;
     ::placeholder {
       color: #f72331;
+      font-weight: 600;
     }
   }
 `;
@@ -170,7 +235,7 @@ const Modal = styled.div`
   .modalbg {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1000;
     position: fixed;
     display: center;

@@ -1,14 +1,17 @@
 import { Menu } from "@headlessui/react";
 import styled from "styled-components";
 import { useUserContext } from "contexts/UserContext";
+import { useCartContext } from "contexts/CartContext";
 import { useRouter } from "next/router";
 import { RiUserLine } from "react-icons/ri";
 
 export default function DropDown({ userName }) {
   const { user, userDispatch } = useUserContext();
+  const { cart, cartDispatch } = useCartContext();
   const router = useRouter();
-  const handleLogout = (e) => {
+  const handleLogout = () => {
     userDispatch({ type: "LOGOUT" });
+    cartDispatch({ type: "CLEAR_CART" });
     router.push({
       pathname: "/",
     });

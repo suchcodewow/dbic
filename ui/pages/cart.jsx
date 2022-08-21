@@ -9,10 +9,10 @@ import { useState } from "react";
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
   const { user } = useUserContext();
-  const [CheckoutOpen, setCheckoutOpen] = useState(true);
+  const [CheckoutOpen, setCheckoutOpen] = useState(false);
+  const [PaymentOpen, setPaymentOpen] = useState(false);
   let cartTotal = 0;
   cart.map((item) => (cartTotal += item.price * item.qty));
-
   return (
     <div>
       <NavBar />
@@ -83,6 +83,7 @@ export default function Cart() {
         <CheckoutPanel
           cartTotal={cartTotal}
           user={user}
+          setPaymentOpen={setPaymentOpen}
           CheckoutOpen={CheckoutOpen}
           setCheckoutOpen={setCheckoutOpen}
         />

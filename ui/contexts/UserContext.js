@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
-
+import { GenerateAddress } from "components";
 const UserContext = createContext();
 export const initialState = { prerender: true };
 
@@ -9,7 +9,7 @@ export const reducer = (state, action) => {
     case "LOGIN":
       return {
         user: action.userId,
-        address1: "123 Yemen Road",
+        shippingAddress: GenerateAddress(),
       };
     case "LOGOUT":
       localStorage.clear();

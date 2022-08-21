@@ -35,7 +35,7 @@ export default function Login() {
             <blockquote>
               psst! hey there! This application is real and has a full suite of
               backend services spanning lots of technologies- but it's just for
-              demonstration. It's built to showcase how dynatrace empowers you.
+              demostration to show how Dynatrace empowers your organization.
               Everything you experience as a user (good AND bad) is used by
               Dynatrace to identify incoming problems before users do. To
               expedite your exploration:

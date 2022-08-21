@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import { CartProvider } from "contexts/CartContext";
 import { UserProvider } from "contexts/UserContext";
 import { RouteGuard } from "components/AuthCheck";
+import { TestProvider } from "contexts/TestContext";
 const GlobalStyles = createGlobalStyle`
 * {
   box-sizing: border-box;
@@ -36,10 +37,12 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
       <CartProvider>
-        <RouteGuard>
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </RouteGuard>
+        <TestProvider>
+          <RouteGuard>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </RouteGuard>
+        </TestProvider>
       </CartProvider>
     </UserProvider>
   );

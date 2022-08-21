@@ -26,8 +26,12 @@ const reducer = (cart, action) => {
       }
     case "REMOVE_ITEM":
       return cart.filter((x) => x.id !== item.id);
+    case "ADD_ADDRESS":
+      return cart;
     case "INIT":
       return action.value;
+    case "CLEAR_CART":
+      return [];
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }

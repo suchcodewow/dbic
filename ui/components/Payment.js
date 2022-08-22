@@ -2,10 +2,9 @@ import { Fragment, useState, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { GenerateAddress } from "components";
 
-export default function CheckoutPanel({
-  CheckoutOpen,
+export default function PaymentPanel({
+  PaymentOpen,
   setPaymentOpen,
   setCheckoutOpen,
   cartTotal,
@@ -21,28 +20,40 @@ export default function CheckoutPanel({
     setValue,
   } = useForm();
 
-  const AddressFill = (user) => {
-    if (!user.defaultAddress) {
-      console.log("DEBUG: No default address!");
-    } else {
-      console.log(user.defaultAddress);
-      setValue("address1", user.defaultAddress.address1);
-      setValue("address2", user.defaultAddress.address2);
-      setValue("city", user.defaultAddress.city);
-      setValue("state", user.defaultAddress.state);
-      setValue("zip", user.defaultAddress.zip);
-    }
+  const RequestDynacard = (user) => {
+    userDispatch({ type: "Dynacard", value: user });
   };
 
+  //   const AddressFill = (user) => {
+  //     if (!user.shippingAddress) {
+  //       console.log("DEBUG: No shipping address!");
+  //     } else {
+  //       console.log(user.shippingAddress);
+  //       setValue("address1", user.shippingAddress.address1);
+  //       setValue("address2", user.shippingAddress.address2);
+  //       setValue("city", user.shippingAddress.city);
+  //       setValue("state", user.shippingAddress.state);
+  //       setValue("zip", user.shippingAddress.zip);
+  //     }
+  //   };
+  function formatCardNum(cc) {
+    setValue();
+    //   "card.num",
+    //   v
+    //     .replace(" ", "")
+    //     .split(/(\d{4})/)
+    //     .filter((w: string) => w.length > 0)
+    //     .join(" ")
+  }
   const onSubmit = (data) => {
-    console.log(data);
-    userDispatch({ type: "CART_ADDRESS", value: data });
-    setCheckoutOpen(false);
-    setPaymentOpen(true);
+    // console.log(data);
+    // userDispatch({ action: "CART_ADDRESS", value: data });
+    // setCheckoutOpen(false);
+    // setPaymentOpen(true);
   };
   return (
     <Transition
-      show={CheckoutOpen}
+      show={PaymentOpen}
       enter="transition duration-100 ease-out"
       enterFrom="transform scale-95 opacity-0"
       enterTo="transform scale-100 opacity-100"
@@ -51,90 +62,83 @@ export default function CheckoutPanel({
       leaveTo="transform scale-95 opacity-0"
       as={Fragment}
     >
-      <Dialog onClose={() => setCheckoutOpen(false)}>
+      <Dialog onClose={() => setPaymentOpen(false)}>
         <Modal>
           <div className="modalbg">
             <Dialog.Panel className="modal">
               <div>
                 <HeaderText>
-                  <p>{user?.user}'s Cart</p>
-                  <br />
+                  <p>Payment</p>
                 </HeaderText>
                 <Subtotal>
                   <h4>subtotal: ${cartTotal}</h4>
                   <h6>.00</h6>
+                  {/* TODO: shipping calculator callout & show shipping */}
                 </Subtotal>
               </div>
-
+              <DefaultButton
+                onClick={(form) => {
+                  RequestDynacard(user);
+                }}
+              >
+                <DynaCardText>
+                  <div>Use your new </div>
+                  <DynaCardBG>
+                    <span>DYNACARD</span>
+                  </DynaCardBG>
+                </DynaCardText>
+              </DefaultButton>
               <DetailsDiv>
-                <DefaultButton
-                  onClick={(form) => {
-                    AddressFill(user, form);
-                  }}
-                >
-                  use my saved address
-                </DefaultButton>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Input
-                    className={errors.address1?.type}
-                    name="address1"
-                    {...register("address1", {
+                    className={errors.ccNum?.type}
+                    {...register("ccNum", {
                       required: "This is required",
-                      minLength: {
-                        value: 3,
-                        message: "must be 3 characters or more",
+                      Length: {
+                        value: 16,
+                        message: "card must be 16 digits",
                       },
                     })}
-                    placeholder="Shipping Address 1"
+                    placeholder="Credit Card Number"
                   />
                   <Input
-                    className={errors.address2?.type}
-                    {...register("address2")}
-                    placeholder="Shipping Address 2"
+                    className={errors.ccName?.type}
+                    {...register("ccName")}
+                    placeholder="Name as shown on Card"
                   />
                   <Input
-                    className={errors.city?.type}
-                    {...register("city", {
-                      required: "This is required",
-                      minLength: {
-                        value: 3,
-                        message: "must be 3 characters or more",
-                      },
-                    })}
-                    placeholder="City"
-                  />
-                  <Input
-                    className={errors.state?.type}
-                    {...register("state", {
-                      required: "This is required",
-                      minLength: {
-                        value: 2,
-                        message: "State must be at least 2 characters",
-                      },
-                    })}
-                    placeholder="State"
-                  />
-                  <Input
-                    className={errors.Zip?.type}
-                    {...register("zip", {
+                    className={errors.ccExpiration?.type}
+                    {...register("ccExpiration", {
                       required: "This is required",
                       minLength: {
                         value: 5,
-                        message: "Must be at least 5 digits",
+                        message: "Must be: 2-digit-month / 2-digit-year",
                       },
                     })}
-                    placeholder="Zip"
+                    placeholder="Expiration Mo/Yr"
                   />
-
+                  <Input
+                    className={errors.ccv?.type}
+                    {...register("ccv", {
+                      required: "This is required",
+                      minLength: {
+                        value: 3,
+                        message: "Must be 3 or 4 characters",
+                      },
+                    })}
+                    placeholder="CCV (3 or 4 digits)"
+                  />
                   <ActionsBar>
                     <CancelButton
                       type="button"
-                      onClick={() => setCheckoutOpen(false)}
+                      onClick={() => setPaymentOpen(false)}
                     >
                       cancel
                     </CancelButton>
                     {!submitting ? (
-                      <DefaultButton type="submit">Payment</DefaultButton>
+                      <DefaultButton type="submit">
+                        Complete Order
+                      </DefaultButton>
                     ) : (
                       <div>spinner</div>
                     )}
@@ -148,13 +152,26 @@ export default function CheckoutPanel({
     </Transition>
   );
 }
+const DynaCardBG = styled.div`
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0px 6px;
+`;
+const DynaCardText = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+`;
 const Subtotal = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-start;
+  margin: 10px;
   h4 {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 22px;
     font-weight: 600;
   }
@@ -212,6 +229,14 @@ const DefaultButton = styled.button`
   outline: none;
   cursor: pointer;
   border-radius: 5px;
+  span {
+    background: linear-gradient(90deg, #ae67fa 30%, #f49867 50%);
+    background-clip: text;
+    font-weight: 800;
+    font-size: 12px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 `;
 const CancelButton = styled.button`
   padding: 0.5rem 1rem;

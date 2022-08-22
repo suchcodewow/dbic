@@ -1,3 +1,10 @@
+export function GenerateDynacard(user) {
+  const ccnum = "****-****-****-" + Math.floor(Math.random() * 10000 + 1);
+  const name = user.user;
+  const expiration = new Date().getMonth();
+  return { ccnum, name, expiration };
+}
+
 function address2() {
   switch (Math.floor(Math.random() * 8) + 1) {
     case 1:

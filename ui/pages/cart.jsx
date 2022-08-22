@@ -5,10 +5,11 @@ import { useUserContext } from "contexts/UserContext";
 import { RiAddFill, RiSubtractFill, RiDeleteBin2Line } from "react-icons/ri";
 import Dynacard from "components/Dynacard";
 import { useState } from "react";
+import PaymentPanel from "components/Payment";
 
 export default function Cart() {
   const { cart, cartDispatch } = useCartContext();
-  const { user } = useUserContext();
+  const { user, userDispatch } = useUserContext();
   const [CheckoutOpen, setCheckoutOpen] = useState(false);
   const [PaymentOpen, setPaymentOpen] = useState(false);
   let cartTotal = 0;
@@ -83,8 +84,17 @@ export default function Cart() {
         <CheckoutPanel
           cartTotal={cartTotal}
           user={user}
+          userDispatch={userDispatch}
           setPaymentOpen={setPaymentOpen}
           CheckoutOpen={CheckoutOpen}
+          setCheckoutOpen={setCheckoutOpen}
+        />
+        <PaymentPanel
+          cartTotal={cartTotal}
+          user={user}
+          userDispatch={userDispatch}
+          setPaymentOpen={setPaymentOpen}
+          PaymentOpen={PaymentOpen}
           setCheckoutOpen={setCheckoutOpen}
         />
       </CartArea>

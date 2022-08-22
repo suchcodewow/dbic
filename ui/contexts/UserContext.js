@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
 import { GenerateAddress } from "components";
+import { GenerateDynacard } from "components";
 const UserContext = createContext();
 export const initialState = { prerender: true };
 
@@ -9,7 +10,17 @@ export const reducer = (state, action) => {
     case "LOGIN":
       return {
         user: action.userId,
-        shippingAddress: GenerateAddress(),
+        defaultAddress: GenerateAddress(),
+      };
+    case "Dynacard":
+      return {
+        ...state,
+        Dynacard: GenerateDynacard(action.value),
+      };
+    case "CART_ADDRESS":
+      return {
+        ...state,
+        cartAddress: action.value,
       };
     case "LOGOUT":
       localStorage.clear();
@@ -19,6 +30,9 @@ export const reducer = (state, action) => {
     case "INIT":
       // console.log("reducer init:", action.value);
       return action.value;
+    default:
+      console.log("NO USER ACTION");
+      return state;
   }
 };
 

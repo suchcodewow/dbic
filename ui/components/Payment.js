@@ -22,6 +22,8 @@ export default function PaymentPanel({
 
   const RequestDynacard = (user) => {
     userDispatch({ type: "Dynacard", value: user });
+    console.log("midswing", user.dynacard.ccnum);
+    setValue("ccNum", user.dynacard.ccnum);
   };
 
   //   const AddressFill = (user) => {
@@ -77,7 +79,7 @@ export default function PaymentPanel({
                 </Subtotal>
               </div>
               <DefaultButton
-                onClick={(form) => {
+                onClick={() => {
                   RequestDynacard(user);
                 }}
               >

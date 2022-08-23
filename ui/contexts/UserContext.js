@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
     case "Dynacard":
       return {
         ...state,
-        Dynacard: GenerateDynacard(action.value),
+        dynacard: GenerateDynacard(action.value),
       };
     case "CART_ADDRESS":
       return {

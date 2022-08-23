@@ -3,13 +3,14 @@ import { useTestContext } from "contexts/TestContext";
 
 export default function test() {
   const { test, testDispatch } = useTestContext();
+  const die = { itemd1: 1 };
   console.log(test);
   return (
     <Frame>
       blah
       <BigButton
         onClick={() => {
-          testDispatch({ type: "ADD", todo: "die" });
+          testDispatch({ type: "ADD", todo: die });
         }}
       >
         go

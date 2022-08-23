@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import styled from "styled-components";
-import { useCartContext, useCartDispatchContext } from "contexts/CartContext";
+import { useCartContext } from "contexts/CartContext";
 
 const PrevButton = ({ enabled, onClick }) => (
   <button

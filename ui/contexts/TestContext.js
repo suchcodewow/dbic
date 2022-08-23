@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
 
 const TestContext = createContext();
-const initialState = { list: [] };
+const initialState = { address: "hi nerds", list: [] };
 
 // Functions
 const reducer = (test, action) => {
@@ -11,16 +11,17 @@ const reducer = (test, action) => {
       // if (!test.list) {
       //   test.list = [];
       // }
-      var addExist = test.list.find((item) => item === todo);
+      var addExist = test.list.find((item) => item.itemid === todo.itemid);
       if (addExist) {
-        test.list.map((x) =>
-          x === todo ? { ...addExist, qty: addExist.qty + 1 } : x
-        );
+        console.log("oh hi der!", addExist);
+        return {...test, test.list.map((x) =>
+          x.itemid === todo.itemid ? { ...addExist, qty: addExist.qty + 1 } : x
+        )}
       } else {
         console.log("didn't exist", addExist);
-        return { ...test, list: { ...test.list.addExist, qty: 1 } };
+        // return { ...test, list: [...test.list, { todo, qty: 1 }] };
+        return { ...test, list: [...test.list, { ...todo, qty: 1 }] };
       }
-      break;
     // return test;
     default:
       console.log("nuthin");

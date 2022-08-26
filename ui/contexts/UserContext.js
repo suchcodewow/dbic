@@ -11,11 +11,12 @@ export const reducer = (state, action) => {
       return {
         user: action.userId,
         defaultAddress: GenerateAddress(),
+        dynacard: GenerateDynacard(action.value),
       };
-    case "Dynacard":
+    case "ADD_CARD":
       return {
         ...state,
-        dynacard: GenerateDynacard(action.value),
+        //TODO: generate a card on the fly so problem cards can be created
       };
     case "CART_ADDRESS":
       return {

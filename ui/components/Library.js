@@ -1,8 +1,11 @@
 export function GenerateDynacard(user) {
-  const ccnum = "****-****-****-" + Math.floor(Math.random() * 10000 + 1);
-  const name = user.user;
-  const expiration = new Date().getMonth();
-  return { ccnum, name, expiration };
+  const ccnum = "****-****-****-" + Math.floor(Math.random() * 9000 + 1000);
+  //const name = user.user;
+  const month = new Date().getMonth() + 1;
+  const year = (new Date().getFullYear() + 3).toString().substring(2, 4);
+  const expiration = month + "/" + year;
+  const ccv = Math.floor(Math.random() * 1000 + 1);
+  return { ccnum, name, expiration, ccv };
 }
 
 function address2() {

@@ -20,33 +20,15 @@ export default function PaymentPanel({
     setValue,
   } = useForm();
 
-  const RequestDynacard = (user) => {
-    userDispatch({ type: "Dynacard", value: user });
-    console.log("midswing", user.dynacard.ccnum);
+  const RequestDynacard = async (user) => {
+    // await userDispatch({ type: "ADD_CARD", value: user });
+    // console.log("midswing", user.dynacard.ccnum);
     setValue("ccNum", user.dynacard.ccnum);
+    setValue("ccName", user.user);
+    setValue("ccExpiration", user.dynacard.expiration);
+    setValue("ccv", user.dynacard.ccv);
   };
 
-  //   const AddressFill = (user) => {
-  //     if (!user.shippingAddress) {
-  //       console.log("DEBUG: No shipping address!");
-  //     } else {
-  //       console.log(user.shippingAddress);
-  //       setValue("address1", user.shippingAddress.address1);
-  //       setValue("address2", user.shippingAddress.address2);
-  //       setValue("city", user.shippingAddress.city);
-  //       setValue("state", user.shippingAddress.state);
-  //       setValue("zip", user.shippingAddress.zip);
-  //     }
-  //   };
-  function formatCardNum(cc) {
-    setValue();
-    //   "card.num",
-    //   v
-    //     .replace(" ", "")
-    //     .split(/(\d{4})/)
-    //     .filter((w: string) => w.length > 0)
-    //     .join(" ")
-  }
   const onSubmit = (data) => {
     // console.log(data);
     // userDispatch({ action: "CART_ADDRESS", value: data });
@@ -103,33 +85,38 @@ export default function PaymentPanel({
                     })}
                     placeholder="Credit Card Number"
                   />
-                  <Input
-                    className={errors.ccName?.type}
-                    {...register("ccName")}
-                    placeholder="Name as shown on Card"
-                  />
-                  <Input
-                    className={errors.ccExpiration?.type}
-                    {...register("ccExpiration", {
-                      required: "This is required",
-                      minLength: {
-                        value: 5,
-                        message: "Must be: 2-digit-month / 2-digit-year",
-                      },
-                    })}
-                    placeholder="Expiration Mo/Yr"
-                  />
-                  <Input
-                    className={errors.ccv?.type}
-                    {...register("ccv", {
-                      required: "This is required",
-                      minLength: {
-                        value: 3,
-                        message: "Must be 3 or 4 characters",
-                      },
-                    })}
-                    placeholder="CCV (3 or 4 digits)"
-                  />
+                  <RowBar>
+                    <Input
+                      className={errors.ccName?.type}
+                      {...register("ccName")}
+                      placeholder="Name as shown on Card"
+                    />
+
+                    <Input
+                      style={{ width: "100px" }}
+                      className={errors.ccExpiration?.type}
+                      {...register("ccExpiration", {
+                        required: "This is required",
+                        minLength: {
+                          value: 5,
+                          message: "Must be: 2-digit-month / 2-digit-year",
+                        },
+                      })}
+                      placeholder="Expiration Mo/Yr"
+                    />
+                    <Input
+                      style={{ width: "60px" }}
+                      className={errors.ccv?.type}
+                      {...register("ccv", {
+                        required: "This is required",
+                        minLength: {
+                          value: 3,
+                          message: "Must be 3 or 4 characters",
+                        },
+                      })}
+                      placeholder="CCV (3 or 4 digits)"
+                    />
+                  </RowBar>
                   <ActionsBar>
                     <CancelButton
                       type="button"
@@ -154,6 +141,11 @@ export default function PaymentPanel({
     </Transition>
   );
 }
+
+const RowBar = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
 const DynaCardBG = styled.div`
   background-color: #fff;
   border-radius: 5px;

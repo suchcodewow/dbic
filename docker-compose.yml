@@ -11,7 +11,18 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: catalogDb
 
+  OrdersDb:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "Password123"
+      ACCEPT_EULA: "Y"
+    container_name: OrdersDb
+    restart: always
+    ports:
+      - 1433:1433
+
   # term:
+  #   Optional container to provide a workstation within the cluster
   #   #CMD -> docker exec -it term /bin/sh
   #   build: ./terminal
   #   image: term
@@ -27,3 +38,14 @@ services:
       - 8080:8080
     depends_on:
       - catalogDb
+
+  ordersApi:
+    build:
+      context: ./OrdersApi
+      dockerfile: ./OrdersAPI/Dockerfile
+    image: ordersapi
+    container_name: ordersApi
+    ports:
+      - "8000:80"
+    depends_on:
+      - OrdersDb

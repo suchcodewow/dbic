@@ -7,9 +7,11 @@ export default function PaymentPanel({
   PaymentOpen,
   setPaymentOpen,
   setCheckoutOpen,
+  setOrderFinishOpen,
   cartTotal,
   user,
   userDispatch,
+  cartDispatch,
 }) {
   const [submitting, setSubmitting] = useState(false);
   const {
@@ -22,18 +24,19 @@ export default function PaymentPanel({
 
   const RequestDynacard = async (user) => {
     // await userDispatch({ type: "ADD_CARD", value: user });
+    //TODO: would be cooler if you generated card here instead of before.
     // console.log("midswing", user.dynacard.ccnum);
     setValue("ccNum", user.dynacard.ccnum);
     setValue("ccName", user.user);
     setValue("ccExpiration", user.dynacard.expiration);
     setValue("ccv", user.dynacard.ccv);
   };
-
+  console.log(errors);
   const onSubmit = (data) => {
-    // console.log(data);
-    // userDispatch({ action: "CART_ADDRESS", value: data });
-    // setCheckoutOpen(false);
-    // setPaymentOpen(true);
+    console.log("submit payment");
+    cartDispatch({ type: "CLEAR_CART" });
+    setPaymentOpen(false);
+    setOrderFinishOpen(true);
   };
   return (
     <Transition

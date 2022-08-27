@@ -8,23 +8,6 @@ import styled from "styled-components";
 export default function Store({ catalog, carousel }) {
   const [cartItems, setCartItems] = useState([]);
 
-  // useEffect(() => {
-  //   // Check for existing  cart
-
-  //   const localCart = JSON.parse(localStorage.getItem("cart"));
-  //   if (localCart) {
-  //     console.log(localCart);
-  //     setCartItems(localCart);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   // if (cartItems.length > 0) {
-  //   if (typeof window !== "undefined") {
-  //     localStorage.setItem("cart", JSON.stringify(cartItems));
-  //   }
-  // }, [cartItems]);
-
   return (
     <div>
       <NavBar cartItems={cartItems} />

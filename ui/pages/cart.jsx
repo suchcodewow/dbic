@@ -1,4 +1,4 @@
-import { Carousel, CheckoutPanel, NavBar } from "components";
+import { Carousel, CheckoutPanel, NavBar, OrderFinishPanel } from "components";
 import styled from "styled-components";
 import { useCartContext } from "contexts/CartContext";
 import { useUserContext } from "contexts/UserContext";
@@ -12,7 +12,9 @@ export default function Cart() {
   const { user, userDispatch } = useUserContext();
   const [CheckoutOpen, setCheckoutOpen] = useState(false);
   const [PaymentOpen, setPaymentOpen] = useState(false);
+  const [OrderFinishOpen, setOrderFinishOpen] = useState(false);
   let cartTotal = 0;
+  //TODO: deal with the cart returning no items.  Possible problem card?
   cart.map((item) => (cartTotal += item.price * item.qty));
   return (
     <div>
@@ -93,9 +95,16 @@ export default function Cart() {
           cartTotal={cartTotal}
           user={user}
           userDispatch={userDispatch}
+          cartDispatch={cartDispatch}
           setPaymentOpen={setPaymentOpen}
           PaymentOpen={PaymentOpen}
           setCheckoutOpen={setCheckoutOpen}
+          setOrderFinishOpen={setOrderFinishOpen}
+        />
+        <OrderFinishPanel
+          user={user}
+          OrderFinishOpen={OrderFinishOpen}
+          setOrderFinishOpen={setOrderFinishOpen}
         />
       </CartArea>
     </div>

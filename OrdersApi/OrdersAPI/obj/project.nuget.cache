@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LDz8LwpE6giekGjib1aolpfRSq3qVrsEqNzmbPrpDaurUgX7ISQyIXIeAR2OCF1xGoWCgybDFDGGFwm+hC9W8g==",
+  "dgSpecHash": "UvU8DfDYUDVv6bK6fc1Fzf+4sdh/agZ8RAwwRSi9oVRDLBxH8ZW11+VKkaboGzKR9xBAaq/tYuz/FqujF1lZDA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\OrdersAPI.csproj",
+  "projectFilePath": "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\OrdersAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

@@ -120,3 +120,4 @@ C:\Users\admin\source\dbic\OrdersApi\OrdersAPI\obj\Debug\net6.0\scopedcss\bundle
 C:\Users\admin\source\dbic\OrdersApi\OrdersAPI\obj\Debug\net6.0\OrdersAPI.csproj.CopyComplete
 C:\Users\admin\source\dbic\OrdersApi\OrdersAPI\obj\Debug\net6.0\OrdersAPI.genruntimeconfig.cache
 C:\Users\admin\source\dbic\OrdersApi\OrdersAPI\obj\Debug\net6.0\ref\OrdersAPI.dll
+C:\Users\admin\source\dbic\OrdersApi\OrdersAPI\bin\Debug\net6.0\appsettings.DockerDeploy.json

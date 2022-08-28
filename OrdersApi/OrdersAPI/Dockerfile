@@ -11,10 +11,10 @@ COPY ["OrdersAPI/OrdersAPI.csproj", "OrdersAPI/"]
 RUN dotnet restore "OrdersAPI/OrdersAPI.csproj"
 COPY . .
 WORKDIR "/src/OrdersAPI"
-RUN dotnet build "OrdersAPI.csproj" -c Release -o /app/build
+RUN dotnet build "OrdersAPI.csproj" -c DockerDeploy -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OrdersAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "OrdersAPI.csproj" -c DockerDeploy -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

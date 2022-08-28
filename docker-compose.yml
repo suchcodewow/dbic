@@ -1,7 +1,7 @@
 services:
-  catalogDb:
+  catalogdb:
     image: mysql
-    container_name: catalogDb
+    container_name: catalogdb
     restart: always
     ports:
       - 3306:3306
@@ -11,12 +11,11 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: catalogDb
 
-  OrdersDb:
+  ordersdb:
     image: "mcr.microsoft.com/mssql/server"
     environment:
       SA_PASSWORD: "Password123"
       ACCEPT_EULA: "Y"
-    container_name: OrdersDb
     restart: always
     ports:
       - 1433:1433
@@ -29,23 +28,22 @@ services:
   #   tty: true
   #   container_name: term
 
-  catalogApi:
+  catalogapi:
     build: ./catalogApi
-    image: catalogapi
-    container_name: catalogApi
+    container_name: catalogapi
     restart: always
     ports:
       - 8080:8080
     depends_on:
-      - catalogDb
+      - catalogdb
 
-  ordersApi:
+  ordersapi:
     build:
       context: ./OrdersApi
       dockerfile: ./OrdersAPI/Dockerfile
-    image: ordersapi
-    container_name: ordersApi
+    environment:
+      - DOTNET_ENVIRONMENT=DockerDeploy
     ports:
       - "8000:80"
     depends_on:
-      - OrdersDb
+      - ordersdb

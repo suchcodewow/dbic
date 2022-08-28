@@ -9,6 +9,7 @@ export default function PaymentPanel({
   setCheckoutOpen,
   setOrderFinishOpen,
   cartTotal,
+  totalItems,
   user,
   userDispatch,
   cartDispatch,
@@ -33,8 +34,14 @@ export default function PaymentPanel({
   };
   console.log(errors);
   const onSubmit = (data) => {
+    const orderDetails = {
+      name: user.user,
+      cartTotal,
+      totalItems,
+      status: "new",
+    };
     console.log("submit payment");
-    cartDispatch({ type: "CLEAR_CART" });
+    cartDispatch({ type: "COMPLETE_ORDER" });
     setPaymentOpen(false);
     setOrderFinishOpen(true);
   };

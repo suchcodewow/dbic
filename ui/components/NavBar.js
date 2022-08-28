@@ -61,7 +61,7 @@ const Cart = styled.div`
 export default function NavBar(props) {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { user, userDispatch } = useUserContext();
-  console.log("Navbar thinks user is:", user);
+  // console.log("Navbar thinks user is:", user);
   return (
     <Container>
       <TopBar>

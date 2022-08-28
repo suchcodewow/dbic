@@ -28,6 +28,21 @@ const reducer = (cart, action) => {
       return cart.filter((x) => x.id !== item.id);
     case "ADD_ADDRESS":
       return cart;
+    case "COMPLETE_ORDER":
+      // const params = {
+      //   param1: value1,
+      //   param2: value2,
+      // };
+      // const options = {
+      //   method: "POST",
+      //   body: JSON.stringify(params),
+      // };
+      // fetch("https://domain.com/path/", options)
+      //   .then((response) => response.json())
+      //   .then((response) => {
+      //     // Do something with response.
+      //   });
+      return [];
     case "INIT":
       return action.value;
     case "CLEAR_CART":

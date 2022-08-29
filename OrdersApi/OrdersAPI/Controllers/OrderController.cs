@@ -13,6 +13,14 @@ namespace OrdersAPI.Controllers
             _context = context;
         }
 
+        [Route("api/[controller]/myOrders")]
+        [HttpGet]
+        public async Task<ActionResult<List<Order>>> GetbyUser(Order request)
+            {
+            var myOrders = await _context.Orders.Where(s => s.Name == request.Name).ToListAsync();
+            return Ok(myOrders);
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Order>>> Get()
         {

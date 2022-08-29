@@ -2,7 +2,8 @@ import { Fragment, useState, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { FetchHook } from "components";
+import { commitOrder } from "components/FetchHook";
+import { publicRuntimeConfig } from "next.config";
 
 export default function PaymentPanel({
   PaymentOpen,
@@ -25,24 +26,25 @@ export default function PaymentPanel({
   } = useForm();
 
   const RequestDynacard = async (user) => {
-    // await userDispatch({ type: "ADD_CARD", value: user });
     //TODO: would be cooler if you generated card here instead of before.
-    // console.log("midswing", user.dynacard.ccnum);
     setValue("ccNum", user.dynacard.ccnum);
     setValue("ccName", user.user);
     setValue("ccExpiration", user.dynacard.expiration);
     setValue("ccv", user.dynacard.ccv);
   };
-  console.log("cartTotal is", cartTotal);
+
   const onSubmit = (data) => {
     const orderDetails = {
+      url: publicRuntimeConfig.apiOrders,
       name: user.user,
       cartTotal: cartTotal.toString(),
       totalItems,
       status: "new",
     };
 
-    cartDispatch({ type: "COMPLETE_ORDER", item: orderDetails });
+    commitOrder(orderDetails);
+
+    // cartDispatch({ type: "COMPLETE_ORDER", item: orderDetails });
 
     //setPaymentOpen(false);
     //setOrderFinishOpen(true);

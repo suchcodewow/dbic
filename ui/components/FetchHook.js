@@ -1,6 +1,5 @@
-export async function commitOrder(details) {
-  //export const commitOrder = async () => {
-  const BASE_URL = publicRuntimeConfig.apiOrders;
+export default async function commitOrder({ details }) {
+  console.log(details);
   const params = {
     status: "new",
     cartTotal: details.cartTotal,
@@ -14,7 +13,7 @@ export async function commitOrder(details) {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(BASE_URL, options);
+  const response = await fetch(details.url, options);
   const data = await response.json();
   return data;
 }

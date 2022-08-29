@@ -35,30 +35,29 @@ const reducer = (cart, action) => {
     case "ADD_ADDRESS":
       return cart;
     case "COMPLETE_ORDER":
-      const commitOrder = async () => {
-        const orderDetails = action.item;
-        const BASE_URL = publicRuntimeConfig.apiOrders;
-        const params = {
-          status: "new",
-          cartTotal: orderDetails.cartTotal,
-          totalItems: orderDetails.totalItems,
-          Name: orderDetails.name,
-        };
-        const options = {
-          method: "POST",
-          body: JSON.stringify(params),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        const response = await fetch(BASE_URL, options);
-        const data = await response.json();
-      };
+      // const commitOrder = async () => {
+      //   const orderDetails = action.item;
+      //   const BASE_URL = publicRuntimeConfig.apiOrders;
+      //   const params = {
+      //     status: "new",
+      //     cartTotal: orderDetails.cartTotal,
+      //     totalItems: orderDetails.totalItems,
+      //     Name: orderDetails.name,
+      //   };
+      //   const options = {
+      //     method: "POST",
+      //     body: JSON.stringify(params),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   };
+      //   const response = await fetch(BASE_URL, options);
+      //   const data = await response.json();
+      // };
 
-      if (cart.length > 0) {
-        commitOrder();
-      }
-
+      // if (cart.length > 0) {
+      //   commitOrder();
+      // }
       return [];
     case "INIT":
       return action.value;

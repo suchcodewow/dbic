@@ -7,4 +7,4 @@ export { default as CheckoutPanel } from "components/Checkout";
 export { default as OrderFinishPanel } from "components/OrderFinish";
 export * from "components/Library";
 export { default as DropDown } from "components/Account";
-export { default as FetchHook } from "components/FetchHook";
+export { default as commitOrder } from "components/FetchHook";

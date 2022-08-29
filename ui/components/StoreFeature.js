@@ -14,7 +14,9 @@ export default function StoreFeature({ catalog }) {
           {catalog.map((item) => (
             <ItemContainer
               key={item.id}
-              onClick={() => cartDispatch({ type: "ADD_ITEM", item })}
+              onClick={() => {
+                cartDispatch({ type: "ADD_ITEM", item });
+              }}
             >
               <ItemImage>
                 <img src={`/images/store/${item.img}`} alt="" />

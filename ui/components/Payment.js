@@ -2,6 +2,7 @@ import { Fragment, useState, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { FetchHook } from "components";
 
 export default function PaymentPanel({
   PaymentOpen,
@@ -32,18 +33,19 @@ export default function PaymentPanel({
     setValue("ccExpiration", user.dynacard.expiration);
     setValue("ccv", user.dynacard.ccv);
   };
-  console.log(errors);
+  console.log("cartTotal is", cartTotal);
   const onSubmit = (data) => {
     const orderDetails = {
       name: user.user,
-      cartTotal,
+      cartTotal: cartTotal.toString(),
       totalItems,
       status: "new",
     };
-    console.log("submit payment");
-    cartDispatch({ type: "COMPLETE_ORDER" });
-    setPaymentOpen(false);
-    setOrderFinishOpen(true);
+
+    cartDispatch({ type: "COMPLETE_ORDER", item: orderDetails });
+
+    //setPaymentOpen(false);
+    //setOrderFinishOpen(true);
   };
   return (
     <Transition

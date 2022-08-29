@@ -13,6 +13,7 @@ services:
 
   ordersdb:
     image: "mcr.microsoft.com/mssql/server"
+    container_name: ordersdb
     environment:
       SA_PASSWORD: "Password123"
       ACCEPT_EULA: "Y"
@@ -41,6 +42,7 @@ services:
     build:
       context: ./OrdersApi
       dockerfile: ./OrdersAPI/Dockerfile
+    container_name: ordersapi
     environment:
       - DOTNET_ENVIRONMENT=DockerDeploy
     ports:

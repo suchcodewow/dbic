@@ -1,5 +1,11 @@
-import React, { createContext, useReducer, useEffect, useContext } from "react";
-
+import React, {
+  createContext,
+  useReducer,
+  useEffect,
+  useContext,
+  useState,
+} from "react";
+const { publicRuntimeConfig } = require("next.config");
 const CartContext = createContext();
 
 // Functions for the shopping cart
@@ -29,19 +35,30 @@ const reducer = (cart, action) => {
     case "ADD_ADDRESS":
       return cart;
     case "COMPLETE_ORDER":
-      // const params = {
-      //   param1: value1,
-      //   param2: value2,
-      // };
-      // const options = {
-      //   method: "POST",
-      //   body: JSON.stringify(params),
-      // };
-      // fetch("https://domain.com/path/", options)
-      //   .then((response) => response.json())
-      //   .then((response) => {
-      //     // Do something with response.
-      //   });
+      const commitOrder = async () => {
+        const orderDetails = action.item;
+        const BASE_URL = publicRuntimeConfig.apiOrders;
+        const params = {
+          status: "new",
+          cartTotal: orderDetails.cartTotal,
+          totalItems: orderDetails.totalItems,
+          Name: orderDetails.name,
+        };
+        const options = {
+          method: "POST",
+          body: JSON.stringify(params),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await fetch(BASE_URL, options);
+        const data = await response.json();
+      };
+
+      if (cart.length > 0) {
+        commitOrder();
+      }
+
       return [];
     case "INIT":
       return action.value;

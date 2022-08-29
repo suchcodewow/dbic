@@ -14,11 +14,11 @@ export default function Cart() {
   const [PaymentOpen, setPaymentOpen] = useState(false);
   const [OrderFinishOpen, setOrderFinishOpen] = useState(false);
   let cartTotal = 0;
-  let totalItems = 0
+  let totalItems = 0;
   //TODO: deal with the cart returning no items.  Possible problem card?
   cart.map((item) => (cartTotal += item.price * item.qty));
   cart.map((item) => (totalItems += item.qty));
-  return 
+  return (
     <div>
       <NavBar />
       <Dynacard />
@@ -83,6 +83,11 @@ export default function Cart() {
           </CheckoutTotal>
           <CheckoutButton onClick={() => setCheckoutOpen(true)}>
             checkout
+          </CheckoutButton>
+          <CheckoutButton
+            onClick={() => cartDispatch({ type: "COMPLETE_ORDER" })}
+          >
+            TEMP commit
           </CheckoutButton>
         </Checkout>
         <CheckoutPanel

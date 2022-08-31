@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\OrdersAPI.csproj": {}
+    "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\OrdersAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\OrdersAPI.csproj": {
+    "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\OrdersAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\OrdersAPI.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\OrdersAPI.csproj",
         "projectName": "OrdersAPI",
-        "projectPath": "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\OrdersAPI.csproj",
+        "projectPath": "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\OrdersAPI.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\source\\dbic\\OrdersApi\\OrdersAPI\\obj\\",
+        "outputPath": "C:\\Users\\admin\\source\\dbic\\OrdersAPI\\OrdersAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

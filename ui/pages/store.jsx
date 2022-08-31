@@ -1,13 +1,36 @@
 import { Carousel, StoreFeature } from "components";
 import { NavBar } from "components";
-import { useState } from "react";
-const { publicRuntimeConfig } = require("next.config");
+import { useEffect, useState } from "react";
 import { DefaultArea } from "styles/Common";
 import styled from "styled-components";
 
-export default function Store({ catalog, carousel }) {
+export default function Store({ _catalog, _carousel }) {
   const [cartItems, setCartItems] = useState([]);
-
+  const [catalog, setCatalog] = useState(_catalog);
+  const [carousel, setCarousel] = useState(_carousel);
+  useEffect(() => {
+    const fetchData = async () => {
+      var response;
+      try {
+        response = await fetch(process.env.NEXT_PUBLIC_clientcatalogapi, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (error) {
+        console.log("Error connecting to the database!", error);
+        return { props: {} };
+      }
+      const data = await response.json();
+      const carouselData = [...data];
+      shuffle(carouselData);
+      const shortCarousel = carouselData.slice(0, 12);
+      // setCatalog(data);
+      // setCarousel(shortCarousel);
+    };
+    fetchData();
+  }, []);
   return (
     <div>
       <NavBar cartItems={cartItems} />
@@ -15,8 +38,14 @@ export default function Store({ catalog, carousel }) {
         <StoreHeading>
           <h1>Welcome to the ultimate shopping experience!</h1>
         </StoreHeading>
-        <Carousel catalog={carousel} />
-        <StoreFeature catalog={catalog} />
+        {catalog && <Carousel catalog={carousel} />}
+        {catalog ? (
+          <StoreFeature catalog={catalog} />
+        ) : (
+          <h3 style={{ color: "white" }}>
+            THE STORE DIDN'T LOAD. *TERRY JEFFERS* WWWWWWHHHHYYY?
+          </h3>
+        )}
       </DefaultArea>
     </div>
   );
@@ -58,15 +87,19 @@ function shuffle(array) {
   return array;
 }
 
-export const getStaticProps = async () => {
-  const BASE_URL = publicRuntimeConfig.apiCatalog;
-  const response = await fetch(BASE_URL, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
+export const getServerSideProps = async () => {
+  var response;
+  try {
+    response = await fetch(process.env.catalogapi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.log("Error connecting to the database!", error);
+    return { props: {} };
+  }
   const data = await response.json();
   const carouselData = [...data];
   shuffle(carouselData);
@@ -74,8 +107,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      catalog: data,
-      carousel: shortCarousel,
+      _catalog: data,
+      _carousel: shortCarousel,
     },
   };
 };

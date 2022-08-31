@@ -1,4 +1,5 @@
 module.exports = {
+  output: "standalone",
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
@@ -6,18 +7,24 @@ module.exports = {
   serverRuntimeConfig: {
     secret: "FGHAHFIWUHFBVQ@#QALALBVOENEASH",
   },
-  publicRuntimeConfig: {
-    apiUser:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000/api" // development api
-        : "http://localhost:3000/api", // production api
-    apiCatalog:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:8080/api/v1/catalog"
-        : "http://localhost:8080/api/v1/catalog",
-    apiOrders:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:8000/api/Order"
-        : "http://localhost:8000/api/Order",
+  async rewrites() {
+    return [
+      {
+        source: "/devapi/order/:path*",
+        destination: "http://localhost:8000/api/Order/:path*",
+      },
+      {
+        source: "/devapi/catalog/:path*",
+        destination: "http://localhost:8080/api/v1/catalog/:path*",
+      },
+      {
+        source: "/api/order/:path*",
+        destination: "http://ordersapi/api/Order/:path*",
+      },
+      {
+        source: "/api/catalog/:path*",
+        destination: "http://catalogapi/api/v1/catalog/:path*",
+      },
+    ];
   },
 };

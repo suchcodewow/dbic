@@ -1,4 +1,13 @@
 services:
+  ui:
+    build: ./ui
+    container_name: frontend
+    ports:
+      - 80:3000
+    depends_on:
+      - ordersapi
+      - catalogapi
+
   catalogdb:
     image: mysql
     container_name: catalogdb
@@ -21,20 +30,20 @@ services:
     ports:
       - 1433:1433
 
-  # term:
-  #   Optional container to provide a workstation within the cluster
-  #   #CMD -> docker exec -it term /bin/sh
-  #   build: ./terminal
-  #   image: term
-  #   tty: true
-  #   container_name: term
+  term:
+    #Optional container to provide a workstation within the cluster
+    #CMD -> docker exec -it term /bin/sh
+    build: ./terminal
+    image: term
+    tty: true
+    container_name: term
 
   catalogapi:
     build: ./catalogApi
     container_name: catalogapi
     restart: always
     ports:
-      - 8080:8080
+      - 8080:80
     depends_on:
       - catalogdb
 

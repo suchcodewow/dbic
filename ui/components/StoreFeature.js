@@ -11,7 +11,7 @@ export default function StoreFeature({ catalog }) {
       <StoreContainer>
         <Allitems>
           {/* id,category,rating,img,price,shortDesc */}
-          {catalog.map((item) => (
+          {catalog?.map((item) => (
             <ItemContainer
               key={item.id}
               onClick={() => {

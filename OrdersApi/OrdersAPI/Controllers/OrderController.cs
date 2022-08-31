@@ -13,11 +13,13 @@ namespace OrdersAPI.Controllers
             _context = context;
         }
 
-        [Route("api/[controller]/myOrders")]
+        [Route("myOrders")]
         [HttpGet]
-        public async Task<ActionResult<List<Order>>> GetbyUser(Order request)
-            {
-            var myOrders = await _context.Orders.Where(s => s.Name == request.Name).ToListAsync();
+        public async Task<ActionResult<List<Order>>> GetbyUser([FromHeader] string? AuthId)
+        {
+            //Request.Headers.TryGetValue(User, out var Name);
+            var myOrders = await _context.Orders.Where(s => s.Name == AuthId).OrderByDescending(s => s.Id).ToListAsync();
+            //var myOrders = await _context.Orders.Where(s => s.Name == Name).OrderByDescending(s => s.Id).ToListAsync();
             return Ok(myOrders);
         }
 
@@ -40,7 +42,7 @@ namespace OrdersAPI.Controllers
         {
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Orders.ToListAsync());
+            return Ok(order);
         }
 
         [HttpPut]

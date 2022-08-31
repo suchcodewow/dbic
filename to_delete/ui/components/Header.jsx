@@ -5,7 +5,7 @@ export default function Header() {
     <Head>
       <meta name="viewport" content="initial-scale=1, width=device-width" />
       <title>DBIC</title>
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/images/favicon.ico" />
     </Head>
   );
 }

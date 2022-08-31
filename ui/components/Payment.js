@@ -1,22 +1,20 @@
-import { Fragment, useState, useCallback } from "react";
+import { Fragment, useState } from "react";
+import { useRouter } from "next/router";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { commitOrder } from "components/FetchHook";
-import { publicRuntimeConfig } from "next.config";
+import { commitOrder } from "components";
 
 export default function PaymentPanel({
   PaymentOpen,
   setPaymentOpen,
-  setCheckoutOpen,
-  setOrderFinishOpen,
   cartTotal,
   totalItems,
   user,
-  userDispatch,
   cartDispatch,
 }) {
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -33,18 +31,20 @@ export default function PaymentPanel({
     setValue("ccv", user.dynacard.ccv);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const orderDetails = {
-      url: publicRuntimeConfig.apiOrders,
+      url: process.env.NEXT_PUBLIC_clientordersapi,
       name: user.user,
       cartTotal: cartTotal.toString(),
       totalItems,
       status: "new",
     };
 
-    commitOrder(orderDetails);
+    const response = await commitOrder(orderDetails);
 
-    // cartDispatch({ type: "COMPLETE_ORDER", item: orderDetails });
+    //console.log("response from POST:", response);
+    router.push(`/myaccount?ordercomplete=${response.id}`);
+    cartDispatch({ type: "CLEAR_CART" });
 
     //setPaymentOpen(false);
     //setOrderFinishOpen(true);

@@ -5,7 +5,7 @@ import React, {
   useContext,
   useState,
 } from "react";
-const { publicRuntimeConfig } = require("next.config");
+const { publicRuntimeConfig } = require("next.config.js");
 const CartContext = createContext();
 
 // Functions for the shopping cart
@@ -34,31 +34,7 @@ const reducer = (cart, action) => {
       return cart.filter((x) => x.id !== item.id);
     case "ADD_ADDRESS":
       return cart;
-    case "COMPLETE_ORDER":
-      // const commitOrder = async () => {
-      //   const orderDetails = action.item;
-      //   const BASE_URL = publicRuntimeConfig.apiOrders;
-      //   const params = {
-      //     status: "new",
-      //     cartTotal: orderDetails.cartTotal,
-      //     totalItems: orderDetails.totalItems,
-      //     Name: orderDetails.name,
-      //   };
-      //   const options = {
-      //     method: "POST",
-      //     body: JSON.stringify(params),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   };
-      //   const response = await fetch(BASE_URL, options);
-      //   const data = await response.json();
-      // };
 
-      // if (cart.length > 0) {
-      //   commitOrder();
-      // }
-      return [];
     case "INIT":
       return action.value;
     case "CLEAR_CART":

@@ -30,7 +30,7 @@ export default function DropDown({ userName }) {
                 <Link
                   as="a"
                   className={`${active && "selected"}`}
-                  href="/account"
+                  href="/myaccount"
                 >
                   Account
                 </Link>

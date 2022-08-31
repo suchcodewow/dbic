@@ -56,7 +56,7 @@ export default function EmblaCarousel({ catalog }) {
       </CarouselHeader>
       <CarouselViewPort ref={viewportRef}>
         <CarouselContainer>
-          {catalog.map((item) => (
+          {catalog?.map((item) => (
             <CarouselSlide
               key={item.id}
               onClick={() => cartDispatch({ type: "ADD_ITEM", item })}

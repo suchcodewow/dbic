@@ -84,11 +84,6 @@ export default function Cart() {
           <CheckoutButton onClick={() => setCheckoutOpen(true)}>
             checkout
           </CheckoutButton>
-          <CheckoutButton
-            onClick={() => cartDispatch({ type: "COMPLETE_ORDER" })}
-          >
-            TEMP commit
-          </CheckoutButton>
         </Checkout>
         <CheckoutPanel
           cartTotal={cartTotal}

@@ -24,11 +24,12 @@ export default function PaymentPanel({
   } = useForm();
 
   const RequestDynacard = async (user) => {
-    //TODO: would be cooler if you generated card here instead of before.
+    //TODO: would be cooler if you generated a card real-time instead of preloading.
     setValue("ccNum", user.dynacard.ccnum);
     setValue("ccName", user.user);
     setValue("ccExpiration", user.dynacard.expiration);
     setValue("ccv", user.dynacard.ccv);
+    handleSubmit(onSubmit)();
   };
 
   const onSubmit = async (data) => {
@@ -45,9 +46,6 @@ export default function PaymentPanel({
     //console.log("response from POST:", response);
     router.push(`/myaccount?ordercomplete=${response.id}`);
     cartDispatch({ type: "CLEAR_CART" });
-
-    //setPaymentOpen(false);
-    //setOrderFinishOpen(true);
   };
   return (
     <Transition
@@ -108,15 +106,12 @@ export default function PaymentPanel({
 
                     <Input
                       style={{ width: "100px" }}
+                      prefix={"B "}
                       className={errors.ccExpiration?.type}
                       {...register("ccExpiration", {
                         required: "This is required",
-                        minLength: {
-                          value: 5,
-                          message: "Must be: 2-digit-month / 2-digit-year",
-                        },
                       })}
-                      placeholder="Expiration Mo/Yr"
+                      placeholder="Exp"
                     />
                     <Input
                       style={{ width: "60px" }}

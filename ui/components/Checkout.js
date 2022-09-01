@@ -32,6 +32,7 @@ export default function CheckoutPanel({
       setValue("state", user.defaultAddress.state);
       setValue("zip", user.defaultAddress.zip);
     }
+    handleSubmit(onSubmit)();
   };
 
   const onSubmit = (data) => {

@@ -1,0 +1,601 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dbic
+
+#catalogdb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogdb
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: catalogdb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: catalogdb
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Database Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: catalogdb
+          image: mysql
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3306
+              name: catalogdb
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "project=dbic service=catalogdb"
+            - name: MYSQL_USER
+              value: api
+            - name: MYSQL_PASSWORD
+              value: password
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_DATABASE
+              value: catalogDb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogdb
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: catalogdb
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+      name: catalogdb
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: catalogdb
+  type: ClusterIP
+
+#catalogAPI
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogapi
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: catalogapi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: catalogapi
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Services Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: catalogapi
+          image: suchcodewow/dbic-catalogapi:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: catalogapi
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "project=dbic service=catalogapi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogapi
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: catalogapi
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: catalogapi
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: catalogapi
+  type: ClusterIP
+
+#ordersdb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordersdb
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: ordersdb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ordersdb
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Database Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: ordersdb
+          image: "mcr.microsoft.com/mssql/server"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1433
+              name: ordersdb
+          env:
+            - name: SA_PASSWORD
+              value: "Password123"
+            - name: ACCEPT_EULA
+              value: "Y"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ordersdb
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ordersdb
+spec:
+  ports:
+    - port: 1433
+      targetPort: 1433
+      name: ordersdb
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ordersdb
+  type: ClusterIP
+
+#ordersapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordersapi
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: ordersapi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ordersapi
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Services Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: ordersapi
+          image: suchcodewow/dbic-ordersapi:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: ordersapi
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "project=dbic service=ordersapi"
+            - name: DOTNET_ENVIRONMENT
+              value: DockerDeploy
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ordersapi
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ordersapi
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: ordersapi
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ordersapi
+  type: ClusterIP
+
+#ui
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: ui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ui
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Frontend Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: ui
+          image: suchcodewow/dbic-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: ui
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "project=dbic service=ui"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ui
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: ui
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: ui
+  type: LoadBalancer
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: catalogdb
+#   namespace: dbic
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: dtorders-customer.dev.local.nip.io
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: customer
+#                 port:
+#                   number: 8080
+#             path: /
+#             pathType: Prefix
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: catalog
+#   namespace: dtorders
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/part-of: dt-orders
+#       app.kubernetes.io/name: catalog-service
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: "catalog-service"
+#         app.kubernetes.io/version: "1"
+#         app.kubernetes.io/component: "service"
+#         app.kubernetes.io/part-of: "dt-orders"
+#         app.kubernetes.io/managed-by: "helm"
+#         app.kubernetes.io/created-by: "dynatrace-demos"
+#       annotations:
+#         owner: Team Services
+#         chat-channel: dev-team-services
+
+#     spec:
+#       containers:
+#         - name: catalog
+#           image: dtdemos/dt-orders-catalog-service:1
+#           imagePullPolicy: Always
+#           ports:
+#             - containerPort: 8080
+#               name: catalog
+#           env:
+#             - name: DT_CUSTOM_PROP
+#               value: "project=dt-orders service=catalog-service"
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: catalog
+#   namespace: dtorders
+#   labels:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: catalog-service
+# spec:
+#   ports:
+#     - port: 8080
+#       targetPort: 8080
+#       name: catalog
+#   selector:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: catalog-service
+#   type: ClusterIP
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: catalog-ingress
+#   namespace: dtorders
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: dtorders-catalog.dev.local.nip.io
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: catalog
+#                 port:
+#                   number: 8080
+#             path: /
+#             pathType: Prefix
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: order
+#   namespace: dtorders
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/part-of: dt-orders
+#       app.kubernetes.io/name: order-service
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: order-service
+#         app.kubernetes.io/version: "1"
+#         app.kubernetes.io/component: service
+#         app.kubernetes.io/part-of: dt-orders
+#         app.kubernetes.io/managed-by: helm
+#         app.kubernetes.io/created-by: dynatrace-demos
+#       annotations:
+#         owner: Team Services
+#         chat-channel: dev-team-services
+#     spec:
+#       containers:
+#         - name: order
+#           image: dtdemos/dt-orders-order-service:1
+#           imagePullPolicy: Always
+#           ports:
+#             - containerPort: 8080
+#               name: order-service
+#           env:
+#             - name: DT_CUSTOM_PROP
+#               value: "project=dt-orders service=order-service"
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: order
+#   namespace: dtorders
+#   labels:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: order-service
+# spec:
+#   ports:
+#     - port: 8080
+#       targetPort: 8080
+#       name: order
+#   selector:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: order-service
+#   type: ClusterIP
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: orders-ingress
+#   namespace: dtorders
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: dtorders-order.dev.local.nip.io
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: order
+#                 port:
+#                   number: 8080
+#             path: /
+#             pathType: Prefix
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: frontend
+#   namespace: dtorders
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/part-of: dt-orders
+#       app.kubernetes.io/name: frontend
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: frontend
+#         app.kubernetes.io/version: "1"
+#         app.kubernetes.io/component: frontend
+#         app.kubernetes.io/part-of: dt-orders
+#         app.kubernetes.io/managed-by: helm
+#         app.kubernetes.io/created-by: dynatrace-demos
+#       annotations:
+#         owner: Team Frontend
+#         chat-channel: dev-team-frontend
+#     spec:
+#       containers:
+#         - name: frontend
+#           image: dtdemos/dt-orders-frontend:1
+#           imagePullPolicy: Always
+#           ports:
+#             - containerPort: 8080
+#               name: frontend
+#           env:
+#             - name: DT_CUSTOM_PROP
+#               value: "project=dt-orders service=frontend"
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: frontend
+#   namespace: dtorders
+#   labels:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: frontend
+# spec:
+#   ports:
+#     - port: 80
+#       targetPort: 8080
+#       name: frontend
+#   selector:
+#     app.kubernetes.io/part-of: dt-orders
+#     app.kubernetes.io/name: frontend
+#   type: ClusterIP
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: frontend-ingress
+#   namespace: dtorders
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#     - host: dtorders-frontend.dev.local.nip.io
+#       http:
+#         paths:
+#           - backend:
+#               service:
+#                 name: frontend
+#                 port:
+#                   number: 80
+#             path: /
+#             pathType: Prefix
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: load-traffic
+#   namespace: dtorders
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/part-of: dt-orders
+#       app.kubernetes.io/name: load-traffic
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: load-traffic
+#         app.kubernetes.io/version: "1"
+#         app.kubernetes.io/component: traffic-simulation
+#         app.kubernetes.io/part-of: dt-orders
+#         app.kubernetes.io/managed-by: helm
+#         app.kubernetes.io/created-by: dynatrace-demos
+#     spec:
+#       containers:
+#         - name: load-traffic
+#           image: dtdemos/dt-orders-load:1
+#           imagePullPolicy: Always
+#           env:
+#             - name: HOSTNAME
+#               value: "frontend"
+#             - name: NUM_LOOPS
+#               value: "100000"
+#             - name: TEST_DEBUG
+#               value: "false"
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: browser-traffic
+#   namespace: dtorders
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/part-of: dt-orders
+#       app.kubernetes.io/name: browser-traffic
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: browser-traffic
+#         app.kubernetes.io/version: "1"
+#         app.kubernetes.io/component: traffic-simulation
+#         app.kubernetes.io/part-of: dt-orders
+#         app.kubernetes.io/managed-by: helm
+#         app.kubernetes.io/created-by: dynatrace-demos
+#     spec:
+#       containers:
+#         - name: browser-traffic
+#           image: dtdemos/dt-orders-browser:1
+#           imagePullPolicy: Always
+#           env:
+#             - name: APP_URL
+#               value: "http://frontend"
+#             - name: SCRIPT_NUM_LOOPS
+#               value: "15000"

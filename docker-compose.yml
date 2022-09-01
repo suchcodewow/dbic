@@ -1,13 +1,5 @@
 services:
-  ui:
-    build: ./ui
-    container_name: frontend
-    ports:
-      - 80:3000
-    depends_on:
-      - ordersapi
-      - catalogapi
-
+  # standard images
   catalogdb:
     image: mysql
     container_name: catalogdb
@@ -30,17 +22,20 @@ services:
     ports:
       - 1433:1433
 
-  term:
-    #Optional container to provide a workstation within the cluster
-    #CMD -> docker exec -it term /bin/sh
-    build: ./terminal
-    image: term
-    tty: true
-    container_name: term
+  #Optional container to provide a workstation within the cluster
+  #CMD -> docker exec -it term /bin/sh
+  # term:
 
+  # build: ./terminal
+  # image: term
+  # tty: true
+  # container_name: term
+
+  # custom images
   catalogapi:
-    build: ./catalogApi
+    build: ./APIcatalog
     container_name: catalogapi
+    image: suchcodewow/dbic-catalogapi
     restart: always
     ports:
       - 8080:80
@@ -49,8 +44,9 @@ services:
 
   ordersapi:
     build:
-      context: ./OrdersApi
+      context: ./APIorders
       dockerfile: ./OrdersAPI/Dockerfile
+    image: suchcodewow/dbic-ordersapi
     container_name: ordersapi
     environment:
       - DOTNET_ENVIRONMENT=DockerDeploy
@@ -58,3 +54,13 @@ services:
       - "8000:80"
     depends_on:
       - ordersdb
+
+  ui:
+    build: ./UI
+    image: suchcodewow/dbic-frontend
+    container_name: frontend
+    ports:
+      - 80:3000
+    depends_on:
+      - ordersapi
+      - catalogapi

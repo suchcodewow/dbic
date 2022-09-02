@@ -33,7 +33,7 @@ const MenuItems = () => {
       </Link>
       {cartTotal > 0 && (
         <Link as="a" href="/cart">
-          <Cart>
+          <Cart name="cartButton">
             <p>{cartTotal}</p>
             <RiShoppingCartLine size={27} color={"green"} />
           </Cart>
@@ -79,7 +79,7 @@ export default function NavBar(props) {
         </div>
       ) : (
         <Link as="a" href="/login">
-          <Sign>Sign in</Sign>
+          <Sign name="signIn">Sign in</Sign>
         </Link>
       )}
 

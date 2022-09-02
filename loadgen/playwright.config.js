@@ -10,6 +10,8 @@ const config = {
     headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
+    actionTimeout: 10 * 1000,
+    navigationTimeout: 10 * 1000,
   },
   projects: [
     {
@@ -21,6 +23,9 @@ const config = {
       use: { ...devices["Desktop Firefox"] },
     },
   ],
+  expect: {
+    timeout: 10 * 1000,
+  },
 };
 
 module.exports = config;

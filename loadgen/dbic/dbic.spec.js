@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
-test("test", async ({ page }) => {
+test("Purchase from the catalog", async ({ page }) => {
   // Go to http://localhost:3000/
   await page.goto("http://localhost:3000/");
   // Click text=Sign in
@@ -27,6 +27,10 @@ test("test", async ({ page }) => {
   await page.locator('button:has-text("checkout")').click();
   // Click text=use my saved address
   await page.locator("text=use my saved address").click();
-  // Click [aria-label="Close"]
-  await page.locator('[aria-label="Close"]').click();
+  // Click button:has-text("Use your new DYNACARD")
+  await page.locator('button:has-text("Use your new DYNACARD")').click();
+  // await expect(page.url()).toContain
+  //   "http://localhost:3000/myaccount?ordercomplete="
+  // );
+  await page.waitForURL("http://localhost:3000/myaccount**");
 });

@@ -9,7 +9,7 @@ export default function StoreFeature({ catalog }) {
   return (
     <DefaultArea>
       <StoreContainer>
-        <Allitems>
+        <Allitems name="storeFeature" id="storeFeature">
           {/* id,category,rating,img,price,shortDesc */}
           {catalog?.map((item) => (
             <ItemContainer

@@ -43,7 +43,9 @@ export default function Store({ _catalog, _carousel }) {
           <StoreFeature catalog={catalog} />
         ) : (
           <h3 style={{ color: "white" }}>
-            THE STORE DIDN'T LOAD. *TERRY JEFFERS* WWWWWWHHHHYYY?
+            *CAPTAIN RAYMOND HOLT* The catalog did not load. This does not seem
+            to be the ultimate shopping experience, Peralta. *Terry Jeffords*
+            WHHHYYY?
           </h3>
         )}
       </DefaultArea>
@@ -103,7 +105,7 @@ export const getServerSideProps = async () => {
   const data = await response.json();
   const carouselData = [...data];
   shuffle(carouselData);
-  const shortCarousel = carouselData.slice(0, 12);
+  const shortCarousel = carouselData.slice(0, 24);
 
   return {
     props: {

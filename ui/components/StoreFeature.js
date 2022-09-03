@@ -5,7 +5,7 @@ import { useCartContext } from "contexts/CartContext";
 import Rating from "react-rating";
 
 export default function StoreFeature({ catalog }) {
-  const { cart, cartDispatch } = useCartContext();
+  const { cartDispatch } = useCartContext();
   return (
     <DefaultArea>
       <StoreContainer>
@@ -99,11 +99,6 @@ const Allitems = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 10px;
-`;
-
-const GroupA = styled.div`
-  flex: 0.75;
-  margin-right: 2rem;
 `;
 
 const StoreContainer = styled.div`

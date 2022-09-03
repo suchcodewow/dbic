@@ -16,7 +16,7 @@ test("Purchase from the catalog", async ({ page }) => {
   await page.locator("text=Store").click();
   await expect(page).toHaveURL(app + "store");
   // Click div:nth-child(3) > .StoreFeature__ItemImage-sc-f701e29c-2 > img
-  await page.locator("div[name='storeFeature']").click();
+  await page.locator("#storeFeature > nth=3").click();
   // Click text=HomeBankingInsuranceStore2 >> div
   await page.locator("text=HomeBankingInsuranceStore2 >> div").click();
   await expect(page).toHaveURL(app + "cart");

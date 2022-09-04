@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    // make all imports without a dot '.' prefix relative to the base url
+    "baseUrl": "."
+  }
+  // ignore node_modules for intellisense speed
+  //"exclude": ["node_modules"]
+}

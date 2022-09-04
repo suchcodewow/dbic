@@ -3,10 +3,10 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", href: "#", current: true },
+  { name: "Banking", href: "#", current: false },
+  { name: "Insurance", href: "#", current: false },
+  { name: "Store", href: "store", current: false },
 ];
 
 function classNames(...classes) {
@@ -35,13 +35,13 @@ export default function Nav() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    src="/images/wow.png"
+                    alt="DynaBankInsuraCart"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    src="/images/wow.png"
+                    alt="DynaBankInsuraCart"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
@@ -54,7 +54,7 @@ export default function Nav() {
                           item.current
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                          "px-3 py-2 rounded-md  font-bold"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >

@@ -32,14 +32,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function QuickView() {
-  const [open, setOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+export default function StoreQuickView({ quickView, setQuickView, item }) {
+  // const [open, setOpen] = useState(false);
+  // const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  // const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  console.log(item);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={quickView} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setQuickView}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -68,7 +69,7 @@ export default function QuickView() {
                   <button
                     type="button"
                     className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setQuickView(false)}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -77,14 +78,13 @@ export default function QuickView() {
                   <div className="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
                     <div className="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={`images/store/$item.img`}
                         className="object-cover object-center"
                       />
                     </div>
                     <div className="sm:col-span-8 lg:col-span-7">
                       <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">
-                        {product.name}
+                        {item.shortDesc}
                       </h2>
 
                       <section
@@ -95,9 +95,7 @@ export default function QuickView() {
                           Product information
                         </h3>
 
-                        <p className="text-2xl text-gray-900">
-                          {product.price}
-                        </p>
+                        <p className="text-2xl text-gray-900">${item.price}</p>
 
                         {/* Reviews */}
                         <div className="mt-6">
@@ -108,7 +106,7 @@ export default function QuickView() {
                                 <StarIcon
                                   key={rating}
                                   className={classNames(
-                                    product.rating > rating
+                                    item.rating > rating
                                       ? "text-gray-900"
                                       : "text-gray-200",
                                     "h-5 w-5 flex-shrink-0"
@@ -118,14 +116,14 @@ export default function QuickView() {
                               ))}
                             </div>
                             <p className="sr-only">
-                              {product.rating} out of 5 stars
+                              {item.rating} out of 5 stars
                             </p>
-                            <a
+                            {/* <a
                               href="#"
                               className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
                             >
                               {product.reviewCount} reviews
-                            </a>
+                            </a> */}
                           </div>
                         </div>
                       </section>
@@ -145,7 +143,7 @@ export default function QuickView() {
                               Color
                             </h4>
 
-                            <RadioGroup
+                            {/* <RadioGroup
                               value={selectedColor}
                               onChange={setSelectedColor}
                               className="mt-4"
@@ -187,7 +185,7 @@ export default function QuickView() {
                                   </RadioGroup.Option>
                                 ))}
                               </span>
-                            </RadioGroup>
+                            </RadioGroup> */}
                           </div>
 
                           {/* Sizes */}
@@ -204,7 +202,7 @@ export default function QuickView() {
                               </a>
                             </div>
 
-                            <RadioGroup
+                            {/* <RadioGroup
                               value={selectedSize}
                               onChange={setSelectedSize}
                               className="mt-4"
@@ -271,7 +269,7 @@ export default function QuickView() {
                                   </RadioGroup.Option>
                                 ))}
                               </div>
-                            </RadioGroup>
+                            </RadioGroup> */}
                           </div>
 
                           <button

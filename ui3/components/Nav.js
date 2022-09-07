@@ -1,12 +1,19 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  BellIcon,
+  XMarkIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
+import { useCartContext } from "contexts/CartContext";
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Banking", href: "#", current: false },
-  { name: "Insurance", href: "#", current: false },
-  { name: "Store", href: "store", current: false },
+  { name: "Home", href: "/" },
+  { name: "Banking", href: "/banking" },
+  { name: "Insurance", href: "/insurance" },
+  { name: "Store", href: "/store" },
 ];
 
 function classNames(...classes) {
@@ -14,8 +21,15 @@ function classNames(...classes) {
 }
 
 export default function Nav() {
+  const { cart } = useCartContext();
+  var cartTotal = 0;
+  if (cart) {
+    cart.map((item) => (cartTotal += item.qty));
+  }
+  const router = useRouter();
+  console.log(router.pathname);
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed w-full z-20">
+    <Disclosure as="nav" className="bg-azure-800 sticky w-full z-20 top-0">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -31,7 +45,7 @@ export default function Nav() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start text-white">
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
@@ -44,36 +58,51 @@ export default function Nav() {
                     alt="DynaBankInsuraCart"
                   />
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          item.href == router.pathname
+                            ? "  bg-azure-600"
+                            : " hover:bg-azure-700",
                           "px-3 py-2 rounded-md  font-bold"
                         )}
-                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </a>
                     ))}
+                    {/* special menu items */}
+                    <a href="/cart">
+                      <div className=" bg-azure-300 hover:bg-orange-400 flex items-center rounded-lg px-5 py-2 w-auto">
+                        <span className=" font-bold text-white mr-1">
+                          {cartTotal}
+                        </span>
+                        <ShoppingBagIcon className="text-white w-6" />
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full  p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
+                <a
+                  href="/login"
+                  className="bg-crimson-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
+                >
+                  Sign In{" "}
+                </a>
+
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -149,16 +178,27 @@ export default function Nav() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
+                    item.href == router.pathname
                       ? "bg-gray-900 text-white"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
               ))}
+              <Disclosure.Button
+                as="a"
+                href="/cart"
+                className="rounded-md  px-3 py-2 block hover:bg-gray-700"
+              >
+                <div className="flex">
+                  <span className=" font-bold text-white mr-1 ">
+                    {cartTotal}
+                  </span>
+                  <ShoppingBagIcon className="text-white w-5" />
+                </div>
+              </Disclosure.Button>
             </div>
           </Disclosure.Panel>
         </>

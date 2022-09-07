@@ -10,7 +10,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="h-screen bg-gradient-radial">
+        <body className="h-screen bg-gradient-radial m-0 w-full z-10 top-0">
           <Main />
           <NextScript />
         </body>

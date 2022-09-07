@@ -5,6 +5,7 @@ import { DefaultArea } from "styles/Common";
 import styled from "styled-components";
 
 export default function Store({ _catalog, _carousel }) {
+  const { cartDispatch } = useCartContext();
   const [cartItems, setCartItems] = useState([]);
   const [catalog, setCatalog] = useState(_catalog);
   const [carousel, setCarousel] = useState(_carousel);

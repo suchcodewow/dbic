@@ -1,17 +1,40 @@
 const defaultEndpoint = `https://api.themoviedb.org/3/discover/movie?api_key=4c5f8a1185a3e74355b50ae2d3568910&language=en-US&with_genres=35`;
 import { useState } from "react";
 import StoreAll from "components/StoreAll";
+import { useCartContext } from "contexts/CartContext";
 import Nav from "components/Nav";
+import Cart from "components/cart";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 
 export default function Store({ _catalog, _carousel }) {
-  // const [cartItems, setCartItems] = useState([]);
+  // Panels
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);
 
+  // data
   const [catalog, setCatalog] = useState(_catalog);
-  // const [carousel, setCarousel] = useState(_carousel);
+  const { cart, cartDispatch } = useCartContext();
+  var cartTotal = 0;
+  if (cart) {
+    cart.map((item) => (cartTotal += item.qty));
+  }
+
   return (
     <div>
       <Nav />
+      <div className="bg-white h-10 flex items-center border">
+        {cartTotal > 0 && (
+          <a href="/cart">
+            <div className="mx-auto bg-azure-300 hover:bg-orange-400 flex items-center rounded-lg px-5 py-2 w-auto">
+              <span className=" font-bold text-white mr-1">{cartTotal}</span>
+              <ShoppingBagIcon className="text-white w-6" />
+            </div>
+          </a>
+        )}
+      </div>
       <StoreAll catalog={catalog} />
+      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
     </div>
   );
 }

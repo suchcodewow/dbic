@@ -3,8 +3,10 @@ import { useState } from "react";
 import StoreAll from "components/StoreAll";
 import { useCartContext } from "contexts/CartContext";
 import Nav from "components/Nav";
-import Cart from "components/cart";
+import Cart from "components/Cart";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import Dynacard from "components/Dynacard";
+import Checkout from "components/Checkout";
 
 export default function Store({ _catalog, _carousel }) {
   // Panels
@@ -23,18 +25,36 @@ export default function Store({ _catalog, _carousel }) {
   return (
     <div>
       <Nav />
-      <div className="bg-white h-10 flex items-center border">
-        {cartTotal > 0 && (
-          <a href="/cart">
-            <div className="mx-auto bg-azure-300 hover:bg-orange-400 flex items-center rounded-lg px-5 py-2 w-auto">
-              <span className=" font-bold text-white mr-1">{cartTotal}</span>
-              <ShoppingBagIcon className="text-white w-6" />
-            </div>
-          </a>
-        )}
+      <div className="bg-white  sticky w-full z-20 top-0">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-end">
+            {cartTotal > 0 && (
+              <div
+                onClick={() => {
+                  setCartOpen(true);
+                }}
+                className="cursor-pointer bg-azure-300  hover:bg-azure-400 flex rounded-lg px-5 py-2 w-auto"
+              >
+                <span className=" font-bold text-white mr-1">{cartTotal}</span>
+                <ShoppingBagIcon className="text-white w-6" />
+                <span className="font-bold text-white ml-1">View Cart</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+      <Dynacard />
       <StoreAll catalog={catalog} />
-      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
+      <Cart
+        cartOpen={cartOpen}
+        setCartOpen={setCartOpen}
+        setCheckoutOpen={setCheckoutOpen}
+      />
+      <Checkout
+        checkoutOpen={checkoutOpen}
+        setCheckoutOpen={setCheckoutOpen}
+        setPaymentOpen={setPaymentOpen}
+      />
     </div>
   );
 }

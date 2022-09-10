@@ -9,6 +9,7 @@ import {
 import { useRouter } from "next/router";
 
 import { useUserContext } from "contexts/UserContext";
+import { useCartContext } from "contexts/CartContext";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -31,6 +32,7 @@ export default function Nav() {
     });
   };
   const { user, userDispatch } = useUserContext();
+  const { cartDispatch } = useCartContext();
 
   console.log(router.pathname);
   return (
@@ -94,16 +96,16 @@ export default function Nav() {
 
                 {/* Profile dropdown */}
                 {user.user ? (
-                  <Menu as="div" className="relative ml-3">
+                  <Menu as="div" className="relative ml-3 z-25">
                     <div>
-                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <Menu.Button className="bg-crimson-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer flex  text-sm  focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
-                        <a
+                        {/* <a
                           href="/login"
-                          className="bg-crimson-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
-                        >
-                          {user.user}
-                        </a>
+                          className=""
+                        > */}
+                        {user.user}
+                        {/* </a> */}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -115,11 +117,11 @@ export default function Nav() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-40 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/myaccount"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"

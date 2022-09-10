@@ -7,6 +7,7 @@ import Cart from "components/Cart";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import Dynacard from "components/Dynacard";
 import Checkout from "components/Checkout";
+import { userAgent } from "next/server";
 
 export default function Store({ _catalog, _carousel }) {
   // Panels
@@ -25,7 +26,7 @@ export default function Store({ _catalog, _carousel }) {
   return (
     <div>
       <Nav />
-      <div className="bg-white  sticky w-full z-20 top-0">
+      <div className="bg-white  sticky w-full z-10 top-0">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-end">
             {cartTotal > 0 && (

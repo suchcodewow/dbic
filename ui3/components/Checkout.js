@@ -5,6 +5,7 @@ import {
   UserPlusIcon,
   XMarkIcon,
   HomeModernIcon,
+  CreditCardIcon,
 } from "@heroicons/react/24/outline";
 import { useCartContext } from "contexts/CartContext";
 import { useUserContext } from "contexts/UserContext";
@@ -16,13 +17,17 @@ export default function Checkout({
 }) {
   const { cart, cartDispatch } = useCartContext();
   const { user, userDispatch } = useUserContext();
+  if (!user) {
+    return;
+  }
   let cartTotal = 0;
   let totalItems = 0;
   let shipping = 0;
   //TODO: deal with the cart returning no items.  Possible problem card?
   cart.map((item) => (cartTotal += item.price * item.qty));
   cart.map((item) => (totalItems += item.qty));
-  shipping = 0.08 * cartTotal;
+  shipping = (0.08 * cartTotal).toFixed(2);
+  let total = (1.08 * cartTotal).toFixed(2);
 
   return (
     <Transition.Root show={checkoutOpen} as={Fragment}>
@@ -76,7 +81,7 @@ export default function Checkout({
                           Ship to this address:
                         </label>
 
-                        <div class="my-1 border-t border-gray-400"></div>
+                        <div className="my-1 border-t border-gray-400"></div>
                         <div className="flex">
                           <div>
                             <input
@@ -110,19 +115,80 @@ export default function Checkout({
                               className="w-4 h-4 text-azure-600 bg-gray-100 border-gray-300   "
                             />
                           </div>
-                          <div className="ml-2 mt-px">
+                          <div className="ml-2 mt-px text-gray-400 mb-4">
                             <p>new address</p>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Total</p>
-                        <p>${cartTotal}.00</p>
+                      <div className="border-t border-gray-200 pt-6 px-4 sm:px-6">
+                        <div className="mt-8 flex justify-between text-base font-medium text-gray-900">
+                          <p>Sub-Total</p>
+                          <p>${cartTotal}.00</p>
+                        </div>
                       </div>
+                      <div className=" px-4 sm:px-6">
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                          <p>Shipping</p>
+                          <p>${shipping}</p>
+                        </div>
+                      </div>
+                      <div className=" px-4 sm:px-6">
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                          <p>Total</p>
+                          <p className="font-bold">${total}</p>
+                        </div>
+                      </div>
+                      <div className="mt-8">
+                        <CreditCardIcon className="mb-2 w-8 text-gray-400" />
 
+                        <label className="ml-2 text">Payment Method</label>
+
+                        <div className="my-1 border-t border-gray-400"></div>
+                        <div className="flex">
+                          <div>
+                            <input
+                              defaultChecked
+                              id="default-radio-1"
+                              type="radio"
+                              value=""
+                              name="cc"
+                              className="w-4 h-4 text-azure-600 bg-gray-100 border-gray-300 "
+                            />
+                          </div>
+
+                          <div className="ml-2 mt-px">
+                            <span className=" font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                              DynaCard
+                            </span>
+                            <p>
+                              <span className="text-xs">
+                                Credit Card Number:
+                              </span>
+                              {user.dynacard.ccnum}
+                            </p>
+
+                            <p>
+                              <span className="text-xs">Expiration:</span>
+                              {user.dynacard.expiration}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex">
+                          <div>
+                            <input
+                              id="default-radio-1"
+                              type="radio"
+                              value=""
+                              name="cc"
+                              className="w-4 h-4 text-azure-600 bg-gray-100 border-gray-300   "
+                            />
+                          </div>
+                          <div className="ml-2 mt-px text-gray-400">
+                            <p>new payment method</p>
+                          </div>
+                        </div>
+                      </div>
                       <div
                         onClick={() =>
                           cartDispatch({

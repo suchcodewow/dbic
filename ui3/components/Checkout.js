@@ -1,4 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
+// Imports
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -9,14 +9,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { useCartContext } from "contexts/CartContext";
 import { useUserContext } from "contexts/UserContext";
+import { useRouter } from "next/router";
 
+// Main Component
 export default function Checkout({
   checkoutOpen,
   setCheckoutOpen,
   setPaymentOpen,
 }) {
+  // Setup
   const { cart, cartDispatch } = useCartContext();
   const { user, userDispatch } = useUserContext();
+  const router = useRouter();
   if (!user) {
     return;
   }
@@ -29,6 +33,42 @@ export default function Checkout({
   shipping = (0.08 * cartTotal).toFixed(2);
   let total = (1.08 * cartTotal).toFixed(2);
 
+  // Handlers
+  const completeOrder = async (data) => {
+    const orderDetails = {
+      url: process.env.NEXT_PUBLIC_clientordersapi,
+      name: user.user,
+      cartTotal: cartTotal.toString(),
+      totalItems,
+      status: "new",
+    };
+
+    const response = await commitOrder(orderDetails);
+
+    //console.log("response from POST:", response);
+    router.push(`/myaccount?ordercomplete=${response.id}`);
+    cartDispatch({ type: "CLEAR_CART" });
+  };
+  async function commitOrder(details) {
+    const params = {
+      status: "new",
+      cartTotal: details.cartTotal,
+      totalItems: details.totalItems,
+      Name: details.name,
+    };
+    const options = {
+      method: "POST",
+      body: JSON.stringify(params),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(details.url, options);
+    const data = await response.json();
+    return data;
+  }
+
+  // Return
   return (
     <Transition.Root show={checkoutOpen} as={Fragment}>
       <Dialog as="div" className="relative z-30" onClose={setCheckoutOpen}>
@@ -190,12 +230,9 @@ export default function Checkout({
                         </div>
                       </div>
                       <div
-                        onClick={() =>
-                          cartDispatch({
-                            type: "REMOVE_ITEM",
-                            item,
-                          })
-                        }
+                        onClick={() => {
+                          completeOrder();
+                        }}
                         className="cursor-pointer mt-6 flex items-center justify-center rounded-md border border-transparent bg-azure-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-azure-700"
                       >
                         Complete Order

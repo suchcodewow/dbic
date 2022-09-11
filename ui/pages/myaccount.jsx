@@ -1,17 +1,20 @@
-import { getData, NavBar } from "components";
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-const { publicRuntimeConfig } = require("next.config.js");
+import Nav from "components/Nav";
+import { useState, useEffect } from "react";
 import { useUserContext } from "contexts/UserContext";
-import { useRouter } from "next/router";
+import {
+  CreditCardIcon,
+  InboxIcon,
+  ShoppingBagIcon,
+  BanknotesIcon,
+  HomeIcon,
+} from "@heroicons/react/20/solid";
 
-export default function account() {
-  const { query } = useRouter();
-  const [Orders, setOrders] = useState([]);
-  const { user } = useUserContext();
+export default function MyAccount() {
+  // Setup
+  const { user, userDispatch } = useUserContext();
+  const [orders, setOrders] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      // const BASE_URL = publicRuntimeConfig.apiOrders;
       const response = await fetch(
         process.env.NEXT_PUBLIC_clientordersapi + "/myorders",
         {
@@ -23,49 +26,130 @@ export default function account() {
         }
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setOrders(data);
     };
     fetchData().catch(console.error);
   }, []);
-
   return (
     <div>
-      <NavBar />
-      <BaseDiv>
-        {query.ordercomplete && (
-          <h1>Your order is # {query.ordercomplete}. Thanks!</h1>
-        )}
-        <h1>Orders</h1>
+      <Nav />
+      {/* SideBar */}
+      <div className="w-full z-10 top-0">
+        <div className="mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
+          <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
+            <div className="overflow-y-auto py-4 px-3 bg-azure-700 text-white rounded-md">
+              <ul className="space-y-2">
+                <li className="mb-6">
+                  <span className="ml-1 font-bold">Overview</span>
+                </li>
+                <li>
+                  <div className="flex">
+                    <CreditCardIcon className="w-5" />
+                    <span className="font-bold mr-1 ml-3 whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                      DYNACARD
+                    </span>
+                    <span>status: </span>
+                    <span className="inline-flex justify-center items-center px-2 ml-3 text-xs font-medium text-gray-800 shadow-md bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                      APPROVED
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex ">
+                    <InboxIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">
+                      Unread Messages
+                    </span>
+                    <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
+                      0
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <a
+                    href="/store"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
+                  >
+                    <ShoppingBagIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">Store</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/banking"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
+                  >
+                    <BanknotesIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">
+                      Banking
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/insurance"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
+                  >
+                    <HomeIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">
+                      Insurance
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          <div className="mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
+            <div className="mb-4 font-bold text-xl">My Orders</div>
+            {/* table */}
+            <div className="overflow-x-auto relative shadow-sm sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                  <tr>
+                    <th scope="col" className="py-3 px-6">
+                      Order
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Status
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Total Items
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Total Cost
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders?.map((order) => (
+                    <tr key={order.id} className="border-b bg-gray-100 ">
+                      <th
+                        scope="row"
+                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        #{order.id}
+                      </th>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {order.status}
+                      </td>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {order.totalItems}
+                      </td>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        ${order.cartTotal}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Order #</th>
-              <th>Status</th>
-              <th>Items Ordered</th>
-              <th>Order Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Orders?.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.status}</td>
-                <td>{item.totalItems}</td>
-                <td>{item.cartTotal}.00</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {Orders.length == 0 && <h2>No orders found.</h2>}
-      </BaseDiv>
+            <div className="my-4 font-bold text-xl">Bank Accounts</div>
+            <div className="my-4 font-bold text-xl">Insurance Policies</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-const BaseDiv = styled.div`
-  margin: 2rem;
-  padding: 2rem;
-  background-color: #fff;
-`;

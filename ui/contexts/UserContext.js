@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
-import { GenerateAddress } from "components";
-import { GenerateDynacard } from "components";
+import { GenerateAddress } from "components/Library";
+import { GenerateDynacard } from "components/Library";
 const UserContext = createContext();
 export const initialState = { prerender: true };
 

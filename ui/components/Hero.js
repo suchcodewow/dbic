@@ -1,124 +1,77 @@
-import styled from "styled-components";
-
-const featuresData = [
-  {
-    title: "Banking",
-    text: "From they fine john he give of rich he. They age and draw mrs like. Improving end distrusts may instantly was household applauded.",
-  },
-  {
-    title: "Insurance",
-    text: "Considered sympathize ten uncommonly occasional assistance sufficient not. Letter of on become he tended active enable to.",
-  },
-  {
-    title: "Shopping",
-    text: "Led ask possible mistress relation elegance eat likewise debating. By message or am nothing amongst chiefly address.",
-  },
-];
-
 export default function Hero() {
   return (
-    <HeroContent>
-      <HeroH1>DynaBankInsuraCart</HeroH1>
-      <HeroH2>Your one-stop shop for non-stop shopping</HeroH2>
-      <FeatureArea>
-        {featuresData.map((item, index) => (
-          <FeatureContainer key={item.title + index}>
-            <FeatureTitle>
-              <div />
-              <h1>{item.title}</h1>
-            </FeatureTitle>
-            <FeatureText>
-              <p>{item.text}</p>
-            </FeatureText>
-          </FeatureContainer>
-        ))}
-      </FeatureArea>
-    </HeroContent>
+    <div className="relative overflow-hidden ">
+      <div className="mx-auto ">
+        <div className="relative z-10 bg-white pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
+          <svg
+            className="absolute inset-y-0 right-0 hidden h-full w-48 translate-x-1/2 transform text-white lg:block"
+            fill="currentColor"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polygon points="50,0 100,0 50,100 0,100" />
+          </svg>
+
+          <main className="mx-auto px-4 sm:px-6 lg:px-8 lg:pt-10">
+            <div className="sm:text-center lg:text-left">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+                <span className="block xl:inline font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                  DynaBankInsuraCart
+                </span>
+                <span className="block text-indigo-600  text-3xl mt-3">
+                  Your one stop shop for non-stop shopping!
+                </span>
+              </h1>
+              <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+                Everything you need with one convenient account! Enjoy our
+                full-featured catalog, pay bills or transfer funds, and quickly
+                find the right insurance that perfectly fits{" "}
+                <span className="text-transparent font-extrabold bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                  YOUR
+                </span>{" "}
+                unique needs.
+              </p>
+              <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+                I want to start...
+              </p>
+              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div className="rounded-md shadow">
+                  <a
+                    href="/store"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-800 px-8 py-3 text-base font-medium text-white md:py-4 md:px-10 md:text-lg"
+                  >
+                    Shopping!
+                  </a>
+                </div>
+                <div className="mt-3 sm:mt-0 sm:ml-3">
+                  <a
+                    href="/banking"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-700 px-8 py-3 text-base font-medium text-white md:py-4 md:px-10 md:text-lg"
+                  >
+                    Banking!
+                  </a>
+                </div>
+                <div className="mt-3 sm:mt-0 sm:ml-3">
+                  <a
+                    href="/insurance"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-600 px-8 py-3 text-base font-medium text-white  md:py-4 md:px-10 md:text-lg"
+                  >
+                    A quote!
+                  </a>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <div className="lg:absolute lg:inset-y-0 lg:right-0  lg:w-2/3">
+        <img
+          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
+          src="/images/hero.jpg"
+          alt=""
+        />
+      </div>
+    </div>
   );
 }
-
-const FeatureTitle = styled.div`
-  flex: 1;
-  max-width: 180px;
-  margin-right: 2rem;
-  div {
-    width: 38px;
-    height: 3px;
-    background: linear-gradient(103.22deg, #ae67fa -14%, #f49867 100%);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 0.25rem;
-  }
-  h1 {
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -0.04em;
-    color: #fff;
-  }
-`;
-
-const FeatureText = styled.div`
-  flex: 2;
-  max-width: 390px;
-  display: flex;
-  p {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
-    color: #81afdd;
-  }
-`;
-
-const FeatureContainer = styled.div`
-  width: 280px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-  margin: 1rem;
-`;
-
-const FeatureArea = styled.div`
-  flex: 1.5;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: row;
-  margin: 2rem 0rem;
-`;
-
-const HeroH2 = styled.h3`
-  margin-top: 1rem;
-  color: #fff;
-`;
-
-const HeroH1 = styled.h1`
-  background: linear-gradient(89.97deg, #ae67fa 1.84%, #f49867 102.67%);
-  font-weight: 800;
-  font-size: 52px;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  @media screen and (max-width: 700px) {
-    font-size: 48px;
-  }
-`;
-
-const HeroContent = styled.div`
-  width: 100%;
-  min-height: 80vh;
-  background-image: url("/images/hero.png");
-  background-repeat: no-repeat;
-  background-size: 1200px;
-  background-position-x: right;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 4rem 6rem;
-  margin: auto;
-  @media screen and (max-width: 700px) {
-    margin-right: 1rem;
-    padding: 1rem 2rem;
-  }
-`;

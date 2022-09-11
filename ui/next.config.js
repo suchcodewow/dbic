@@ -1,12 +1,7 @@
-module.exports = {
-  output: "standalone",
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-  compiler: {
-    styledComponents: true,
-  },
-  serverRuntimeConfig: {
-    secret: "FGHAHFIWUHFBVQ@#QALALBVOENEASH",
-  },
+  swcMinify: true,
   async rewrites() {
     return [
       {
@@ -28,3 +23,5 @@ module.exports = {
     ];
   },
 };
+
+module.exports = nextConfig;

@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import Nav from "components/Nav";
 import { useState } from "react";
 import { useUserContext } from "contexts/UserContext";
-import { Prefix, Name, NavBar } from "components";
+import { Prefix, Name } from "components/Library";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -20,125 +20,67 @@ export default function Login() {
     e.preventDefault();
     userDispatch({ type: "LOGIN", userId });
     router.back();
-    // router.push({
-    //   pathname: "/",
-    // });
   };
 
   return (
     <div>
-      <NavBar />
-      <Container>
-        <FormContainer>
-          <TextBlock>
-            <h1>Sign Up & Sign In</h1>
-            <blockquote>
-              psst! hey there! This application is real and has a full suite of
-              backend services spanning lots of technologies- but it's just for
-              demostration to show how Dynatrace empowers your organization.
-              Everything you experience as a user (good AND bad) is used by
-              Dynatrace to identify incoming problems before users do. To
-              expedite your exploration:
-              <ul>
-                <li>We're suggesting a random username (changeable)</li>
-                <li>we're auto-saving your password</li>
-                <li>
-                  you'll get full access to our Operations Center (new top menu
-                  option)
-                </li>
-                <li>a random shipping address is added to your account</li>{" "}
-                <li>
-                  you will get instant approval on a fabulous new DynaCard
-                  credit card during checkout to speed through payment
-                </li>
-              </ul>
-            </blockquote>
-          </TextBlock>
-
-          <Form onSubmit={handleLogin}>
-            <FormItem
-              type="text"
-              id="userId"
-              placeholder="UserName"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <FormItem
-              input
-              disabled
-              readOnly
-              placeholder="(autosaved)"
-              type="password"
-              id="password"
-            />
-            <DefaultButton type="submit" disabled={loading}>
-              Sign in
-            </DefaultButton>
-          </Form>
-        </FormContainer>
-      </Container>
+      <Nav />
+      <div className="mt-10">
+        <div className="items-center">
+          <div className="items-center w-full sm:w-1/2 mx-auto">
+            <form onSubmit={handleLogin}>
+              <div className="shadow mx-autosm:rounded-md">
+                <div className="bg-white px-4 py-5 sm:p-6">
+                  <div className="grid grid-cols-6 gap-6 ">
+                    <div className="col-span-6 sm:col-span-4">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        User Name
+                      </label>
+                      <input
+                        type="text"
+                        name="userId"
+                        id="userId"
+                        autoComplete="userId"
+                        value={userId}
+                        onChange={(e) => setUserId(e.target.value)}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                    <div className="col-span-6 sm:col-span-4">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Password
+                      </label>
+                      <input
+                        disabled
+                        placeholder="(autosaved)"
+                        type="text"
+                        name="Password"
+                        id="Password"
+                        autoComplete="Password"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-const DefaultButton = styled.button`
-  padding: 0.5rem 0.5rem;
-  color: #fff;
-  bottom: 50px;
-  background: #ff4820;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 25px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 5px;
-`;
-const TextBlock = styled.div`
-  blockquote {
-    background-color: lightgreen;
-    border-left-color: darkgreen;
-    border-left-width: 4px;
-    border-left-style: solid;
-
-    font-size: 95%;
-    padding: 2rem;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  ul {
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-`;
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: top;
-`;
-
-const FormContainer = styled.div`
-  padding: 2rem;
-  width: 700px;
-  border-radius: 15px;
-  background-color: #fff;
-`;
-
-const Form = styled.form`
-  padding: 2rem;
-`;
-
-const FormItem = styled.input`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  font-size: 18px;
-
-  color: black;
-  padding: 5px;
-  border: 4 solid black;
-  input: {
-    font-size: 18px;
-  }
-`;

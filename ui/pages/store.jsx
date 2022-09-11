@@ -1,74 +1,64 @@
-import { Carousel, StoreFeature } from "components";
-import { NavBar } from "components";
-import { useEffect, useState } from "react";
-import { DefaultArea } from "styles/Common";
-import styled from "styled-components";
+const defaultEndpoint = `https://api.themoviedb.org/3/discover/movie?api_key=4c5f8a1185a3e74355b50ae2d3568910&language=en-US&with_genres=35`;
+import { useState } from "react";
+import StoreAll from "components/StoreAll";
+import { useCartContext } from "contexts/CartContext";
+import Nav from "components/Nav";
+import Cart from "components/Cart";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import Dynacard from "components/Dynacard";
+import Checkout from "components/Checkout";
+import { userAgent } from "next/server";
 
 export default function Store({ _catalog, _carousel }) {
-  const { cartDispatch } = useCartContext();
-  const [cartItems, setCartItems] = useState([]);
+  // Panels
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);
+
+  // data
   const [catalog, setCatalog] = useState(_catalog);
-  const [carousel, setCarousel] = useState(_carousel);
-  useEffect(() => {
-    const fetchData = async () => {
-      var response;
-      try {
-        response = await fetch(process.env.NEXT_PUBLIC_clientcatalogapi, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } catch (error) {
-        console.log("Error connecting to the database!", error);
-        return { props: {} };
-      }
-      const data = await response.json();
-      const carouselData = [...data];
-      shuffle(carouselData);
-      const shortCarousel = carouselData.slice(0, 12);
-      // setCatalog(data);
-      // setCarousel(shortCarousel);
-    };
-    fetchData();
-  }, []);
+  const { cart, cartDispatch } = useCartContext();
+  var cartTotal = 0;
+  if (cart) {
+    cart.map((item) => (cartTotal += item.qty));
+  }
+
   return (
     <div>
-      <NavBar cartItems={cartItems} />
-      <DefaultArea>
-        <StoreHeading>
-          <h1>Welcome to the ultimate shopping experience!</h1>
-        </StoreHeading>
-        {catalog && <Carousel catalog={carousel} />}
-        {catalog ? (
-          <StoreFeature catalog={catalog} />
-        ) : (
-          <h3 style={{ color: "white" }}>
-            *CAPTAIN RAYMOND HOLT* The catalog did not load. This does not seem
-            to be the ultimate shopping experience, Peralta. *Terry Jeffords*
-            WHHHYYY?
-          </h3>
-        )}
-      </DefaultArea>
+      <Nav />
+      <div className="bg-white  sticky w-full z-10 top-0">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-end">
+            {cartTotal > 0 && (
+              <div
+                onClick={() => {
+                  setCartOpen(true);
+                }}
+                className="cursor-pointer bg-azure-300  hover:bg-azure-400 flex rounded-lg px-5 py-2 w-auto"
+              >
+                <span className=" font-bold text-white mr-1">{cartTotal}</span>
+                <ShoppingBagIcon className="text-white w-6" />
+                <span className="font-bold text-white ml-1">View Cart</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <Dynacard />
+      <StoreAll catalog={catalog} />
+      <Cart
+        cartOpen={cartOpen}
+        setCartOpen={setCartOpen}
+        setCheckoutOpen={setCheckoutOpen}
+      />
+      <Checkout
+        checkoutOpen={checkoutOpen}
+        setCheckoutOpen={setCheckoutOpen}
+        setPaymentOpen={setPaymentOpen}
+      />
     </div>
   );
 }
-const StoreHeading = styled.div`
-  width: 100%;
-  text-align: center;
-  max-width: 1400px;
-  width: 80%;
-  margin-bottom: 5rem;
-  h1 {
-    font-size: 52px;
-    line-height: 75px;
-    font-weight: 800;
-    background: linear-gradient(89.97deg, #ae67fa 1.84%, #f49867 102.67%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-`;
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -89,7 +79,6 @@ function shuffle(array) {
 
   return array;
 }
-
 export const getServerSideProps = async () => {
   var response;
   try {

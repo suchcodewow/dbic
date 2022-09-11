@@ -1,11 +1,5 @@
-import React, {
-  createContext,
-  useReducer,
-  useEffect,
-  useContext,
-  useState,
-} from "react";
-const { publicRuntimeConfig } = require("next.config.js");
+import React, { createContext, useReducer, useEffect, useContext } from "react";
+
 const CartContext = createContext();
 
 // Functions for the shopping cart

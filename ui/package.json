@@ -1,5 +1,5 @@
 {
-  "name": "ui2",
+  "name": "ui3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,17 +10,20 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
-    "embla-carousel-react": "^7.0.0",
+    "@heroicons/react": "^2.0.10",
+    "@tailwindcss/forms": "^0.5.3",
+    "clsx": "^1.2.1",
+    "embla-carousel-react": "^7.0.2",
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.34.2",
-    "react-icons": "^4.4.0",
-    "react-rating": "github:Selectra-Dev/react-rating",
-    "styled-components": "^5.3.5"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "8.21.0",
-    "eslint-config-next": "12.2.3"
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "autoprefixer": "^10.4.8",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   }
 }

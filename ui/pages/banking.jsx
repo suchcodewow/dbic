@@ -1,10 +1,10 @@
-import { NavBar } from "components";
+import Nav from "components/Nav";
 
 export default function Banking() {
   return (
     <div>
-      <NavBar />
-      <h1>Banking</h1>
+      <Nav />
+      banking
     </div>
   );
 }

@@ -10,11 +10,9 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
-          <div className="bgdiv">
-            <Main />
-            <NextScript />
-          </div>
+        <body className="h-screen bg-gradient-radial m-0 w-full z-10 top-0">
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

@@ -34,7 +34,7 @@ export default function Nav() {
   const { user, userDispatch } = useUserContext();
   const { cartDispatch } = useCartContext();
 
-  console.log(router.pathname);
+  // console.log(router.pathname)
   return (
     <Disclosure as="nav" className="bg-azure-800 sticky w-full z-20 top-0">
       {({ open }) => (
@@ -100,12 +100,7 @@ export default function Nav() {
                     <div>
                       <Menu.Button className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer flex  text-sm  focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
-                        {/* <a
-                          href="/login"
-                          className=""
-                        > */}
                         {user.user}
-                        {/* </a> */}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -127,7 +122,7 @@ export default function Nav() {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              My Account
                             </a>
                           )}
                         </Menu.Item>

@@ -1,6 +1,13 @@
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
 import { useUserContext } from "contexts/UserContext";
+import {
+  CreditCardIcon,
+  InboxIcon,
+  ShoppingBagIcon,
+  BanknotesIcon,
+  HomeIcon,
+} from "@heroicons/react/20/solid";
 
 export default function MyAccount() {
   // Setup
@@ -8,7 +15,6 @@ export default function MyAccount() {
   const [orders, setOrders] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      // const BASE_URL = publicRuntimeConfig.apiOrders;
       const response = await fetch(
         process.env.NEXT_PUBLIC_clientordersapi + "/myorders",
         {
@@ -20,7 +26,7 @@ export default function MyAccount() {
         }
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setOrders(data);
     };
     fetchData().catch(console.error);
@@ -30,179 +36,117 @@ export default function MyAccount() {
       <Nav />
       {/* SideBar */}
       <div className="w-full z-10 top-0">
-        <div className=" mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
-          <aside className="  pl-4 py-4 w-64 sticky" aria-label="Sidebar">
-            <div className="overflow-y-auto py-4 px-3 bg-gray-200 rounded">
+        <div className="mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
+          <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
+            <div className="overflow-y-auto py-4 px-3 bg-azure-700 text-white rounded-md">
               <ul className="space-y-2">
-                <li>
-                  {/* <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg  hover:bg-gray-100 "
-                  > */}
-                  {/* <svg
-                      aria-hidden="true"
-                      className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                      <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                    </svg> */}
-                  <span className="ml-1">My Account</span>
-                  {/* </a> */}
+                <li className="mb-6">
+                  <span className="ml-1 font-bold">Overview</span>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                    </svg>
+                  <div className="flex">
+                    <CreditCardIcon className="w-5" />
+                    <span className="font-bold mr-1 ml-3 whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                      DYNACARD
+                    </span>
+                    <span>status: </span>
+                    <span className="inline-flex justify-center items-center px-2 ml-3 text-xs font-medium text-gray-800 shadow-md bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                      APPROVED
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex ">
+                    <InboxIcon className="w-5" />
                     <span className="flex-1 ml-3 whitespace-nowrap">
-                      Kanban
+                      Unread Messages
                     </span>
-                    <span className="inline-flex justify-center items-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                      Pro
+                    <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
+                      0
                     </span>
+                  </div>
+                </li>
+                <li>
+                  <a
+                    href="/store"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
+                  >
+                    <ShoppingBagIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">Store</span>
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    href="/banking"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
                   >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
-                      <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
-                    </svg>
-                    <span className="flex-1 ml-3 whitespace-nowrap">Inbox</span>
-                    <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                      3
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                    <BanknotesIcon className="w-5" />
                     <span className="flex-1 ml-3 whitespace-nowrap">
-                      Products
+                      Banking
                     </span>
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    href="/insurance"
+                    className="flex items-center p-2 text-base font-normal rounded-lg  hover:bg-azure-500"
                   >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                    <HomeIcon className="w-5" />
                     <span className="flex-1 ml-3 whitespace-nowrap">
-                      Sign In
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="flex-1 ml-3 whitespace-nowrap">
-                      Sign Up
+                      Insurance
                     </span>
                   </a>
                 </li>
               </ul>
             </div>
           </aside>
-          <div className="mx-auto bg-white rounded-md m-4 w-full ml-5 p-5">
-            <div>My Orders</div>
-            <ul>
-              {orders?.map((order) => (
-                <li key={order.id}>
-                  {order.status +
-                    " $" +
-                    order.cartTotal +
-                    " " +
-                    order.totalItems}
-                </li>
-              ))}
-            </ul>
-            <div>My Insurance Policies</div>
-            <div>My Bank Accounts</div>
+          <div className="mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
+            <div className="mb-4 font-bold text-xl">My Orders</div>
+            {/* table */}
+            <div className="overflow-x-auto relative shadow-sm sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                  <tr>
+                    <th scope="col" className="py-3 px-6">
+                      Order
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Status
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Total Items
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Total Cost
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders?.map((order) => (
+                    <tr key={order.id} className="border-b bg-gray-100 ">
+                      <th
+                        scope="row"
+                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        #{order.id}
+                      </th>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {order.status}
+                      </td>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {order.totalItems}
+                      </td>
+                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        ${order.cartTotal}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="my-4 font-bold text-xl">Bank Accounts</div>
+            <div className="my-4 font-bold text-xl">Insurance Policies</div>
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function Checkout({
     const orderDetails = {
       url: process.env.NEXT_PUBLIC_clientordersapi,
       name: user.user,
-      cartTotal: cartTotal.toString(),
+      cartTotal: total.toString(),
       totalItems,
       status: "new",
     };

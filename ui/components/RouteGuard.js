@@ -26,25 +26,14 @@ export function RouteGuard({ children }) {
   }, [user]);
 
   function authCheck(url) {
-    // redirect to login page if accessing a private page and not logged in
-
-    const publicPaths = ["/", "/login", "/store"];
+    // Add publicPaths to allow anonymous visits
+    const publicPaths = ["/", "/login", "/store", "/insurance"];
     const path = url.split("?")[0];
-    // console.log("*Auth for user: ", user);
-    // if (!user) {
-    //   console.log("skip this pass", user);
-    // } else {
+
     if (user.prerender) {
-      // console.log("server loading so no user yet. skip", user);
       return;
     }
     if (!user.user && !publicPaths.includes(path)) {
-      // console.log(
-      //   "*Auth: REDIRECT! Private URL:",
-      //   path,
-      //   "and user false=",
-      //   user
-      // );
       setAuthorized(false);
       router.push({
         pathname: "/login",
@@ -52,15 +41,8 @@ export function RouteGuard({ children }) {
       });
     } else {
       setAuthorized(true);
-      // console.log(
-      //   "*Auth ALLOW! due to public URL:",
-      //   path,
-      //   " or user logged in=",
-      //   user
-      // );
     }
-    // }
   }
-  // return authorized && children;
+
   return authorized && children;
 }

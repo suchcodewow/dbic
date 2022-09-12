@@ -27,11 +27,12 @@ export default function Login() {
       <Nav />
       <div className="mt-10">
         <div className="items-center">
-          <div className="items-center w-full sm:w-1/2 mx-auto">
+          <div className="items-center w-full sm:w-1/4 mx-auto">
             <form onSubmit={handleLogin}>
-              <div className="shadow mx-autosm:rounded-md">
-                <div className="bg-white px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-6 gap-6 ">
+              <div className="shadow mx-auto sm:rounded-md">
+                <div className="bg-white px-4 py-5 sm:p-6 rounded-md">
+                  <div className="text-2xl font-bold text-azure-500">Login</div>
+                  <div className="grid grid-cols-6 gap-6 mt-4">
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         htmlFor="first-name"
@@ -67,14 +68,15 @@ export default function Login() {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Sign In
-                  </button>
+
+                  <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Sign In
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>

@@ -57,12 +57,12 @@ export default function Nav() {
                   <img
                     className="block h-8 w-auto lg:hidden"
                     src="/images/wow.png"
-                    alt="DynaBankInsuraCart"
+                    alt="SuchCodeWow"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
                     src="/images/wow.png"
-                    alt="DynaBankInsuraCart"
+                    alt="SuchCodeWow"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
@@ -81,7 +81,6 @@ export default function Nav() {
                         {item.name}
                       </a>
                     ))}
-                    {/* special menu items */}
                   </div>
                 </div>
               </div>

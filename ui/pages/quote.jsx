@@ -1,127 +1,137 @@
 import { useState } from "react";
-import { Tab } from "@headlessui/react";
 import Nav from "components/Nav";
+import { useForm } from "react-hook-form";
+import { useUserContext } from "contexts/UserContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Quote() {
-  let [categories] = useState({
-    Recent: [
+  const { user, userDispatch } = useUserContext();
+  const questionBlocks = [
+    [
       {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
+        label: "Your Name",
+        value: "Name",
+        default: user.user,
+        rules: { minlength: 50 },
       },
       {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Popular: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
+        label: "Email Address",
+        value: "Email",
+        default: user.user ? user.user + "@dynabankinsuracart.com" : "",
+        rules: [{ required: true, minlength: 50 }],
       },
     ],
-    Trending: [
+    [
+      { label: "Your Birthday", value: "Birthday", default: "4/3/1995" },
       {
-        id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
-        commentCount: 1,
-        shareCount: 2,
+        label: "Your home's size in square feet",
+        value: "homeSize",
+        default: "1600",
       },
     ],
-  });
+    [
+      { label: "Car's model", value: "CarModel", default: "Generat Boxer" },
+      {
+        label: "Car's manufacturer year",
+        value: "CarYear",
+        default: "2016",
+      },
+    ],
+  ];
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm({ mode: "all" });
+  const onSubmit = (data) => console.log(data);
+  const [formStep, setFormStep] = useState(1);
+  const nextStep = () => {
+    setFormStep((current) => current + 1);
+  };
+  const previousStep = () => {
+    setFormStep((current) => current - 1);
+  };
+  //console.log(watch("example")); // watch input value by passing the name of it
+  console.log(questionBlocks.length, " ", formStep);
 
+  console.log(errors);
   return (
-    <div>
+    <div className="bg-gray-200  pb-48">
       <Nav />
-      <div className="mx-auto pt-2 max-w-7xl">
-        <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-            {Object.keys(categories).map((category) => (
-              <Tab
-                key={category}
-                className={({ selected }) =>
-                  classNames(
-                    "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    selected
-                      ? "bg-white shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  )
-                }
-              >
-                {category}
-              </Tab>
-            ))}
-          </Tab.List>
-          <Tab.Panels className="mt-2">
-            {Object.values(categories).map((posts, idx) => (
-              <Tab.Panel
-                key={idx}
-                className={classNames(
-                  "rounded-xl bg-white p-3",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                )}
-              >
-                <ul>
-                  {posts.map((post) => (
-                    <li
-                      key={post.id}
-                      className="relative rounded-md p-3 hover:bg-gray-100"
-                    >
-                      <h3 className="text-sm font-medium leading-5">
-                        {post.title}
-                      </h3>
-
-                      <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                        <li>{post.date}</li>
-                        <li>&middot;</li>
-                        <li>{post.commentCount} comments</li>
-                        <li>&middot;</li>
-                        <li>{post.shareCount} shares</li>
-                      </ul>
-
-                      <a
-                        href="#"
-                        className={classNames(
-                          "absolute inset-0 rounded-md",
-                          "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
-                        )}
+      <div className="bg-white mt-10 mx-auto max-w-4xl rounded-md shadow-md">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-1/3 mx-auto py-10">
+          {questionBlocks.map(
+            (questions, idx) =>
+              // Only add fields if the form has reached them
+              formStep >= idx + 1 && (
+                <div
+                  key={idx}
+                  className={formStep === idx + 1 ? "block" : "hidden"}
+                >
+                  <p>
+                    Step {idx + 1} of {questionBlocks.length}
+                  </p>
+                  {questions.map((question, idx) => (
+                    // {
+                    //   console.log(question);
+                    // }
+                    <div key={idx} className="relative z-0 my-6 w-full group">
+                      <input
+                        {...register(question.value, question.rules)}
+                        type="text"
+                        name={question.value}
+                        defaultValue={question.default}
+                        id={question.value}
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
                       />
-                    </li>
+                      <label className="peer-focus:font-medium absolute  text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        {question.label}
+                      </label>
+                    </div>
                   ))}
-                </ul>
-              </Tab.Panel>
-            ))}
-          </Tab.Panels>
-        </Tab.Group>
+                </div>
+              )
+          )}
+
+          <div className="flex flex-row justify-between">
+            {formStep === 1 && <div></div>}
+            {formStep > 1 && (
+              <button
+                disabled={!isValid}
+                onClick={previousStep}
+                type="button"
+                className="text-white bg-azure-500 hover:bg-azure-400 disabled:bg-gray-400 disabled:hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 "
+              >
+                Back
+              </button>
+            )}
+            {formStep === questionBlocks.length && (
+              <button
+                disabled={!isValid}
+                type="submit"
+                className="text-white bg-orange-400 hover:bg-orange-300 disabled:bg-gray-400 disabled:hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+              >
+                Get My Quote
+              </button>
+            )}
+            {formStep < questionBlocks.length && (
+              <button
+                disabled={!isValid}
+                onClick={nextStep}
+                type="button"
+                className="text-white bg-azure-500 hover:bg-azure-400 disabled:bg-gray-400 disabled:hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+              >
+                Next
+              </button>
+            )}
+          </div>
+        </form>
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
       </div>
     </div>
   );

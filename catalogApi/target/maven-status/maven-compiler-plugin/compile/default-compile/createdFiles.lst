@@ -1,7 +1,0 @@
-com/dbic/catalogApi/controller/CatalogController.class
-com/dbic/catalogApi/service/CatalogServiceImpl.class
-com/dbic/catalogApi/repository/CatalogRepository.class
-com/dbic/catalogApi/entity/CatalogEntity.class
-com/dbic/catalogApi/service/CatalogService.class
-com/dbic/catalogApi/model/Catalog.class
-com/dbic/catalogApi/CatalogApplication.class

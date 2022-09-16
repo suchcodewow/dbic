@@ -1,4 +1,0 @@
-services:
-  quotesapi:
-    volumes:
-      - ./APIquotes/:/var/

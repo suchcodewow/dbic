@@ -1,4 +1,4 @@
 services:
   quotesapi:
     volumes:
-      - ./APIquotes/:/var/
+      - ../APIquotes/www/html/:/var/www/html/

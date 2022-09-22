@@ -11,9 +11,9 @@ require 'vendor/autoload.php'; // include Composer's autoloader
 $client = new MongoDB\Client("mongodb://root:password@quotesdb:27017/");
 $collection = $client->dbic->quotes;
 
-// $result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
+$result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
 
-// echo "Inserted with Object ID '{$result->getInsertedId()}'";
+echo "Inserted with Object ID '{$result->getInsertedId()}'";
 echo "hi";
 $cursor = $collection->find([],['limit' => 5,
 'name' => ['name' => 1,

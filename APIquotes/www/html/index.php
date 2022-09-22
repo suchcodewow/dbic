@@ -15,10 +15,7 @@ $result = $collection->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDo
 
 echo "Inserted with Object ID '{$result->getInsertedId()}'";
 echo "hi";
-$cursor = $collection->find([],['limit' => 5,
-'name' => ['name' => 1,
-'borough' => 1,
-'cuisine' => 1,]]);
+$cursor = $collection->find();
 foreach ($cursor as $item) {
      var_dump($item);
 };

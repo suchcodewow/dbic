@@ -1,19 +1,20 @@
 package main
 
 import (
-    "quotesapi/configs" //add this
+	"quotesapi/configs" //add this
 	"quotesapi/routes"
-    "github.com/gofiber/fiber/v2" 
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-    app := fiber.New()
+	app := fiber.New()
 
-    //run database
-    configs.ConnectDB()
+	//run database
+	configs.ConnectDB()
 
 	//routes
 	routes.QuoteRoute(app)
 
-    app.Listen(":6000")
+	app.Listen(":80")
 }

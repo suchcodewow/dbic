@@ -2,3 +2,4 @@ services:
   quotesapi:
     volumes:
       - ../APIquotes/www/html/:/var/www/html/
+      - /var/www/html/vendor/

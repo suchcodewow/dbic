@@ -1,43 +1,26 @@
-# Start from golang base image
-FROM golang:latest as builder
+# Dockerfile.production
 
-# Enable go modules
-# ENV GO111MODULE=on
+FROM registry.semaphoreci.com/golang:1.18 as builder
 
-# Install git. (alpine image does not have git in it)
-# RUN apk update && apk add --no-cache git
+ENV APP_HOME /go/src/app
 
-# Set current working directory
-WORKDIR /app
-
-# Note here: To avoid downloading dependencies every time we
-# build image. Here, we are caching all the dependencies by
-# first copying go.mod and go.sum files and downloading them,
-# to be used every time we build the image if the dependencies
-# are not changed.
-
-# Copy go mod and sum files
-COPY go.mod ./
-COPY go.sum ./
-
-# Download all dependencies.
-RUN go mod download
-
-# Now, copy the source code
+WORKDIR "$APP_HOME"
 COPY . .
 
-# Note here: CGO_ENABLED is disabled for cross system compilation
-# It is also a common best practise.
+RUN go mod download
+RUN go mod verify
+RUN go build -o app
 
-# Build the application.
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./bin/main .
+FROM registry.semaphoreci.com/golang:1.18
 
-# Finally our multi-stage to build a small image
-# Start a new stage from scratch
-# FROM scratch
+ENV APP_HOME /go/src/app
+RUN mkdir -p "$APP_HOME"
+WORKDIR "$APP_HOME"
 
-# Copy the Pre-built binary file
-# COPY --from=builder /app/bin/main .
+# COPY src/conf/ conf/
+# COPY src/views/ views/
+COPY --from=builder "$APP_HOME"/app $APP_HOME
+COPY prod.env $APP_HOME/.env
 
-# Run executable
-CMD ["./main"]
+EXPOSE 80
+CMD ["./app"]

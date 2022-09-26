@@ -34,12 +34,14 @@ func CreateQuote(c *fiber.Ctx) error {
 	}
 
 	newQuote := models.Quote{
-		Id:       primitive.NewObjectID(),
-		Name:     quote.Name,
-		Email:    quote.Email,
-		HomeSize: quote.HomeSize,
-		CarYear:  quote.CarYear,
-		Status:   "new",
+		Id:        primitive.NewObjectID(),
+		Name:      quote.Name,
+		BirthDate: quote.BirthDate,
+		Email:     quote.Email,
+		HomeSize:  quote.HomeSize,
+		CarYear:   quote.CarYear,
+		CarModel:  quote.CarModel,
+		Status:    "new",
 	}
 
 	result, err := quoteCollection.InsertOne(ctx, newQuote)
@@ -117,11 +119,17 @@ func GetMyQuotes(c *fiber.Ctx) error {
 		responses.QuoteResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": quotes}},
 	)
 }
-
+func coalesce(a string, b string) string {
+	if len(a) > 0 {
+		return a
+	}
+	return b
+}
 func EditAQuote(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	quoteId := c.Params("quoteId")
 	var quote models.Quote
+	var currentquote models.Quote
 	defer cancel()
 
 	objId, _ := primitive.ObjectIDFromHex(quoteId)
@@ -132,11 +140,18 @@ func EditAQuote(c *fiber.Ctx) error {
 	}
 
 	//use the validator library to validate required fields
-	if validationErr := validate.Struct(&quote); validationErr != nil {
-		return c.Status(http.StatusBadRequest).JSON(responses.QuoteResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
+	// if validationErr := validate.Struct(&quote); validationErr != nil {
+	// 	return c.Status(http.StatusBadRequest).JSON(responses.QuoteResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
+	// }
+
+	//get current quote details
+	err := quoteCollection.FindOne(ctx, bson.M{"id": objId}).Decode(&currentquote)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.QuoteResponse{Status: http.StatusInternalServerError, Message: quoteId, Data: &fiber.Map{"data": err.Error()}})
 	}
 
-	update := bson.M{"name": quote.Name, "email": quote.Email, "homesize": quote.HomeSize, "caryear": quote.CarYear, "status": quote.Status}
+	// update fields or use existing
+	update := bson.M{"name": coalesce(quote.Name, currentquote.Name), "birthdate": coalesce(quote.BirthDate, currentquote.BirthDate), "email": coalesce(quote.Email, currentquote.Email), "homesize": coalesce(quote.HomeSize, currentquote.Email), "caryear": coalesce(quote.CarYear, currentquote.CarYear), "carmodel": coalesce(quote.CarModel, currentquote.CarModel), "status": coalesce(quote.Status, currentquote.Status)}
 
 	result, err := quoteCollection.UpdateOne(ctx, bson.M{"id": objId}, bson.M{"$set": update})
 

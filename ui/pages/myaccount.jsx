@@ -26,11 +26,27 @@ export default function MyAccount() {
         }
       );
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       setOrders(data);
     };
     fetchData().catch(console.error);
   }, []);
+  const [quotes, setQuotes] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_clientquotesapi + "/my/" + user.user,
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+      setQuotes(data.data.data);
+      console.log(data.data);
+    };
+    fetchData().catch(console.error);
+  }, []);
+  console.log(quotes);
   return (
     <div>
       <Nav />
@@ -99,7 +115,7 @@ export default function MyAccount() {
         </aside>
         <div className="mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
           <div className="mb-4 font-bold text-xl">My Orders</div>
-          {/* table */}
+          {/* orders table */}
           <div className="overflow-x-auto relative shadow-sm sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
@@ -144,6 +160,42 @@ export default function MyAccount() {
 
           <div className="my-4 font-bold text-xl">Bank Accounts</div>
           <div className="my-4 font-bold text-xl">Insurance Policies</div>
+          {/* insurance polices table */}
+          <div className="overflow-x-auto relative shadow-sm sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                <tr>
+                  <th scope="col" className="py-3 px-6">
+                    Quote
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Type
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {quotes?.map((quote) => (
+                  <tr key={quote.id} className="border-b bg-gray-100 ">
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                    >
+                      {quote.id}
+                    </th>
+                    <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                      Home/Auto
+                    </td>
+                    <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                      {quote.status}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

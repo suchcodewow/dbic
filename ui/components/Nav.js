@@ -5,6 +5,7 @@ import {
   BellIcon,
   XMarkIcon,
   ShoppingBagIcon,
+  ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 
@@ -137,6 +138,20 @@ export default function Nav() {
                               )}
                             >
                               Sign out
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/operations"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "px-4 py-2  text-gray-700 flex"
+                              )}
+                            >
+                              <ExclamationCircleIcon className="w-6 inline text-crimson-500 mr-2" />
+                              Administration
                             </a>
                           )}
                         </Menu.Item>

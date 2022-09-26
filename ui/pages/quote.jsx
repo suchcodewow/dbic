@@ -25,7 +25,7 @@ export default function Quote() {
       },
     ],
     [
-      { label: "Your Birthday", value: "Birthday", default: "4/3/1995" },
+      { label: "Your Birthday", value: "BirthDate", default: "4/3/1995" },
       {
         label: "Your home's size in square feet",
         value: "homeSize",
@@ -47,7 +47,24 @@ export default function Quote() {
     watch,
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
-  const onSubmit = (data) => console.log(data);
+
+  async function onSubmit(data) {
+    // console.log(data);
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const apicall = await fetch(
+      process.env.NEXT_PUBLIC_clientquotesapi,
+      options
+    );
+    const response = await apicall.json();
+    console.log(response);
+    return response;
+  }
   const [formStep, setFormStep] = useState(1);
   const nextStep = () => {
     setFormStep((current) => current + 1);
@@ -55,10 +72,7 @@ export default function Quote() {
   const previousStep = () => {
     setFormStep((current) => current - 1);
   };
-  //console.log(watch("example")); // watch input value by passing the name of it
-  console.log(questionBlocks.length, " ", formStep);
 
-  console.log(errors);
   return (
     <div className="bg-gray-200  pb-48">
       <Nav />
@@ -116,7 +130,7 @@ export default function Quote() {
                 type="submit"
                 className="text-white bg-orange-400 hover:bg-orange-300 disabled:bg-gray-400 disabled:hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
               >
-                Get My Quote
+                Submit Quote
               </button>
             )}
             {formStep < questionBlocks.length && (

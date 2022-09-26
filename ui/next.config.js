@@ -14,12 +14,20 @@ const nextConfig = {
         destination: "http://localhost:8080/api/v1/catalog/:path*",
       },
       {
+        source: "/devapi/quote/:path*",
+        destination: "http://localhost:6000/quote/:path*",
+      },
+      {
         source: "/api/order/:path*",
         destination: "http://ordersapi/api/Order/:path*",
       },
       {
         source: "/api/catalog/:path*",
         destination: "http://catalogapi/api/v1/catalog/:path*",
+      },
+      {
+        source: "/api/quote/:path*",
+        destination: "http://quotesapi/quote/:path*",
       },
     ];
   },

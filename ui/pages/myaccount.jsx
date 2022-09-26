@@ -183,7 +183,7 @@ export default function MyAccount() {
                       scope="row"
                       className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
                     >
-                      {quote.id}
+                      {quote.id.slice(0, 7)}
                     </th>
                     <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                       Home/Auto

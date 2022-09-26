@@ -1,18 +1,13 @@
+import { WrenchIcon } from "@heroicons/react/24/outline";
 import Nav from "components/Nav";
 
 export default function Operations() {
   return (
     <div className="bg-gray-100">
       <Nav />
-      <h1 className="p-4 text-4xl font-bold">Administration</h1>
-      <div className="flex gap-4 justify-around p-2">
-        <div className="bg-white rounded-lg  shadow p-2 w-full">
-          Shop Orders
-        </div>
-        <div className="bg-white rounded-lg  shadow p-2 w-full">
-          Bank Accounts
-        </div>
-        <div className="bg-white rounded-lg  shadow  p-2 w-full">Quotes</div>
+      <div className="flex p-4 py-2">
+        <WrenchIcon className="w-8 " />
+        <h1 className=" text-4xl font-bold ml-2">Operations</h1>
       </div>
     </div>
   );

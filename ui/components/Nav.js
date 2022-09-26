@@ -5,7 +5,8 @@ import {
   BellIcon,
   XMarkIcon,
   ShoppingBagIcon,
-  ExclamationCircleIcon,
+  WrenchIcon,
+  KeyIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 
@@ -144,14 +145,28 @@ export default function Nav() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
+                              href="/administration"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "px-4 py-2  text-gray-700 flex"
+                              )}
+                            >
+                              <KeyIcon className="w-6 inline text-crimson-500 mr-2" />
+                              Administration
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
                               href="/operations"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "px-4 py-2  text-gray-700 flex"
                               )}
                             >
-                              <ExclamationCircleIcon className="w-6 inline text-crimson-500 mr-2" />
-                              Administration
+                              <WrenchIcon className="w-6 inline text-crimson-500 mr-2" />
+                              Operations
                             </a>
                           )}
                         </Menu.Item>
@@ -161,7 +176,7 @@ export default function Nav() {
                 ) : (
                   <a
                     href="/login"
-                    className="bg-crimson-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
+                    className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
                   >
                     Sign In
                   </a>

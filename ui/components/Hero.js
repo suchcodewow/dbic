@@ -41,7 +41,7 @@ export default function Hero() {
                     href="/store"
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-800 px-8 py-3 text-base font-medium text-white md:py-4 md:px-10 md:text-lg"
                   >
-                    Shopping!
+                    Shopping
                   </a>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
@@ -49,7 +49,7 @@ export default function Hero() {
                     href="/banking"
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-700 px-8 py-3 text-base font-medium text-white md:py-4 md:px-10 md:text-lg"
                   >
-                    Banking!
+                    Banking
                   </a>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
@@ -57,7 +57,7 @@ export default function Hero() {
                     href="/insurance"
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-azure-600 px-8 py-3 text-base font-medium text-white  md:py-4 md:px-10 md:text-lg"
                   >
-                    A quote!
+                    A quote
                   </a>
                 </div>
               </div>

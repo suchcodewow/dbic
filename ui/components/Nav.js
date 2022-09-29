@@ -9,6 +9,7 @@ import {
   KeyIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { useUserContext } from "contexts/UserContext";
 import { useCartContext } from "contexts/CartContext";
@@ -70,18 +71,18 @@ export default function Nav() {
                 <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.href == router.pathname
-                            ? "  bg-azure-600"
-                            : " hover:bg-azure-700",
-                          "px-3 py-2 rounded-md  font-bold"
-                        )}
-                      >
-                        {item.name}
-                      </a>
+                      <Link key={item.name} href={item.href}>
+                        <a
+                          className={classNames(
+                            item.href == router.pathname
+                              ? "  bg-azure-600"
+                              : " hover:bg-azure-700",
+                            "px-3 py-2 rounded-md  font-bold"
+                          )}
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </div>
                 </div>

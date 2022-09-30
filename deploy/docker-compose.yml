@@ -68,12 +68,12 @@ services:
     depends_on:
       - maindb
 
-  userapi:
+  mainapi:
     build:
-      context: ../APIuser
+      context: ../APImain
       dockerfile: Dockerfile
-    image: suchcodewow/dbic-userapi
-    container_name: userapi
+    image: suchcodewow/dbic-mainapi
+    container_name: mainapi
     restart: always
     ports:
       - 5000:5000
@@ -100,6 +100,7 @@ services:
   mongo-express:
     image: mongo-express
     restart: always
+    container_name: mongo-express
     ports:
       - 8081:8081
     environment:

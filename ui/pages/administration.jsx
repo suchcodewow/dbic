@@ -1,8 +1,10 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 export default function Administration() {
+  //Shop data
   const [orders, setOrders] = useState();
   useEffect(() => {
     const fetchData = async () => {
@@ -10,11 +12,11 @@ export default function Administration() {
         method: "GET",
       });
       const data = await response.json();
-      console.log(data);
       setOrders(data);
     };
     fetchData().catch(console.error);
   }, []);
+  //Insurance Data
   const [quotes, setQuotes] = useState();
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +25,28 @@ export default function Administration() {
       });
       const data = await response.json();
       setQuotes(data.data.data);
-      console.log(data.data);
     };
     fetchData().catch(console.error);
   }, []);
+  //Banking Data
+  const [transactions, setTransactions] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setTransactions(data);
+    };
+    fetchData().catch(console.error);
+  }, []);
+  const timezoneOffset = new Date().getTimezoneOffset();
 
+  console.log(timezoneOffset);
   return (
     <div className="bg-gray-100">
       <Nav />
@@ -39,7 +58,7 @@ export default function Administration() {
         <div className="bg-white rounded-lg  shadow p-2 w-full">
           <span className="p-1 ">Shop Orders</span>
 
-          <div className="overflow-x-auto relative shadow-sm sm:rounded-lg">
+          <div className="overflow-x-auto relative mt-2 shadow-sm sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
@@ -82,11 +101,56 @@ export default function Administration() {
           </div>
         </div>
         <div className="bg-white rounded-lg  shadow p-2 w-full">
-          Bank Accounts
+          <span className="p-1 ">Banking Transactions</span>
+
+          <div className="overflow-x-auto relative shadow-sm mt-2 sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                <tr>
+                  <th scope="col" className="p-1">
+                    Customer
+                  </th>
+                  <th scope="col" className="p-1">
+                    Account
+                  </th>
+                  <th scope="col" className="p-1">
+                    Vendor
+                  </th>
+                  <th scope="col" className="p-1">
+                    Amount
+                  </th>
+                  <th scope="col" className="p-1">
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions?.map((transaction) => (
+                  <tr key={transaction._id} className="border-b bg-gray-100 ">
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
+                      {transaction.userId}
+                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                      {transaction.accountName}
+                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                      {transaction.vendor}
+                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                      ${transaction.amount}
+                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
+                      {format(new Date(transaction.timestamp), "M/d/yy H:m")}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="bg-white rounded-lg  shadow  p-2 w-full">
           <span className="p-1 ">Quote Management</span>
-          <div className="overflow-x-auto relative mt-1  sm:rounded-lg">
+          <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>

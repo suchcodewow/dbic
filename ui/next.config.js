@@ -18,6 +18,10 @@ const nextConfig = {
         destination: "http://localhost:6000/quote/:path*",
       },
       {
+        source: "/devapi/api/:path*",
+        destination: "http://localhost:5000/api/:path*",
+      },
+      {
         source: "/api/order/:path*",
         destination: "http://ordersapi/api/Order/:path*",
       },
@@ -28,6 +32,10 @@ const nextConfig = {
       {
         source: "/api/quote/:path*",
         destination: "http://quotesapi/quote/:path*",
+      },
+      {
+        source: "/api/api/:path*",
+        destination: "http://maindb:5000/api/:path*",
       },
     ];
   },

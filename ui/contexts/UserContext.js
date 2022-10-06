@@ -1,18 +1,23 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
-import { GenerateAddress } from "components/Library";
-import { GenerateDynacard } from "components/Library";
+import { GenerateAddress, GenerateDynacard, getUser } from "components/Library";
+import {} from "components/Library";
 const UserContext = createContext();
 export const initialState = { prerender: true };
 
 //The reducer function makes it easier to add many commands without more imports
 export const reducer = (state, action) => {
   switch (action.type) {
+    // case "LOGIN":
+    //   return {
+
+    //     user: action.userId,
+    //     defaultAddress: GenerateAddress(),
+    //     dynacard: GenerateDynacard(),
+    //   };
     case "LOGIN":
-      return {
-        user: action.userId,
-        defaultAddress: GenerateAddress(),
-        dynacard: GenerateDynacard(action.value),
-      };
+      getUser(action.userId);
+      //return getUser(action.userId);
+      return { user: "HIDER" };
     case "ADD_CARD":
       return {
         ...state,

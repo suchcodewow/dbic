@@ -44,8 +44,6 @@ export default function Checkout({
     };
 
     const response = await commitOrder(orderDetails);
-
-    //console.log("response from POST:", response);
     router.push(`/myaccount?ordercomplete=${response.id}`);
     cartDispatch({ type: "CLEAR_CART" });
   };

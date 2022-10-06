@@ -19,7 +19,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     userDispatch({ type: "LOGIN", userId });
-    router.back();
+    //router.back();
   };
 
   return (

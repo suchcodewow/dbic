@@ -1,11 +1,43 @@
-export function GenerateDynacard(user) {
+export async function getUser(userId) {
+  // const orderDetails = {
+  //   url: process.env.NEXT_PUBLIC_clientordersapi,
+  //   name: user.user,
+  //   cartTotal: total.toString(),
+  //   totalItems,
+  //   status: "new",
+  // };
+  // const params = {
+  //   status: "new",
+  //   cartTotal: details.cartTotal,
+  //   totalItems: details.totalItems,
+  //   Name: details.name,
+  // };
+  const options = {
+    method: "GET",
+    // body: JSON.stringify(params),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_clientmainapi + "/users/" + userId,
+    options
+  );
+  const data = await response.json();
+  console.log(data);
+  return {
+    user: userId,
+  };
+}
+
+export function GenerateDynacard() {
   const ccnum = "****-****-****-" + Math.floor(Math.random() * 9000 + 1000);
-  //const name = user.user;
+
   const month = new Date().getMonth() + 1;
   const year = (new Date().getFullYear() + 3).toString().substring(2, 4);
   const expiration = month + "/" + year;
   const ccv = Math.floor(Math.random() * 1000 + 1);
-  return { ccnum, name, expiration, ccv };
+  return { ccnum, expiration, ccv };
 }
 
 function address2() {

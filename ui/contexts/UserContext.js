@@ -15,9 +15,7 @@ export const reducer = (state, action) => {
     //     dynacard: GenerateDynacard(),
     //   };
     case "LOGIN":
-      getUser(action.userId);
-      //return getUser(action.userId);
-      return { user: "HIDER" };
+      return action.value;
     case "ADD_CARD":
       return {
         ...state,

@@ -1,7 +1,7 @@
 import Nav from "components/Nav";
 import { useState } from "react";
 import { useUserContext } from "contexts/UserContext";
-import { Prefix, Name } from "components/Library";
+import { Prefix, Name, getUser } from "components/Library";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -16,10 +16,12 @@ export default function Login() {
     selectedName.charAt(0).toUpperCase() +
     selectedName.slice(1);
   const [userId, setUserId] = useState(randomId);
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    userDispatch({ type: "LOGIN", userId });
-    //router.back();
+    const userObject = await getUser(userId);
+    console.log(userObject);
+    userDispatch({ type: "LOGIN", value: userObject });
+    router.back();
   };
 
   return (

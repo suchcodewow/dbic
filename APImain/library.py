@@ -1,68 +1,47 @@
-export async function getUser(userId) {
-  const options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/users/login/" + userId,
-    options
-  );
-  return await response.json();
-}
+import random
+from flask import jsonify
+from datetime import datetime, date
+from app import app
 
-export function GenerateDynacard() {
-  const ccnum = "****-****-****-" + Math.floor(Math.random() * 9000 + 1000);
+# Helper Functions
+def chooser(a,b,c):
+    if b in a:
+        return a[b]
+    else:
+        return c
 
-  const month = new Date().getMonth() + 1;
-  const year = (new Date().getFullYear() + 3).toString().substring(2, 4);
-  const expiration = month + "/" + year;
-  const ccv = Math.floor(Math.random() * 1000 + 1);
-  return { ccnum, expiration, ccv };
-}
+def response(a,b):
+    _response = app.make_response((jsonify(a),b))
+    _response.headers["Content-Type"] = "application/json"
+    return _response
 
-function address2() {
-  switch (Math.floor(Math.random() * 8) + 1) {
-    case 1:
-      return "P.O. Box " + Math.floor(Math.random() * (999 - 40 + 1) + 40);
-    case 2:
-      return "Suite " + Math.floor(Math.random() * (12 - 1 + 1) + 1);
-    case 3:
-      return (
-        "Unit " + Math.floor(Math.floor(Math.random() * (78 - 10 + 1) + 10))
-      );
-    default:
-      return " ";
-  }
-}
+def address2():
+    match random.randint(1,8):
+        case 1:
+            return "P.O. Box " + str(random.randint(40,999))
+        case 2:
+            return "Suite " + str(random.randint(1,12))
+        case 3:
+            return "Unit " + str(random.randint(10,29))
 
-export function GenerateAddress() {
-  const address1Digits =
-    Math.floor(
-      Math.random() * Math.pow(10, Math.floor(Math.random() * 3) + 2)
-    ) + 10;
+def generateAddress():
+    return {        
+        "address1": str(random.randint(100,9999)) + " " + random.choice(USStreets),
+        "address2": address2(),
+        "city": random.choice(USCities),
+        "state": random.choice(USStates),
+        "zip": str(random.randint(10010,99950))
+    }
 
-  const address1 =
-    address1Digits +
-    " " +
-    USStreets[Math.floor(Math.random() * USStreets.length)];
-  const city = USCities[Math.floor(Math.random() * USCities.length)];
-  const state = USStates[Math.floor(Math.random() * USStates.length)].substring(
-    0,
-    2
-  );
-  const zip = Math.floor(Math.random() * 100000);
-  return {
-    address1,
-    address2: address2(),
-    city,
-    state,
-    zip,
-  };
-}
+def generateDynacard():
+    today = date.today()
+    return {
+        "ccnum": "****-****-****-" + str(random.randint(1000,9999)),
+        "expiration": str(today.month) + "/" + str(today.year),
+        "ccv": str(random.randint(100,999))
+    }
 
-export const USStates = [
+USStates = [
   "AK - Alaska",
   "AL - Alabama",
   "AR - Arkansas",
@@ -118,9 +97,9 @@ export const USStates = [
   "WI - Wisconsin",
   "WV - West Virginia",
   "WY - Wyoming",
-];
+]
 
-export const USCities = [
+USCities = [
   "Abbeville",
   "Abbotsford",
   "Aberdeen",
@@ -6862,7 +6841,7 @@ export const USCities = [
   "Zuni",
 ];
 
-export const Prefix = [
+Prefix = [
   "abundant",
   "delightful",
   "high",
@@ -7001,7 +6980,7 @@ export const Prefix = [
   "delicious",
 ];
 
-export const Name = [
+Name = [
   "apple",
   "seashore",
   "badge",
@@ -7058,7 +7037,7 @@ export const Name = [
   "voyage",
 ];
 
-export const USStreets = [
+USStreets = [
   "Briarwood Court",
   "Hanover Court",
   "Oxford Court",
@@ -7309,4 +7288,4 @@ export const USStreets = [
   "Jackson Avenue",
   "Hawthorne Lane",
   "Railroad Street",
-];
+]

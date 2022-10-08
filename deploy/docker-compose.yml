@@ -15,6 +15,7 @@ services:
   ordersdb:
     image: "mcr.microsoft.com/mssql/server"
     container_name: ordersdb
+    restart: always
     environment:
       SA_PASSWORD: "Password123"
       ACCEPT_EULA: "Y"
@@ -24,8 +25,8 @@ services:
 
   maindb:
     image: mongo:latest
-    restart: always
     container_name: maindb
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -36,7 +37,7 @@ services:
 
   # API's
   catalogapi:
-    build: ../APIcatalog
+    build: ../catalogapi
     container_name: catalogapi
     image: suchcodewow/dbic-catalogapi
     restart: always
@@ -47,23 +48,24 @@ services:
 
   ordersapi:
     build:
-      context: ../APIorders
+      context: ../ordersapi
       dockerfile: ./OrdersAPI/Dockerfile
-    image: suchcodewow/dbic-ordersapi
     container_name: ordersapi
+    image: suchcodewow/dbic-ordersapi
     environment:
       - DOTNET_ENVIRONMENT=DockerDeploy
+    restart: always
     ports:
-      - "8000:80"
+      - 8000:80
     depends_on:
       - ordersdb
 
   quotesapi:
     build:
-      context: ../APIquotes
+      context: ../quotesapi
       dockerfile: Dockerfile
-    image: suchcodewow/dbic-quotesapi
     container_name: quotesapi
+    image: suchcodewow/dbic-quotesapi
     restart: always
     ports:
       - 6000:80
@@ -72,10 +74,10 @@ services:
 
   mainapi:
     build:
-      context: ../APImain
+      context: ../mainapi
       dockerfile: Dockerfile
-    image: suchcodewow/dbic-mainapi
     container_name: mainapi
+    image: suchcodewow/dbic-mainapi
     restart: always
     ports:
       - 5000:5000
@@ -87,8 +89,8 @@ services:
   # frontend
   ui:
     build: ../UI
-    image: suchcodewow/dbic-frontend
     container_name: frontend
+    image: suchcodewow/dbic-frontend
     ports:
       - 80:3000
     depends_on:
@@ -101,8 +103,8 @@ services:
   #CMD -> http://localhost:8081
   mongo-express:
     image: mongo-express
-    restart: always
     container_name: mongo-express
+    restart: always
     ports:
       - 8081:8081
     environment:

@@ -4,7 +4,6 @@ import {
   Bars3Icon,
   BellIcon,
   XMarkIcon,
-  ShoppingBagIcon,
   WrenchIcon,
   KeyIcon,
 } from "@heroicons/react/24/outline";
@@ -27,15 +26,13 @@ function classNames(...classes) {
 
 export default function Nav() {
   const router = useRouter();
+  // Page Functions
   const handleLogout = () => {
-    userDispatch({ type: "LOGOUT" });
-    cartDispatch({ type: "CLEAR_CART" });
     router.push({
-      pathname: "/",
+      pathname: "/logout",
     });
   };
-  const { user, userDispatch } = useUserContext();
-  const { cartDispatch } = useCartContext();
+  const { user } = useUserContext();
 
   // console.log(router.pathname)
   return (

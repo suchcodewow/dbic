@@ -6,6 +6,7 @@ import {
   HomeModernIcon,
 } from "@heroicons/react/24/outline";
 import { useUserContext } from "contexts/UserContext";
+import { NumericFormat } from "react-number-format";
 
 export default function Banking() {
   const { user, userDispatch } = useUserContext();
@@ -20,7 +21,6 @@ export default function Banking() {
         }
       );
       const data = await response.json();
-      console.log(data);
       setTransactions(data);
     };
     fetchData().catch(console.error);
@@ -36,7 +36,6 @@ export default function Banking() {
         }
       );
       const data = await response.json();
-      console.log(data.accounts);
       setAccounts(data.accounts);
     };
     fetchData().catch(console.error);
@@ -83,17 +82,17 @@ export default function Banking() {
                   </span>
                 </div>
                 <div className="text-sm ml-8">
-                  {user.defaultAddress.address1}
+                  {user.defaultAddress?.address1}
                 </div>
                 <div className="text-sm ml-8">
-                  {user.defaultAddress.address2}
+                  {user.defaultAddress?.address2}
                 </div>
                 <div className="text-sm ml-8">
-                  {user.defaultAddress.city +
+                  {user.defaultAddress?.city +
                     ", " +
-                    user.defaultAddress.state.substring(0, 2) +
+                    user.defaultAddress?.state.substring(0, 2) +
                     " " +
-                    user.defaultAddress.zip}
+                    user.defaultAddress?.zip}
                 </div>
               </li>
             </ul>
@@ -102,12 +101,12 @@ export default function Banking() {
         <div className="mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
           <div className="mb-4 font-bold text-xl">Recent Activity</div>
           <div className="bg-white rounded-lg  shadow  p-2 w-full">
-            <span className="p-1 ">Quote Management</span>
+            <span className="p-1 text-lg">My Accounts</span>
             <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
                   <tr>
-                    <th scope="col" className="p-1">
+                    <th scope="col" className="p-1 pl-2">
                       Account
                     </th>
                     <th scope="col" className="p-1">
@@ -117,12 +116,18 @@ export default function Banking() {
                 </thead>
                 <tbody>
                   {accounts?.map((account) => (
-                    <tr key={account.id} className="border-b bg-gray-100 ">
-                      <td className="py-1 font-medium text-gray-900 whitespace-nowrap">
+                    <tr key={account.name} className="border-b bg-gray-100 ">
+                      <td className="py-1 pl-2 font-medium text-gray-900 whitespace-nowrap">
                         {account.name}
                       </td>
                       <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                        ${account.balance}
+                        <NumericFormat
+                          displayType="text"
+                          prefix={"$"}
+                          valueIsNumericString={true}
+                          thousandSeparator=","
+                          value={account.balance.toFixed(2)}
+                        />
                       </td>
                     </tr>
                   ))}

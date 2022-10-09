@@ -5,9 +5,13 @@ import { Prefix, Name, getUser } from "components/Library";
 import { useRouter } from "next/router";
 
 export default function Login() {
-  const { user, userDispatch, loading, errorMessage } = useUserContext();
-
   const router = useRouter();
+  const { user, userDispatch } = useUserContext();
+  if (user.user) {
+    // Send logged in users to home page
+    router.push("/");
+  }
+
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
   const selectedName = Name[Math.floor(Math.random() * Name.length)];
   const randomId =
@@ -71,7 +75,7 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                  <div className=" px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

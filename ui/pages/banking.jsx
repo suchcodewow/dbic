@@ -97,7 +97,59 @@ export default function Banking() {
               </li>
             </ul>
           </div>
+          <div className="overflow-y-auto py-4 px-3 bg-azure-700 text-white rounded-md">
+            <ul className="space-y-2">
+              <li className="mb-6">
+                <span className="ml-1 font-bold">Quick Actions</span>
+              </li>
+              <li>
+                <div className="flex">
+                  <CreditCardIcon className="w-5" />
+                  <span className="font-bold mr-1 ml-3 whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                    DYNACARD
+                  </span>
+                  <span>status: </span>
+                  <span className="inline-flex justify-center items-center px-2 ml-3 text-xs font-medium text-gray-800 shadow-md bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                    APPROVED
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div className="flex ">
+                  <InboxIcon className="w-5" />
+                  <span className="flex-1 ml-3 whitespace-nowrap">
+                    Account Notifications
+                  </span>
+                  <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
+                    0
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div className="flex ">
+                  <HomeModernIcon className="w-5" />
+                  <span className="flex-1 ml-3 whitespace-nowrap">
+                    My Address
+                  </span>
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress?.address1}
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress?.address2}
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress?.city +
+                    ", " +
+                    user.defaultAddress?.state.substring(0, 2) +
+                    " " +
+                    user.defaultAddress?.zip}
+                </div>
+              </li>
+            </ul>
+          </div>
         </aside>
+
         <div className="mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
           <div className="mb-4 font-bold text-xl">Recent Activity</div>
           <div className="bg-white rounded-lg  shadow  p-2 w-full">

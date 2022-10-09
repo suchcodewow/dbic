@@ -1,6 +1,10 @@
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
-import { CreditCardIcon, InboxIcon } from "@heroicons/react/24/outline";
+import {
+  CreditCardIcon,
+  InboxIcon,
+  HomeModernIcon,
+} from "@heroicons/react/24/outline";
 import { useUserContext } from "contexts/UserContext";
 
 export default function Banking() {
@@ -26,13 +30,13 @@ export default function Banking() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_clientmainapi + "/api/users/" + user.id,
+        process.env.NEXT_PUBLIC_clientmainapi + "/users/" + user.id,
         {
           method: "GET",
         }
       );
       const data = await response.json();
-      console.log(data);
+      console.log(data.accounts);
       setAccounts(data.accounts);
     };
     fetchData().catch(console.error);
@@ -64,11 +68,32 @@ export default function Banking() {
                 <div className="flex ">
                   <InboxIcon className="w-5" />
                   <span className="flex-1 ml-3 whitespace-nowrap">
-                    Unread Messages
+                    Account Notifications
                   </span>
                   <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
                     0
                   </span>
+                </div>
+              </li>
+              <li>
+                <div className="flex ">
+                  <HomeModernIcon className="w-5" />
+                  <span className="flex-1 ml-3 whitespace-nowrap">
+                    My Address
+                  </span>
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress.address1}
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress.address2}
+                </div>
+                <div className="text-sm ml-8">
+                  {user.defaultAddress.city +
+                    ", " +
+                    user.defaultAddress.state.substring(0, 2) +
+                    " " +
+                    user.defaultAddress.zip}
                 </div>
               </li>
             </ul>
@@ -83,33 +108,21 @@ export default function Banking() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                   <tr>
                     <th scope="col" className="p-1">
-                      Status
+                      Account
                     </th>
                     <th scope="col" className="p-1">
-                      Customer
-                    </th>
-                    <th scope="col" className="p-1">
-                      Quote
-                    </th>
-                    <th scope="col" className="p-1">
-                      Type
+                      Balance
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {accounts?.map((quote) => (
-                    <tr key={quote.id} className="border-b bg-gray-100 ">
+                  {accounts?.map((account) => (
+                    <tr key={account.id} className="border-b bg-gray-100 ">
                       <td className="py-1 font-medium text-gray-900 whitespace-nowrap">
-                        {quote.status}
+                        {account.name}
                       </td>
                       <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                        {quote.name}
-                      </td>
-                      <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                        {quote.id.slice(0, 7)}
-                      </td>
-                      <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                        Home/Auto
+                        ${account.balance}
                       </td>
                     </tr>
                   ))}

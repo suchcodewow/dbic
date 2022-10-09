@@ -1,7 +1,7 @@
 import random
 from flask import jsonify
-from datetime import datetime, date
-from app import app
+from datetime import date
+
 
 # Helper Functions
 def chooser(a,b,c):
@@ -10,19 +10,18 @@ def chooser(a,b,c):
     else:
         return c
 
-def response(a,b):
-    _response = app.make_response((jsonify(a),b))
-    _response.headers["Content-Type"] = "application/json"
-    return _response
 
 def address2():
-    match random.randint(1,8):
+    randomizer = random.randint(1,8)
+    match randomizer:
         case 1:
             return "P.O. Box " + str(random.randint(40,999))
         case 2:
             return "Suite " + str(random.randint(1,12))
         case 3:
             return "Unit " + str(random.randint(10,29))
+        case _:
+            return " "
 
 def generateAddress():
     return {        
@@ -37,7 +36,7 @@ def generateDynacard():
     today = date.today()
     return {
         "ccnum": "****-****-****-" + str(random.randint(1000,9999)),
-        "expiration": str(today.month) + "/" + str(today.year),
+        "expiration": str(today.month) + "/" + str(today.year+3),
         "ccv": str(random.randint(100,999))
     }
 

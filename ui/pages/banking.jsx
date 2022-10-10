@@ -16,42 +16,41 @@ function classNames(...classes) {
 export default function Banking() {
   const { user, userDispatch } = useUserContext();
   const [currentPanel, setCurrentPanel] = useState("recent");
-  //Recent Transactions
   const [transactions, setTransactions] = useState();
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
-        {
-          method: "GET",
-        }
-      );
-      const data = await response.json();
-      setTransactions(data);
-    };
-    fetchData().catch(console.error);
-  }, []);
-  //Accounts
   const [accounts, setAccounts] = useState();
+  const fetchTransactions = async () => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    setTransactions(data);
+  };
+  const fetchAccounts = async () => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_clientmainapi + "/users/" + user.id,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    setAccounts(data.accounts);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_clientmainapi + "/users/" + user.id,
-        {
-          method: "GET",
-        }
-      );
-      const data = await response.json();
-      setAccounts(data.accounts);
-    };
-    fetchData().catch(console.error);
+    fetchTransactions().catch(console.error);
+    fetchAccounts().catch(console.error);
   }, []);
-  console.log(currentPanel);
+  const handleTransfer = async () => {
+    fetchTransactions().catch(console.error);
+    fetchAccounts().catch(console.error);
+  };
   return (
     <div>
       <Nav />
-      {/* SideBar */}
       <div className="mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
+        {/* SideBar */}
         <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
           <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md">
             <ul className="space-y-2">
@@ -167,10 +166,25 @@ export default function Banking() {
         )}
         {/* transfer & pay */}
         {currentPanel == "transfer" && (
-          <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
+          <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
             <div className="mb-4 font-bold text-xl">Transfer & Pay</div>
-
-            <div className="overflow-x-auto relative shadow-sm sm:rounded-lg"></div>
+            <div className="my-4 flex">
+              <input className="border mr-2"></input>
+              <button
+                className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                onClick={() => handleTransfer()}
+              >
+                transfer
+              </button>
+            </div>
+            <div className="overflow-x-auto relative">
+              <button
+                className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                onClick={() => setCurrentPanel("recent")}
+              >
+                back
+              </button>
+            </div>
           </div>
         )}
       </div>

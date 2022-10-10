@@ -9,7 +9,7 @@ function classNames(...classes) {
 
 export default function Quote() {
   const { user, userDispatch } = useUserContext();
-  const { currentPanel, setCurrentPanel } = useState("recent");
+
   const questionBlocks = [
     [
       {

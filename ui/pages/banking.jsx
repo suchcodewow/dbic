@@ -46,6 +46,11 @@ export default function Banking() {
     fetchTransactions().catch(console.error);
     fetchAccounts().catch(console.error);
   };
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    fetchTransactions().catch(console.error);
+    fetchAccounts().catch(console.error);
+  };
   return (
     <div>
       <Nav />
@@ -125,10 +130,42 @@ export default function Banking() {
         {/* activity panel */}
         {currentPanel == "recent" && (
           <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
-            <div className="mb-4 font-bold text-xl">Recent Activity</div>
             <div className="bg-white rounded-lg p-2 w-full ">
-              <span className="p-1 text-lg font-bold">My Accounts</span>
               <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
+                <span className="p-1 text-lg font-bold">Recent Activities</span>
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                  <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
+                    <tr>
+                      <th scope="col" className="p-2 pl-2">
+                        Account
+                      </th>
+                      <th scope="col" className="p-2">
+                        Balance
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {accounts?.map((account) => (
+                      <tr key={account.name} className="border-b bg-gray-100 ">
+                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
+                          {account.name}
+                        </td>
+                        <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                          <NumericFormat
+                            displayType="text"
+                            prefix={"$"}
+                            valueIsNumericString={true}
+                            thousandSeparator=","
+                            value={account.balance.toFixed(2)}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="overflow-x-auto relative mt-8  sm:rounded-lg">
+                <span className="p-1 text-lg font-bold">My Accounts</span>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                   <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
                     <tr>
@@ -167,16 +204,30 @@ export default function Banking() {
         {/* transfer & pay */}
         {currentPanel == "transfer" && (
           <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
-            <div className="mb-4 font-bold text-xl">Transfer & Pay</div>
+            <div className="mb-4 font-bold text-xl">
+              Internal Account Transfer
+            </div>
             <div className="my-4 flex">
-              <input className="border mr-2"></input>
+              <input className="border mr-2 p-2 text-sm"></input>
               <button
-                className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
                 onClick={() => handleTransfer()}
               >
                 transfer
               </button>
             </div>
+            <div className="mb-4 font-bold text-xl">Pay a bill</div>
+            <form onSubmit={handlePayment}>
+              <div className="my-4 flex">
+                <input className="border mr-2 p-2 text-sm"></input>
+                <button
+                  className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                  type="submit"
+                >
+                  Send Payment
+                </button>
+              </div>
+            </form>
             <div className="overflow-x-auto relative">
               <button
                 className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"

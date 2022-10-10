@@ -23,7 +23,6 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const userObject = await getUser(userId);
-    console.log(userObject);
     userDispatch({ type: "LOGIN", value: userObject });
     router.back();
   };

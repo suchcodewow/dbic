@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useUserContext } from "contexts/UserContext";
 import { NumericFormat } from "react-number-format";
+import Transfer from "components/transfer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -203,38 +204,29 @@ export default function Banking() {
         )}
         {/* transfer & pay */}
         {currentPanel == "transfer" && (
-          <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
-            <div className="mb-4 font-bold text-xl">
-              Internal Account Transfer
-            </div>
-            <div className="my-4 flex">
-              <input className="border mr-2 p-2 text-sm"></input>
-              <button
-                className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
-                onClick={() => handleTransfer()}
-              >
-                transfer
-              </button>
-            </div>
-            <div className="mb-4 font-bold text-xl">Pay a bill</div>
-            <form onSubmit={handlePayment}>
-              <div className="my-4 flex">
-                <input className="border mr-2 p-2 text-sm"></input>
+          <div>
+            <Transfer />
+            <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
+              <div className="mb-4 font-bold text-xl">Pay a bill</div>
+              <form onSubmit={handlePayment}>
+                <div className="my-4 flex">
+                  <input className="border mr-2 p-2 text-sm"></input>
+                  <button
+                    className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                    type="submit"
+                  >
+                    Send Payment
+                  </button>
+                </div>
+              </form>
+              <div className="overflow-x-auto relative">
                 <button
-                  className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
-                  type="submit"
+                  className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
+                  onClick={() => setCurrentPanel("recent")}
                 >
-                  Send Payment
+                  back
                 </button>
               </div>
-            </form>
-            <div className="overflow-x-auto relative">
-              <button
-                className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
-                onClick={() => setCurrentPanel("recent")}
-              >
-                back
-              </button>
             </div>
           </div>
         )}

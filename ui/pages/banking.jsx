@@ -9,6 +9,7 @@ import {
 import { useUserContext } from "contexts/UserContext";
 import { NumericFormat } from "react-number-format";
 import Transfer from "components/transfer";
+import PayBills from "components/Paybills";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -43,15 +44,11 @@ export default function Banking() {
     fetchTransactions().catch(console.error);
     fetchAccounts().catch(console.error);
   }, []);
-  const handleTransfer = async () => {
+  const refreshData = async () => {
     fetchTransactions().catch(console.error);
     fetchAccounts().catch(console.error);
   };
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    fetchTransactions().catch(console.error);
-    fetchAccounts().catch(console.error);
-  };
+
   return (
     <div>
       <Nav />
@@ -204,31 +201,16 @@ export default function Banking() {
         )}
         {/* transfer & pay */}
         {currentPanel == "transfer" && (
-          <div>
-            <Transfer />
-            <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
-              <div className="mb-4 font-bold text-xl">Pay a bill</div>
-              <form onSubmit={handlePayment}>
-                <div className="my-4 flex">
-                  <input className="border mr-2 p-2 text-sm"></input>
-                  <button
-                    className="bg-azure-400 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
-                    type="submit"
-                  >
-                    Send Payment
-                  </button>
-                </div>
-              </form>
-              <div className="overflow-x-auto relative">
-                <button
-                  className="bg-gray-600 hover:bg-azure-500 text-xs uppercase px-6 py-2 rounded-full text-white"
-                  onClick={() => setCurrentPanel("recent")}
-                >
-                  back
-                </button>
-              </div>
-            </div>
-          </div>
+          <>
+            <Transfer
+              setCurrentPanel={setCurrentPanel}
+              refreshData={refreshData}
+            />
+            <PayBills
+              setCurrentPanel={setCurrentPanel}
+              refreshDadta={refreshData}
+            />
+          </>
         )}
       </div>
     </div>

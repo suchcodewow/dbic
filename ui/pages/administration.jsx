@@ -126,7 +126,7 @@ export default function Administration() {
               </thead>
               <tbody>
                 {transactions?.map((transaction) => (
-                  <tr key={transaction._id} className="border-b bg-gray-100 ">
+                  <tr key={transaction.id} className="border-b bg-gray-100 ">
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {transaction.userId}
                     </td>

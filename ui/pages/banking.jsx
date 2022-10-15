@@ -10,6 +10,7 @@ import { useUserContext } from "contexts/UserContext";
 import { NumericFormat } from "react-number-format";
 import Transfer from "components/transfer";
 import PayBills from "components/Paybills";
+import { format } from "date-fns";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -22,7 +23,7 @@ export default function Banking() {
   const [accounts, setAccounts] = useState();
   const fetchTransactions = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
+      process.env.NEXT_PUBLIC_clientmainapi + "/mytransactions/" + user.user,
       {
         method: "GET",
       }
@@ -44,10 +45,10 @@ export default function Banking() {
     fetchTransactions().catch(console.error);
     fetchAccounts().catch(console.error);
   }, []);
-  const refreshData = async () => {
+  function refreshData() {
     fetchTransactions().catch(console.error);
     fetchAccounts().catch(console.error);
-  };
+  }
 
   return (
     <div>
@@ -130,8 +131,10 @@ export default function Banking() {
           <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
             <div className="bg-white rounded-lg p-2 w-full ">
               <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
-                <span className="p-1 text-lg font-bold">Recent Activities</span>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                <span className="p-1 text-lg font-bold">
+                  My Account Balances
+                </span>
+                <table className="mb-4 w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                   <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
                     <tr>
                       <th scope="col" className="p-2 pl-2">
@@ -161,25 +164,32 @@ export default function Banking() {
                     ))}
                   </tbody>
                 </table>
-              </div>
-              <div className="overflow-x-auto relative mt-8  sm:rounded-lg">
-                <span className="p-1 text-lg font-bold">My Accounts</span>
+                <span className="text-lg font-bold">Recent Activity</span>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                   <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
                     <tr>
                       <th scope="col" className="p-2 pl-2">
+                        Payee
+                      </th>
+                      <th scope="col" className="p-2 pl-2">
                         Account
                       </th>
                       <th scope="col" className="p-2">
-                        Balance
+                        Amount
+                      </th>
+                      <th scope="col" className="p-2">
+                        Date
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {accounts?.map((account) => (
-                      <tr key={account.name} className="border-b bg-gray-100 ">
+                    {transactions?.map((element) => (
+                      <tr key={element.id} className="border-b bg-gray-100 ">
                         <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
-                          {account.name}
+                          {element.vendor}
+                        </td>
+                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
+                          {element.accountName}
                         </td>
                         <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
                           <NumericFormat
@@ -187,8 +197,11 @@ export default function Banking() {
                             prefix={"$"}
                             valueIsNumericString={true}
                             thousandSeparator=","
-                            value={account.balance.toFixed(2)}
+                            value={element.amount.toFixed(2)}
                           />
+                        </td>
+                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
+                          {format(new Date(element.timestamp), "M/d/yy H:m")}
                         </td>
                       </tr>
                     ))}
@@ -196,7 +209,6 @@ export default function Banking() {
                 </table>
               </div>
             </div>
-            <div className="overflow-x-auto relative shadow-sm sm:rounded-lg"></div>
           </div>
         )}
         {/* transfer & pay */}
@@ -208,7 +220,9 @@ export default function Banking() {
             />
             <PayBills
               setCurrentPanel={setCurrentPanel}
-              refreshDadta={refreshData}
+              refreshData={refreshData}
+              accounts={accounts}
+              user={user}
             />
           </>
         )}

@@ -13,6 +13,7 @@ export async function getUser(userId) {
 }
 
 export async function postTransaction(data) {
+  const updateBalanceSuccess = updateBalance(data);
   // Build HTTP Request
   const options = {
     method: "POST",
@@ -30,6 +31,16 @@ export async function postTransaction(data) {
   return jsonResponse;
 }
 
+export async function updateBalance(data) {
+  // TODO: check funds
+  // Build HTTP Request
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+}
 // export function GenerateDynacard() {
 //   const ccnum = "****-****-****-" + Math.floor(Math.random() * 9000 + 1000);
 

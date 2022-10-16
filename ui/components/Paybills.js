@@ -49,7 +49,7 @@ export default function PayBills({
                 </label>
                 {errors.vendor && (
                   <label className="ml-2 text-bold text-sm text-white bg-crimson-800 rounded-md px-3">
-                    {errors.vendor.message}
+                    payee needed
                   </label>
                 )}
                 <input
@@ -70,7 +70,7 @@ export default function PayBills({
                 </label>
                 {errors.accountName && (
                   <label className="ml-2 text-bold text-sm text-white  bg-crimson-800 rounded-md px-3">
-                    {errors.accountName.message}
+                    "{errors.accountName.message}"
                   </label>
                 )}
                 <select
@@ -82,11 +82,13 @@ export default function PayBills({
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-azure-500 focus:ring-azure-500 sm:text-sm"
                 >
                   {accounts?.map((account) => (
-                    <option
-                      key={account.accountName}
-                      value={account.accountName}
-                    >
-                      {account.accountName + "($" + account.balance + ")"}
+                    <option key={account.name} value={account.name}>
+                      {account.name == "Dynacard"
+                        ? "Dynacard (+$22.00 cash advance fee)"
+                        : account.name +
+                          " ($" +
+                          account.balance.toFixed(2) +
+                          ")"}
                     </option>
                   ))}
                 </select>
@@ -100,7 +102,7 @@ export default function PayBills({
                 </label>
                 {errors.amount && (
                   <label className="ml-2 text-bold text-sm text-white bg-crimson-800 rounded-md px-3">
-                    Dollar amount required
+                    paymount amount required
                   </label>
                 )}
                 <input

@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 export async function getUser(userId) {
   const options = {
     method: "GET",
@@ -13,7 +15,8 @@ export async function getUser(userId) {
 }
 
 export async function postTransaction(data) {
-  const updateBalanceSuccess = updateBalance(data);
+  const updateBalanceSuccess = await updateBalance(data);
+  console.log("current balance", updateBalanceSuccess);
   // Build HTTP Request
   const options = {
     method: "POST",
@@ -23,12 +26,12 @@ export async function postTransaction(data) {
     },
   };
   //Execute Request
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
-    options
-  );
-  const jsonResponse = await response.json();
-  return jsonResponse;
+  // const response = await fetch(
+  //   process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
+  //   options
+  // );
+  // const jsonResponse = await response.json();
+  // return jsonResponse;
 }
 
 export async function updateBalance(data) {
@@ -40,56 +43,16 @@ export async function updateBalance(data) {
       "Content-Type": "application/json",
     },
   };
+  //Execute Request
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id,
+    options
+  );
+  const jsonResponse = await response.json();
+  const accountList = jsonResponse.accounts;
+  const account = accountList.find((e) => e.name == data.accountName).balance;
+  return account;
 }
-// export function GenerateDynacard() {
-//   const ccnum = "****-****-****-" + Math.floor(Math.random() * 9000 + 1000);
-
-//   const month = new Date().getMonth() + 1;
-//   const year = (new Date().getFullYear() + 3).toString().substring(2, 4);
-//   const expiration = month + "/" + year;
-//   const ccv = Math.floor(Math.random() * 1000 + 1);
-//   return { ccnum, expiration, ccv };
-// }
-
-// function address2() {
-//   switch (Math.floor(Math.random() * 8) + 1) {
-//     case 1:
-//       return "P.O. Box " + Math.floor(Math.random() * (999 - 40 + 1) + 40);
-//     case 2:
-//       return "Suite " + Math.floor(Math.random() * (12 - 1 + 1) + 1);
-//     case 3:
-//       return (
-//         "Unit " + Math.floor(Math.floor(Math.random() * (78 - 10 + 1) + 10))
-//       );
-//     default:
-//       return " ";
-//   }
-// }
-
-// export function GenerateAddress() {
-//   const address1Digits =
-//     Math.floor(
-//       Math.random() * Math.pow(10, Math.floor(Math.random() * 3) + 2)
-//     ) + 10;
-
-//   const address1 =
-//     address1Digits +
-//     " " +
-//     USStreets[Math.floor(Math.random() * USStreets.length)];
-//   const city = USCities[Math.floor(Math.random() * USCities.length)];
-//   const state = USStates[Math.floor(Math.random() * USStates.length)].substring(
-//     0,
-//     2
-//   );
-//   const zip = Math.floor(Math.random() * 100000);
-//   return {
-//     address1,
-//     address2: address2(),
-//     city,
-//     state,
-//     zip,
-//   };
-// }
 
 export const USStates = [
   "AK - Alaska",

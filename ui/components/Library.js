@@ -48,10 +48,14 @@ export async function updateBalance(data) {
     process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id,
     options
   );
-  const jsonResponse = await response.json();
-  const accountList = jsonResponse.accounts;
-  const account = accountList.find((e) => e.name == data.accountName).balance;
-  return account;
+  const userObject = await response.json();
+
+  const currentBalance = userObject.accounts.find(
+    (e) => e.name == data.accountName
+  ).balance;
+  //const account = accountList.find((e) => e.name == data.accountName).balance;
+  userObject.accounts[data.accountName].balance = 10;
+  return userObject;
 }
 
 export const USStates = [

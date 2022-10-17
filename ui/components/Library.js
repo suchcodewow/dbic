@@ -49,9 +49,32 @@ export async function updateBalance(data) {
     options
   );
   const jsonResponse = await response.json();
-  const accountList = jsonResponse.accounts;
-  const account = accountList.find((e) => e.name == data.accountName).balance;
-  return account;
+  let newjson = {
+    ...jsonResponse,
+    accounts: jsonResponse.accounts.map((object) => {
+      if (object.name === data.accountName) {
+        if (data.accountName === "Dynacard") {
+          return {
+            // credit card balance goes up plus the $22 fee
+            ...object,
+            accountName: data.accountName,
+            balance: object.balance + data.amount + 22,
+          };
+        } else {
+          return {
+            // subtract money from other accounts
+            ...object,
+            accountName: data.accountName,
+            balance: object.balance - data.amount,
+          };
+        }
+      }
+      return object;
+    }),
+  };
+  //Update user's account
+
+  return newjson;
 }
 
 export const USStates = [

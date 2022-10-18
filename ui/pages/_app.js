@@ -4,6 +4,7 @@ import { RouteGuard } from "components/RouteGuard";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import "components/globals.css";
+import toast, { Toaster } from "react-hot-toast";
 
 function Loading() {
   var router = useRouter();
@@ -36,6 +37,7 @@ function Loading() {
 export default function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
+      <Toaster />
       <CartProvider>
         <RouteGuard>
           <Loading />

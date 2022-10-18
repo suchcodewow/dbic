@@ -11,6 +11,7 @@ import { NumericFormat } from "react-number-format";
 import Transfer from "components/transfer";
 import PayBills from "components/Paybills";
 import { format } from "date-fns";
+import toast, { Toaster } from "react-hot-toast";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -53,6 +54,7 @@ export default function Banking() {
   return (
     <div>
       <Nav />
+
       <div className="mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
         {/* SideBar */}
         <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
@@ -120,6 +122,12 @@ export default function Banking() {
                   >
                     <CurrencyDollarIcon className="w-5 mr-1" />
                     Transfer & Pay
+                  </div>
+                  <div
+                    className=" cursor-pointer px-3 py-2 rounded-md font-bold w-full flex hover:bg-azure-500"
+                    onClick={() => toast("your face")}
+                  >
+                    MM, toast!
                   </div>
                 </div>
               </li>

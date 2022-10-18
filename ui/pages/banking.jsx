@@ -123,12 +123,6 @@ export default function Banking() {
                     <CurrencyDollarIcon className="w-5 mr-1" />
                     Transfer & Pay
                   </div>
-                  <div
-                    className=" cursor-pointer px-3 py-2 rounded-md font-bold w-full flex hover:bg-azure-500"
-                    onClick={() => toast("your face")}
-                  >
-                    MM, toast!
-                  </div>
                 </div>
               </li>
             </ul>

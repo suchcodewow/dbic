@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postTransaction } from "./Library";
+import toast from "react-hot-toast";
 
 export default function PayBills({
   setCurrentPanel,
@@ -32,8 +33,10 @@ export default function PayBills({
     console.log("postback", postSuccess);
     refreshData();
     setCurrentPanel("recent");
+    toast.success("Payment Successful");
     console.log(data);
   };
+
   return (
     <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
       <div className="mb-4 font-bold text-xl">Pay a bill</div>

@@ -28,3 +28,23 @@ test("Purchase from the catalog", async ({ page }) => {
   await page.locator('button:has-text("Use your new DYNACARD")').click();
   await page.waitForURL(app + "myaccount**");
 });
+test("Start an insurance quote", async ({ page }) => {
+  const app = process.env.frontend
+    ? process.env.frontend
+    : "http://localhost:3000/";
+  // Go to http://localhost:3000/
+  await page.goto(app);
+  await page.locator("text=Sign in").click();
+  await expect(page).toHaveURL(app + "login");
+  await page.locator("form >> text=Sign in").click();
+  await expect(page).toHaveURL(app);
+  await page.locator("text=Insurance").click();
+  await expect(page).toHaveURL(app + "insurance");
+  await page.locator("#storeFeature > nth=3").click();
+  await page.locator("text=HomeBankingInsuranceStore2 >> div").click();
+  await expect(page).toHaveURL(app + "cart");
+  await page.locator('button:has-text("checkout")').click();
+  await page.locator("text=use my saved address").click();
+  await page.locator('button:has-text("Use your new DYNACARD")').click();
+  await page.waitForURL(app + "myaccount**");
+});

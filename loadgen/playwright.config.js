@@ -5,7 +5,7 @@ import { devices } from "@playwright/test";
 
 const config = {
   use: {
-    baseURL: "http://52.251.67.123",
+    baseURL: "localhost:3000",
     browserName: "chromium",
     headless: true,
     viewport: { width: 1280, height: 720 },

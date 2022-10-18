@@ -1,5 +1,3 @@
-import { data } from "autoprefixer";
-
 export async function getUser(userId) {
   const options = {
     method: "GET",
@@ -15,8 +13,13 @@ export async function getUser(userId) {
 }
 
 export async function postTransaction(data) {
+  // Ensure user's account is debited before posting transaction
   const updateBalanceSuccess = await updateBalance(data);
   console.log("current balance", updateBalanceSuccess);
+  // Check for valid debit
+  if (updateBalanceSuccess.status !== 200) {
+    return false;
+  }
   // Build HTTP Request
   const options = {
     method: "POST",
@@ -25,13 +28,12 @@ export async function postTransaction(data) {
       "Content-Type": "application/json",
     },
   };
-  //Execute Request
-  // const response = await fetch(
-  //   process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
-  //   options
-  // );
-  // const jsonResponse = await response.json();
-  // return jsonResponse;
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
+    options
+  );
+  const jsonResponse = await response.json();
+  return jsonResponse;
 }
 
 export async function updateBalance(data) {
@@ -73,8 +75,20 @@ export async function updateBalance(data) {
     }),
   };
   //Update user's account
-
-  return newjson;
+  //Construct payload
+  const postOptions = {
+    method: "PUT",
+    body: JSON.stringify(newjson),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  //Make call
+  const updateResponse = await fetch(
+    process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id,
+    postOptions
+  );
+  return updateResponse;
 }
 
 export const USStates = [

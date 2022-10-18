@@ -28,9 +28,10 @@ export default function PayBills({
   const onSubmit = async (data) => {
     data.userId = user.user;
     data.id = user.id;
-    postTransaction(data);
-    //refreshData();
-    //setCurrentPanel("recent");
+    const postSuccess = await postTransaction(data);
+    console.log("postback", postSuccess);
+    refreshData();
+    setCurrentPanel("recent");
     console.log(data);
   };
   return (

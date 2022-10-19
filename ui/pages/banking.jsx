@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useUserContext } from "contexts/UserContext";
 import { NumericFormat } from "react-number-format";
-import Transfer from "components/transfer";
+
 import PayBills from "components/Paybills";
 import { format } from "date-fns";
 import toast, { Toaster } from "react-hot-toast";
@@ -216,10 +216,6 @@ export default function Banking() {
         {/* transfer & pay */}
         {currentPanel == "transfer" && (
           <>
-            <Transfer
-              setCurrentPanel={setCurrentPanel}
-              refreshData={refreshData}
-            />
             <PayBills
               setCurrentPanel={setCurrentPanel}
               refreshData={refreshData}

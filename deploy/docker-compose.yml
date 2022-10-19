@@ -95,6 +95,7 @@ services:
     depends_on:
       - ordersapi
       - catalogapi
+      - quotesapi
 
   #OPTIONAL
 

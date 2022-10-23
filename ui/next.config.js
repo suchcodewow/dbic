@@ -35,7 +35,7 @@ const nextConfig = {
       },
       {
         source: "/api/api/:path*",
-        destination: "http://maindb:5000/api/:path*",
+        destination: "http://mainapi:5000/api/:path*",
       },
     ];
   },

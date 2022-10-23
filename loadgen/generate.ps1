@@ -1,1 +1,2 @@
-npx playwright codegen localhost:3000
+npx playwright install
+npx playwright codegen localhost

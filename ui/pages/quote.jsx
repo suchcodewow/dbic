@@ -2,6 +2,8 @@ import { useState } from "react";
 import Nav from "components/Nav";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "contexts/UserContext";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -9,7 +11,7 @@ function classNames(...classes) {
 
 export default function Quote() {
   const { user, userDispatch } = useUserContext();
-
+  const router = useRouter();
   const questionBlocks = [
     [
       {
@@ -58,13 +60,17 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    const apicall = await fetch(
-      process.env.NEXT_PUBLIC_clientquotesapi,
-      options
-    );
+    const apicall = await fetch(process.env.NEXT_PUBLIC_clientquotesapi, options);
     const response = await apicall.json();
-    console.log(response);
-    return response;
+    // console.log(response);
+    if (response.message == "success") {
+      // Quote went through
+      toast.success("Submitted Quote");
+      router.push("/myaccount");
+    } else {
+      toast.error("Sorry, your quote failed to process [E-INS1]");
+    }
+    // return response;
   }
   const [formStep, setFormStep] = useState(1);
   const nextStep = () => {
@@ -83,10 +89,7 @@ export default function Quote() {
             (questions, idx) =>
               // Only add fields if the form has reached them
               formStep >= idx + 1 && (
-                <div
-                  key={idx}
-                  className={formStep === idx + 1 ? "block" : "hidden"}
-                >
+                <div key={idx} className={formStep === idx + 1 ? "block" : "hidden"}>
                   <p>
                     Step {idx + 1} of {questionBlocks.length}
                   </p>

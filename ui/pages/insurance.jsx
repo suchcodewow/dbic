@@ -13,8 +13,7 @@ import { useState } from "react";
 const features = [
   {
     name: "Comprehensive Home Coverage",
-    description:
-      "Homeowners insurance protects you from fires, lightning, wind, thefts and vandalism.",
+    description: "Homeowners insurance protects you from fires, lightning, wind, thefts and vandalism.",
     icon: HomeIcon,
   },
   {
@@ -25,8 +24,7 @@ const features = [
   },
   {
     name: "Fast Claim Response",
-    description:
-      "You'll be whole again fast with the fastest claim service on the planet.  ",
+    description: "You'll be whole again fast with the fastest claim service on the planet.  ",
     icon: BoltIcon,
   },
 ];
@@ -37,16 +35,13 @@ export default function Insurance() {
     <div>
       <Nav />
       <div className="bg-white  mx-auto pt-48 max-w-7xl  bg-[length:500px] bg-top bg-no-repeat bg-[url('/images/vehicle.svg')]">
-        {/* <div className="w-64 h-64 relative mx-auto ">
-          <Image src="/images/vehicle.svg" layout="fill" className="" />
-        </div> */}
         <div className="lg:text-center bg-white">
           <p className="pt-4 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
             Insurance that fits like a glove
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Protecting what matters to you shouldn't be a hassle. Find the
-            coverage you need and get the peace of mind you deserve.
+            Protecting what matters to you shouldn't be a hassle. Find the coverage you need and get the peace of mind
+            you deserve.
           </p>
         </div>
         <div className="mt-10 px-4 sm:px-6 lg:px-8">
@@ -57,24 +52,16 @@ export default function Insurance() {
                   <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-indigo-500 text-white">
                     <feature.icon className="h-6 w-6" aria-hidden="true" />
                   </div>
-                  <p className="ml-16 text-lg font-medium leading-6 text-gray-900">
-                    {feature.name}
-                  </p>
+                  <p className="ml-16 text-lg font-medium leading-6 text-gray-900">{feature.name}</p>
                 </dt>
-                <dd className="mt-2 ml-16 text-base text-gray-500">
-                  {feature.description}
-                </dd>
+                <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
               </div>
             ))}
           </dl>
           <div className="py-12 h-48 my-12 flex justify-center">
             {/* image */}
             <div className="w-64 relative">
-              <Image
-                src="/images/neighborhood.svg"
-                layout="fill"
-                className="object-scale-down"
-              />
+              <Image src="/images/neighborhood.svg" layout="fill" className="object-scale-down" />
             </div>
             {/* CTA */}
             <div className="ml-6 text-lg">
@@ -100,22 +87,19 @@ export default function Insurance() {
                 <li className="font-bold">
                   Required Coverages
                   <p className="text-base font-normal mb-7 mt-4">
-                    Policies pay for damages or injuries when you are at fault
-                    and is required by law.
+                    Policies pay for damages or injuries when you are at fault and is required by law.
                   </p>
                 </li>
                 <li className="font-bold">
                   Additional Options
                   <p className="text-base font-normal mb-7 mt-4">
-                    Although not always required these provide you with an extra
-                    layer of protection.
+                    Although not always required these provide you with an extra layer of protection.
                   </p>
                 </li>
                 <li className="font-bold">
                   We can help!
                   <p className="text-base font-normal mb-7 mt-4">
-                    Getting the insurance you need can be daunting. We're here
-                    to help!
+                    Getting the insurance you need can be daunting. We're here to help!
                   </p>
                 </li>
               </ul>

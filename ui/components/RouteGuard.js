@@ -9,6 +9,7 @@ export function RouteGuard({ children }) {
 
   useEffect(() => {
     // on initial load - run auth check
+    // console.log(router.asPath);
     authCheck(router.asPath);
     // on route change start - hide page content by setting authorized to false
     const hideContent = () => setAuthorized(false);
@@ -26,7 +27,7 @@ export function RouteGuard({ children }) {
     // Add publicPaths to allow anonymous visits
     const publicPaths = ["/", "/login", "/logout", "/store", "/insurance"];
     const path = url.split("?")[0];
-
+    console.log(url);
     if (user.prerender) {
       return;
     }
@@ -34,7 +35,7 @@ export function RouteGuard({ children }) {
       setAuthorized(false);
       router.push({
         pathname: "/login",
-        query: { returnUrl: router.asPath },
+        query: { returnUrl: url },
       });
     } else {
       setAuthorized(true);

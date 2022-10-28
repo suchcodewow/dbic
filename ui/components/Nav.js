@@ -1,12 +1,6 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  BellIcon,
-  XMarkIcon,
-  WrenchIcon,
-  KeyIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, BellIcon, XMarkIcon, WrenchIcon, KeyIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -54,32 +48,31 @@ export default function Nav() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start text-white">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="/images/wow.png"
-                    alt="SuchCodeWow"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="/images/wow.png"
-                    alt="SuchCodeWow"
-                  />
+                  <img className="block h-8 w-auto lg:hidden" src="/images/wow.png" alt="SuchCodeWow" />
+                  <img className="hidden h-8 w-auto lg:block" src="/images/wow.png" alt="SuchCodeWow" />
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link key={item.name} href={item.href}>
-                        <a
+                      <div
+                        key={item.name}
+                        onClick={() => router.push(item.href)}
+                        className={classNames(
+                          item.href == router.pathname ? " bg-azure-600" : " hover:bg-azure-700",
+                          "px-3 py-2 rounded-md font-bold cursor-pointer"
+                        )}
+                      >
+                        {/* <a
                           className={classNames(
                             item.href == router.pathname
                               ? "  bg-azure-600"
                               : " hover:bg-azure-700",
                             "px-3 py-2 rounded-md  font-bold"
                           )}
-                        >
-                          {item.name}
-                        </a>
-                      </Link>
+                        > */}
+                        {item.name}
+                        {/* </a> */}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -144,10 +137,7 @@ export default function Nav() {
                           {({ active }) => (
                             <a
                               href="/administration"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "px-4 py-2  text-gray-700 flex"
-                              )}
+                              className={classNames(active ? "bg-gray-100" : "", "px-4 py-2  text-gray-700 flex")}
                             >
                               <KeyIcon className="w-6 inline text-crimson-500 mr-2" />
                               Administration
@@ -158,10 +148,7 @@ export default function Nav() {
                           {({ active }) => (
                             <a
                               href="/operations"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "px-4 py-2  text-gray-700 flex"
-                              )}
+                              className={classNames(active ? "bg-gray-100" : "", "px-4 py-2  text-gray-700 flex")}
                             >
                               <WrenchIcon className="w-6 inline text-crimson-500 mr-2" />
                               Operations
@@ -172,10 +159,7 @@ export default function Nav() {
                     </Transition>
                   </Menu>
                 ) : (
-                  <a
-                    href="/login"
-                    className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
-                  >
+                  <a href="/login" className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer">
                     Sign In
                   </a>
                 )}

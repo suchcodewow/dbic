@@ -6,12 +6,9 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
-  const { user, userDispatch } = useUserContext();
-  if (user.user) {
-    // Send logged in users to home page
-    router.push("/");
-  }
+  const { userDispatch } = useUserContext();
 
+  console.log("returnURL", router.query.returnUrl);
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
   const selectedName = Name[Math.floor(Math.random() * Name.length)];
   const randomId =
@@ -24,7 +21,8 @@ export default function Login() {
     e.preventDefault();
     const userObject = await getUser(userId);
     userDispatch({ type: "LOGIN", value: userObject });
-    router.back();
+    const returnUrl = router.query.returnUrl || "/";
+    router.push(returnUrl);
   };
 
   return (
@@ -39,10 +37,7 @@ export default function Login() {
                   <div className="text-2xl font-bold text-azure-500">Login</div>
                   <div className="grid grid-cols-6 gap-6 mt-4">
                     <div className="col-span-6 sm:col-span-4">
-                      <label
-                        htmlFor="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                         User Name
                       </label>
                       <input
@@ -56,10 +51,7 @@ export default function Login() {
                       />
                     </div>
                     <div className="col-span-6 sm:col-span-4">
-                      <label
-                        htmlFor="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                         Password
                       </label>
                       <input

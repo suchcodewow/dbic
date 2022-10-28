@@ -1,4 +1,3 @@
-const defaultEndpoint = `https://api.themoviedb.org/3/discover/movie?api_key=4c5f8a1185a3e74355b50ae2d3568910&language=en-US&with_genres=35`;
 import { useState } from "react";
 import StoreAll from "components/StoreAll";
 import { useCartContext } from "contexts/CartContext";
@@ -8,6 +7,7 @@ import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import Dynacard from "components/Dynacard";
 import Checkout from "components/Checkout";
 import { userAgent } from "next/server";
+import { useUserContext } from "contexts/UserContext";
 
 export default function Store({ _catalog, _carousel }) {
   // Panels
@@ -18,6 +18,7 @@ export default function Store({ _catalog, _carousel }) {
   // data
   const [catalog, setCatalog] = useState(_catalog);
   const { cart, cartDispatch } = useCartContext();
+  const { user } = useUserContext();
   var cartTotal = 0;
   if (cart) {
     cart.map((item) => (cartTotal += item.qty));
@@ -46,16 +47,10 @@ export default function Store({ _catalog, _carousel }) {
       </div>
       <Dynacard />
       <StoreAll catalog={catalog} />
-      <Cart
-        cartOpen={cartOpen}
-        setCartOpen={setCartOpen}
-        setCheckoutOpen={setCheckoutOpen}
-      />
-      <Checkout
-        checkoutOpen={checkoutOpen}
-        setCheckoutOpen={setCheckoutOpen}
-        setPaymentOpen={setPaymentOpen}
-      />
+      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} setCheckoutOpen={setCheckoutOpen} />
+      {user?.user && (
+        <Checkout checkoutOpen={checkoutOpen} setCheckoutOpen={setCheckoutOpen} setPaymentOpen={setPaymentOpen} />
+      )}
     </div>
   );
 }
@@ -71,10 +66,7 @@ function shuffle(array) {
     currentIndex--;
 
     // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;

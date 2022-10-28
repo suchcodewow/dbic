@@ -1,27 +1,23 @@
 // Imports
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  UserPlusIcon,
-  XMarkIcon,
-  HomeModernIcon,
-  CreditCardIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, HomeModernIcon, CreditCardIcon } from "@heroicons/react/24/outline";
 import { useCartContext } from "contexts/CartContext";
 import { useUserContext } from "contexts/UserContext";
 import { useRouter } from "next/router";
 
 // Main Component
-export default function Checkout({
-  checkoutOpen,
-  setCheckoutOpen,
-  setPaymentOpen,
-}) {
+export default function Checkout({ checkoutOpen, setCheckoutOpen, setPaymentOpen }) {
   // Setup
   const { cart, cartDispatch } = useCartContext();
   const { user, userDispatch } = useUserContext();
   const router = useRouter();
   if (!user) {
+    console.log("no user at checkout");
+    router.push({
+      pathname: "/login",
+      query: { returnUrl: "/store?step=checkout" },
+    });
     return;
   }
   let cartTotal = 0;
@@ -97,9 +93,7 @@ export default function Checkout({
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">
-                          Checkout
-                        </Dialog.Title>
+                        <Dialog.Title className="text-lg font-medium text-gray-900">Checkout</Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -115,9 +109,7 @@ export default function Checkout({
                       <div className="mt-8">
                         <HomeModernIcon className="mb-2 w-8 text-gray-400" />
 
-                        <label className="ml-2 text">
-                          Ship to this address:
-                        </label>
+                        <label className="ml-2 text">Ship to this address:</label>
 
                         <div className="my-1 border-t border-gray-400"></div>
                         <div className="flex">
@@ -200,9 +192,7 @@ export default function Checkout({
                               DynaCard
                             </span>
                             <p>
-                              <span className="text-xs">
-                                Credit Card Number:
-                              </span>
+                              <span className="text-xs">Credit Card Number:</span>
                               {user.dynacard.ccnum}
                             </p>
 

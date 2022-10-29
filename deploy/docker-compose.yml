@@ -1,5 +1,5 @@
 services:
-  # databases
+  # DATABASES
   catalogdb:
     image: mysql
     container_name: catalogdb
@@ -11,16 +11,6 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: catalogDb
-
-  ordersdb:
-    image: "mcr.microsoft.com/mssql/server"
-    container_name: ordersdb
-    restart: always
-    environment:
-      SA_PASSWORD: "Password123"
-      ACCEPT_EULA: "Y"
-    ports:
-      - 1433:1433
 
   maindb:
     image: mongo:latest
@@ -34,6 +24,16 @@ services:
     depends_on:
       - mongo-express
 
+  ordersdb:
+    image: "mcr.microsoft.com/mssql/server"
+    container_name: ordersdb
+    restart: always
+    environment:
+      SA_PASSWORD: "Password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+
   # API's
   catalogapi:
     build: ../catalogapi
@@ -44,6 +44,20 @@ services:
       - 8080:80
     depends_on:
       - catalogdb
+
+  mainapi:
+    build:
+      context: ../mainapi
+      dockerfile: Dockerfile
+    container_name: mainapi
+    image: suchcodewow/dbic-mainapi
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      dbHostName: maindb
+    depends_on:
+      - maindb
 
   ordersapi:
     build:
@@ -71,25 +85,11 @@ services:
     depends_on:
       - maindb
 
-  mainapi:
-    build:
-      context: ../mainapi
-      dockerfile: Dockerfile
-    container_name: mainapi
-    image: suchcodewow/dbic-mainapi
-    restart: always
-    ports:
-      - 5000:5000
-    environment:
-      dbHostName: maindb
-    depends_on:
-      - maindb
-
-  # frontend
+  # UI
   ui:
     build: ../UI
-    container_name: frontend
-    image: suchcodewow/dbic-frontend
+    container_name: ui
+    image: suchcodewow/dbic-ui
     ports:
       - 80:3000
     depends_on:

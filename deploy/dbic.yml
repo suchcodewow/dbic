@@ -341,7 +341,7 @@ metadata:
     app.kubernetes.io/name: quotesapi
 spec:
   ports:
-    - port: 6000
+    - port: 80
       targetPort: 80
       name: quotesapi
   selector:
@@ -384,8 +384,8 @@ spec:
           env:
             - name: DT_CUSTOM_PROP
               value: "project=dbic service=mainapi"
-            - name: DOTNET_ENVIRONMENT
-              value: DockerDeploy
+            - name: dbHostName
+              value: maindb
 
 ---
 apiVersion: v1

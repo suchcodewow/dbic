@@ -9,5 +9,9 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.27.1"
+  },
+  "dependencies": {
+    "artillery": "^2.0.0-26",
+    "artillery-engine-playwright": "^0.2.1"
   }
 }

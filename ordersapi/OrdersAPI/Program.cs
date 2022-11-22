@@ -44,5 +44,5 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.Urls.Add("http://*:8000");
 app.Run();

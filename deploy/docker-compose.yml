@@ -41,7 +41,7 @@ services:
     image: suchcodewow/dbic-catalogapi
     restart: always
     ports:
-      - 8080:80
+      - 8080:8080
     depends_on:
       - catalogdb
 
@@ -69,7 +69,7 @@ services:
       - DOTNET_ENVIRONMENT=DockerDeploy
     restart: always
     ports:
-      - 8000:80
+      - 8000:8000
     depends_on:
       - ordersdb
 
@@ -81,7 +81,7 @@ services:
     image: suchcodewow/dbic-quotesapi
     restart: always
     ports:
-      - 6000:80
+      - 6000:6000
     depends_on:
       - maindb
 

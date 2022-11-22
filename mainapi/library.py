@@ -2,14 +2,12 @@ import random
 from flask import jsonify
 from datetime import date
 
-
 # Helper Functions
 def chooser(a,b,c):
     if b in a:
         return a[b]
     else:
         return c
-
 
 def address2():
     randomizer = random.randint(1,8)

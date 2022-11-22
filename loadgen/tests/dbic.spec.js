@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";
 test("test", async ({ page }) => {
-  await page.goto(frontendURL);
+  // await page.goto(frontendURL);
   await page.getByRole("link", { name: "Sign In" }).click();
   await expect(page).toHaveURL(frontendURL + "/login");
   await page.getByRole("button", { name: "Sign In" }).click();

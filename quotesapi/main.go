@@ -16,5 +16,5 @@ func main() {
 	//routes
 	routes.QuoteRoute(app)
 
-	app.Listen(":80")
+	app.Listen(":6000")
 }

@@ -1,1 +1,0 @@
-npx playwright codegen localhost

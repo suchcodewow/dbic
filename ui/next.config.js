@@ -23,15 +23,15 @@ const nextConfig = {
       },
       {
         source: "/api/order/:path*",
-        destination: "http://ordersapi/api/Order/:path*",
+        destination: "http://ordersapi:8000/api/Order/:path*",
       },
       {
         source: "/api/catalog/:path*",
-        destination: "http://catalogapi/api/v1/catalog/:path*",
+        destination: "http://catalogapi:8080/api/v1/catalog/:path*",
       },
       {
         source: "/api/quote/:path*",
-        destination: "http://quotesapi/quote/:path*",
+        destination: "http://quotesapi:6000/quote/:path*",
       },
       {
         source: "/api/api/:path*",

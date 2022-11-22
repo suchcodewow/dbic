@@ -20,5 +20,5 @@ WORKDIR "$APP_HOME"
 COPY --from=builder "$APP_HOME"/app $APP_HOME
 COPY prod.env $APP_HOME/.env
 
-EXPOSE 80
+EXPOSE 6000
 CMD ["./app"]

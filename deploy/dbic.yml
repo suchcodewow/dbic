@@ -210,7 +210,7 @@ spec:
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: catalogapi
           env:
             - name: DT_CUSTOM_PROP
@@ -265,7 +265,7 @@ spec:
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8000
               name: ordersapi
           env:
             - name: DT_CUSTOM_PROP
@@ -322,7 +322,7 @@ spec:
           image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 6000
               name: quotesapi
           env:
             - name: DT_CUSTOM_PROP

@@ -1,2 +1,2 @@
-$Env:frontendURL = "20.94.19.14"
+$Env:frontendURL = "localhost"
 artillery run dbicLoadgen.yaml

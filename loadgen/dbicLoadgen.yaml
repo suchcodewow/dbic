@@ -2,8 +2,15 @@ config:
   target: http://dynabankinsuracart.com
   # Enable the Playwright engine:
   engines:
-    playwright: {}
-  processor: "./tests/artillery.js"
+    playwright:
+      launchOptions:
+        headless: true
+  processor: "./artillery.js"
+  phases:
+    - duration: 3600
+      arrivalRate: 2
+      maxVusers: 400
+      name: One Hour
 scenarios:
   - engine: playwright
     flowFunction: "test"

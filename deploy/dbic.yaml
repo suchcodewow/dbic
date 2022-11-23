@@ -505,6 +505,7 @@ metadata:
     app.kubernetes.io/part-of: dbic
     app.kubernetes.io/name: loadgen
 spec:
+  ports:
   selector:
     app.kubernetes.io/part-of: dbic
     app.kubernetes.io/name: loadgen

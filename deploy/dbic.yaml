@@ -227,8 +227,8 @@ metadata:
     app.kubernetes.io/name: catalogapi
 spec:
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
       name: catalogapi
   selector:
     app.kubernetes.io/part-of: dbic
@@ -284,8 +284,8 @@ metadata:
     app.kubernetes.io/name: ordersapi
 spec:
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8000
+      targetPort: 8000
       name: ordersapi
   selector:
     app.kubernetes.io/part-of: dbic
@@ -341,8 +341,8 @@ metadata:
     app.kubernetes.io/name: quotesapi
 spec:
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 6000
+      targetPort: 6000
       name: quotesapi
   selector:
     app.kubernetes.io/part-of: dbic

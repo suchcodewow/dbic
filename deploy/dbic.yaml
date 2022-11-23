@@ -495,18 +495,3 @@ spec:
           env:
             - name: frontendUrl
               value: "ui"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: loadgen
-  namespace: dbic
-  labels:
-    app.kubernetes.io/part-of: dbic
-    app.kubernetes.io/name: loadgen
-spec:
-  ports:
-  selector:
-    app.kubernetes.io/part-of: dbic
-    app.kubernetes.io/name: loadgen
-  type: ClusterIP

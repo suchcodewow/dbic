@@ -2,7 +2,8 @@ import { KeyIcon } from "@heroicons/react/24/outline";
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-
+//TODO: make all 3 transactions recent down
+//TODO: fix date field for banking.  last digit of time gets cut off
 export default function Administration() {
   //Shop data
   const [orders, setOrders] = useState();
@@ -32,12 +33,9 @@ export default function Administration() {
   const [transactions, setTransactions] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/transactions", {
+        method: "GET",
+      });
       const data = await response.json();
       console.log(data);
       setTransactions(data);
@@ -79,21 +77,12 @@ export default function Administration() {
               <tbody>
                 {orders?.map((order) => (
                   <tr key={order.id} className="border-b bg-gray-100 ">
-                    <th
-                      scope="row"
-                      className="p-1 font-medium text-gray-900 whitespace-nowrap "
-                    >
+                    <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {order.status}
                     </th>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      #{order.id}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {order.name}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      ${order.cartTotal}
-                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">#{order.id}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{order.name}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${order.cartTotal}</td>
                   </tr>
                 ))}
               </tbody>
@@ -127,18 +116,10 @@ export default function Administration() {
               <tbody>
                 {transactions?.map((transaction) => (
                   <tr key={transaction.id} className="border-b bg-gray-100 ">
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                      {transaction.userId}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {transaction.accountName}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {transaction.vendor}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      ${transaction.amount}
-                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{transaction.userId}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{transaction.accountName}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${transaction.amount}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {format(new Date(transaction.timestamp), "M/d/yy H:m")}
                     </td>
@@ -171,18 +152,10 @@ export default function Administration() {
               <tbody>
                 {quotes?.map((quote) => (
                   <tr key={quote.id} className="border-b bg-gray-100 ">
-                    <td className="py-1 font-medium text-gray-900 whitespace-nowrap">
-                      {quote.status}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {quote.name}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                      {quote.id.slice(0, 7)}
-                    </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      Home/Auto
-                    </td>
+                    <td className="py-1 font-medium text-gray-900 whitespace-nowrap">{quote.status}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{quote.name}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{quote.id.slice(0, 7)}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">Home/Auto</td>
                   </tr>
                 ))}
               </tbody>

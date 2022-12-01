@@ -8,9 +8,9 @@ config:
   processor: "./artillery.js"
   phases:
     - duration: 3600
-      arrivalRate: 2
-      maxVusers: 400
-      name: One Hour
+      arrivalRate: 1
+      maxVusers: 1
+      name: Start
 scenarios:
   - engine: playwright
     flowFunction: "test"

@@ -8,8 +8,8 @@ config:
   processor: "./artillery.js"
   phases:
     - duration: 3600
-      arrivalRate: 1
-      maxVusers: 1
+      arrivalRate: 50
+      maxVusers: 5
       name: Start
 scenarios:
   - engine: playwright

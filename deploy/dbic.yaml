@@ -480,7 +480,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: loadgen
-        app.kubernetes.io/version: "1"
+        app.kubernetes.io/version: 1
         app.kubernetes.io/component: service
         app.kubernetes.io/part-of: dbic
         app.kubernetes.io/created-by: suchcodewow

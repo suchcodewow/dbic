@@ -7,9 +7,9 @@ config:
         headless: true
   processor: "./artillery.js"
   phases:
-    - duration: 3600
-      arrivalRate: 50
-      maxVusers: 5
+    - duration: "{{  $processEnvironment.TEST_DURATION }}"
+      arrivalRate: "{{  $processEnvironment.TEST_RATE }}"
+      maxVusers: "{{  $processEnvironment.TEST_MAXUSERS }}"
       name: Start
 scenarios:
   - engine: playwright

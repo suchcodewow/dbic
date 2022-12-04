@@ -105,6 +105,9 @@ services:
       - ui
     environment:
       frontendURL: ui
+      TEST_DURATION: 3600
+      TEST_RATE: 5
+      TEST_MAXUSERS: 5
 
   #OPTIONAL
   #mongo express

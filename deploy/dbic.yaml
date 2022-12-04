@@ -493,5 +493,11 @@ spec:
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:
-            - name: frontendUrl
+            - name: frontendURL
               value: "ui"
+            - name: TEST_DURATION
+              value: 3600
+            - name: TEST_RATE
+              value: 5
+            - name: TEST_MAXUSERS
+              value: 5

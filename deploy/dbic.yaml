@@ -436,13 +436,13 @@ spec:
           image: suchcodewow/dbic-ui:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
               name: ui
           env:
             - name: DT_CUSTOM_PROP
               value: "project=dbic service=ui"
             - name: PORT
-              value: "80"
+              value: "3000"
 
 ---
 apiVersion: v1
@@ -456,7 +456,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 3000
       name: ui
   selector:
     app.kubernetes.io/part-of: dbic

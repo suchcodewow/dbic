@@ -386,6 +386,8 @@ spec:
               value: "project=dbic service=mainapi"
             - name: dbHostName
               value: maindb
+            - name: AUTOWRAPT_BOOTSTRAP
+              value: autodynatrace
 
 ---
 apiVersion: v1

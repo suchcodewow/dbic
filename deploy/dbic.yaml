@@ -491,7 +491,7 @@ spec:
         chat-channel: qa-team
     spec:
       containers:
-        - name: laodgen
+        - name: loadgen
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:

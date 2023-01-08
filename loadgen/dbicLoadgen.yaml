@@ -5,6 +5,7 @@ config:
     playwright:
       launchOptions:
         headless: true
+        args: [--disable-gpu-sandbox, --disable-gpu, --disable-canvas-aa]
   processor: "./artillery.js"
   phases:
     - duration: "{{  $processEnvironment.TEST_DURATION }}"

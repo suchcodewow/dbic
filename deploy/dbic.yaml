@@ -32,10 +32,10 @@ spec:
         - name: catalogdb
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: mysql
           imagePullPolicy: Always
@@ -102,10 +102,10 @@ spec:
         - name: ordersdb
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always
@@ -166,10 +166,10 @@ spec:
         - name: maindb
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: mongo:latest
           imagePullPolicy: Always
@@ -230,10 +230,10 @@ spec:
         - name: catalogapi
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
@@ -292,10 +292,10 @@ spec:
         - name: ordersapi
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
@@ -356,10 +356,10 @@ spec:
         - name: quotesapi
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "125m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
@@ -420,10 +420,10 @@ spec:
         - name: mainapi
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "500m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
@@ -486,10 +486,10 @@ spec:
         - name: ui
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "200m"
+              memory: "256Mi"
+              cpu: "64m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
           image: suchcodewow/dbic-ui:latest
           imagePullPolicy: Always
@@ -550,11 +550,11 @@ spec:
         - name: loadgen
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "200m"
+              memory: "2500Mi"
+              cpu: "2000m"
             limits:
-              memory: "128Mi"
-              cpu: "1000m"
+              memory: "3000Mi"
+              cpu: "3000m"
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:

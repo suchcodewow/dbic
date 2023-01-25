@@ -150,6 +150,13 @@ spec:
     spec:
       containers:
         - name: maindb
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: mongo:latest
           imagePullPolicy: Always
           ports:
@@ -207,6 +214,13 @@ spec:
     spec:
       containers:
         - name: catalogapi
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:

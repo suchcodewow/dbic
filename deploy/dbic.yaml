@@ -33,7 +33,7 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "128m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
               cpu: "500m"
@@ -103,7 +103,7 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "128m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
               cpu: "500m"
@@ -167,7 +167,7 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "128m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
               cpu: "500m"
@@ -230,11 +230,11 @@ spec:
         - name: catalogapi
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "128m"
+              memory: "1024Mi"
+              cpu: "512m"
             limits:
               memory: "1024Mi"
-              cpu: "500m"
+              cpu: "512m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:
@@ -293,7 +293,7 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "128m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
               cpu: "500m"
@@ -357,7 +357,7 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "128m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
               cpu: "500m"
@@ -420,7 +420,7 @@ spec:
         - name: mainapi
           resources:
             requests:
-              memory: "512Mi"
+              memory: "1024Mi"
               cpu: "128m"
             limits:
               memory: "1024Mi"
@@ -551,7 +551,7 @@ spec:
           resources:
             requests:
               memory: "3000Mi"
-              cpu: "2000m"
+              cpu: "1000m"
             limits:
               memory: "3000Mi"
               cpu: "3000m"

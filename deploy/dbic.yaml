@@ -30,6 +30,13 @@ spec:
     spec:
       containers:
         - name: catalogdb
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "125m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: mysql
           imagePullPolicy: Always
           ports:
@@ -93,6 +100,13 @@ spec:
     spec:
       containers:
         - name: ordersdb
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "125m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always
           ports:
@@ -153,7 +167,7 @@ spec:
           resources:
             requests:
               memory: "64Mi"
-              cpu: "250m"
+              cpu: "125m"
             limits:
               memory: "128Mi"
               cpu: "500m"
@@ -217,7 +231,7 @@ spec:
           resources:
             requests:
               memory: "64Mi"
-              cpu: "250m"
+              cpu: "125m"
             limits:
               memory: "128Mi"
               cpu: "500m"
@@ -276,6 +290,13 @@ spec:
     spec:
       containers:
         - name: ordersapi
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "125m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
           ports:
@@ -333,6 +354,13 @@ spec:
     spec:
       containers:
         - name: quotesapi
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "125m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
           ports:
@@ -390,6 +418,13 @@ spec:
     spec:
       containers:
         - name: mainapi
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
           ports:
@@ -449,6 +484,13 @@ spec:
     spec:
       containers:
         - name: ui
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-ui:latest
           imagePullPolicy: Always
           ports:

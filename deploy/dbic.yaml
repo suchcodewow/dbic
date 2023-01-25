@@ -561,7 +561,7 @@ spec:
             - name: frontendURL
               value: "ui"
             - name: TEST_DURATION
-              value: "3600"
+              value: "86400"
             - name: TEST_RATE
               value: "5"
             - name: TEST_MAXUSERS

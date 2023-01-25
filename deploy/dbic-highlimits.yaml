@@ -33,10 +33,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: mysql
           imagePullPolicy: Always
           ports:
@@ -103,10 +103,10 @@ spec:
           resources:
             requests:
               memory: "1024Mi"
-              cpu: "32m"
+              cpu: "128m"
             limits:
-              memory: "1024Mi"
-              cpu: "32m"
+              memory: "2048Mi"
+              cpu: "500m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always
           ports:
@@ -167,10 +167,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: mongo:latest
           imagePullPolicy: Always
           ports:
@@ -230,11 +230,11 @@ spec:
         - name: catalogapi
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "512m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "512m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:
@@ -293,10 +293,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
           ports:
@@ -357,10 +357,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
           ports:
@@ -420,11 +420,11 @@ spec:
         - name: mainapi
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "128m"
             limits:
-              memory: "512Mi"
-              cpu: "32m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
           ports:
@@ -487,10 +487,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "256m"
+              cpu: "128m"
             limits:
-              memory: "512Mi"
-              cpu: "512m"
+              memory: "1024Mi"
+              cpu: "500m"
           image: suchcodewow/dbic-ui:latest
           imagePullPolicy: Always
           ports:
@@ -551,10 +551,10 @@ spec:
           resources:
             requests:
               memory: "3000Mi"
-              cpu: "2500m"
+              cpu: "1000m"
             limits:
               memory: "3000Mi"
-              cpu: "4000m"
+              cpu: "3000m"
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:

@@ -102,10 +102,10 @@ spec:
         - name: ordersdb
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "64m"
-            limits:
               memory: "1024Mi"
+              cpu: "128m"
+            limits:
+              memory: "2048Mi"
               cpu: "500m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always

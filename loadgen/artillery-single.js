@@ -9,26 +9,12 @@ async function test(page) {
   await expect(page).toHaveURL(frontendURL + "/");
   await page.getByRole("navigation").getByText("Banking").click();
   await expect(page).toHaveURL(frontendURL + "/banking");
-  // Do this section 3 times
   await page.getByText("Transfer & Pay").click();
   await page.getByLabel("Payee").click();
   await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
   await page.getByLabel("Payment Amount").click();
   await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
   await page.getByRole("button", { name: "Send Payment" }).click();
-  await page.getByText("Transfer & Pay").click();
-  await page.getByLabel("Payee").click();
-  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
-  await page.getByLabel("Payment Amount").click();
-  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
-  await page.getByRole("button", { name: "Send Payment" }).click();
-  await page.getByText("Transfer & Pay").click();
-  await page.getByLabel("Payee").click();
-  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
-  await page.getByLabel("Payment Amount").click();
-  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
-  await page.getByRole("button", { name: "Send Payment" }).click();
-  //end section
   await page.getByText("Insurance").click();
   await expect(page).toHaveURL(frontendURL + "/insurance");
   await page.getByRole("link", { name: "Let's go!" }).click();

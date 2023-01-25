@@ -103,10 +103,10 @@ spec:
           resources:
             requests:
               memory: "1024Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
               memory: "1024Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always
           ports:
@@ -231,10 +231,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:
@@ -293,10 +293,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
           ports:

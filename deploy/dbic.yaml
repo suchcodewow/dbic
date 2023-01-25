@@ -437,6 +437,8 @@ spec:
               value: maindb
             - name: AUTOWRAPT_BOOTSTRAP
               value: autodynatrace
+            - name: AUTODYNATRACE_APPLICATION_ID
+              value: transactionAPI
 
 ---
 apiVersion: v1

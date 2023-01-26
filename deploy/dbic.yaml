@@ -33,10 +33,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: mysql
           imagePullPolicy: Always
           ports:
@@ -106,7 +106,7 @@ spec:
               cpu: "64m"
             limits:
               memory: "1024Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: "mcr.microsoft.com/mssql/server"
           imagePullPolicy: Always
           ports:
@@ -167,10 +167,10 @@ spec:
           resources:
             requests:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: mongo:latest
           imagePullPolicy: Always
           ports:
@@ -234,7 +234,7 @@ spec:
               cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: suchcodewow/dbic-catalogapi:latest
           imagePullPolicy: Always
           ports:
@@ -296,7 +296,7 @@ spec:
               cpu: "64m"
             limits:
               memory: "512Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: suchcodewow/dbic-ordersapi:latest
           imagePullPolicy: Always
           ports:
@@ -424,7 +424,7 @@ spec:
               cpu: "32m"
             limits:
               memory: "512Mi"
-              cpu: "64m"
+              cpu: "100m"
           image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
           ports:

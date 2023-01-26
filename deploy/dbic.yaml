@@ -36,7 +36,7 @@ spec:
               cpu: "32m"
             limits:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: mysql
           imagePullPolicy: Always
           ports:
@@ -170,7 +170,7 @@ spec:
               cpu: "32m"
             limits:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: mongo:latest
           imagePullPolicy: Always
           ports:
@@ -424,7 +424,7 @@ spec:
               cpu: "32m"
             limits:
               memory: "512Mi"
-              cpu: "32m"
+              cpu: "64m"
           image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
           ports:

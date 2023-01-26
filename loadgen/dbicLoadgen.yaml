@@ -20,10 +20,13 @@ config:
           ]
   processor: "./artillery.js"
   phases:
+    - arrivalRate: 0
+      duration: 60
+      name: Delay
     - duration: "{{  $processEnvironment.TEST_DURATION }}"
       arrivalRate: "{{  $processEnvironment.TEST_RATE }}"
       maxVusers: "{{  $processEnvironment.TEST_MAXUSERS }}"
-      name: Start
+      name: Main
 scenarios:
   - engine: playwright
     flowFunction: "test"

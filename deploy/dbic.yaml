@@ -494,6 +494,13 @@ spec:
     spec:
       containers:
         - name: loadgen
+          resources:
+            requests:
+              memory: "3000Mi"
+              cpu: "500m"
+            limits:
+              memory: "3000Mi"
+              cpu: "1500m"
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:

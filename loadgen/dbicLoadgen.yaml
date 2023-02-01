@@ -21,7 +21,7 @@ config:
   processor: "./artillery.js"
   phases:
     - arrivalRate: 0
-      duration: 60
+      duration: "{{  $processEnvironment.TEST_DELAY }}"
       name: Delay
     - duration: "{{  $processEnvironment.TEST_DURATION }}"
       arrivalRate: "{{  $processEnvironment.TEST_RATE }}"

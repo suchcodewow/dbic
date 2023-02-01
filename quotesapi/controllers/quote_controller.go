@@ -13,6 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var quoteCollection *mongo.Collection = configs.GetCollection(configs.DB, "quotes")
@@ -72,8 +73,8 @@ func GetAllQuotes(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	var quotes []models.Quote
 	defer cancel()
-
-	results, err := quoteCollection.Find(ctx, bson.M{})
+	opts := options.Find().SetSort(bson.D{{Key: "_id", Value: -1}}).SetLimit(100)
+	results, err := quoteCollection.Find(ctx, bson.M{}, opts)
 
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.QuoteResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})

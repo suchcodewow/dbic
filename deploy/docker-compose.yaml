@@ -109,6 +109,7 @@ services:
       TEST_DURATION: 3600
       TEST_RATE: 5
       TEST_MAXUSERS: 5
+      TEST_DELAY: 5
 
   #OPTIONAL
   #mongo express

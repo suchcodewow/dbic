@@ -512,3 +512,5 @@ spec:
               value: "5"
             - name: TEST_MAXUSERS
               value: "5"
+            - name: TEST_DELAY
+              value: "45"

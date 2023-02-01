@@ -27,7 +27,7 @@ namespace OrdersAPI.Controllers
         public async Task<ActionResult<List<Order>>> Get()
         {
 
-            return Ok(await _context.Orders.ToListAsync());
+            return Ok(await _context.Orders.OrderByDescending(s => s.Id).Take(100).ToListAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> Get(int id)

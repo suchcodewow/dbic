@@ -500,7 +500,7 @@ spec:
               cpu: "500m"
             limits:
               memory: "3000Mi"
-              cpu: "2500m"
+              cpu: "2200m"
           image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:

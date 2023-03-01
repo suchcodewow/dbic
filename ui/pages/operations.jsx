@@ -39,7 +39,9 @@ export default function Operations() {
 
   useEffect(() => {
     fetchTransactionsFlags();
+    console.log(fraudService);
   }, []);
+
   return (
     <div className="bg-gray-100">
       <Nav />
@@ -54,7 +56,7 @@ export default function Operations() {
               <div
                 className={classNames(
                   fraudService ? "bg-green-500" : "bg-gray-400",
-                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white bg-gray-400"
+                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white"
                 )}
               ></div>
               <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Fraud Service</p>
@@ -79,7 +81,7 @@ export default function Operations() {
               <div
                 className={classNames(
                   failuronService ? "bg-green-500" : "bg-gray-400",
-                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white bg-gray-400"
+                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white"
                 )}
               ></div>
               <p className="ml-16 text-lg font-medium leading-6 text-gray-900">Failuron Service</p>
@@ -98,7 +100,7 @@ export default function Operations() {
               <div
                 className={classNames(
                   fosService ? "bg-green-500" : "bg-gray-400",
-                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white bg-gray-400"
+                  "absolute flex h-12 w-12 items-center justify-center rounded-md text-white"
                 )}
               ></div>
               <p className="ml-16 text-lg font-medium leading-6 text-gray-900">FactoryOfSadness Service</p>

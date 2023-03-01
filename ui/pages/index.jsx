@@ -32,7 +32,7 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
-      <div className="my-12" />
+      <div className="my-4" />
       <div className="bg-white mx-auto pt-48  bg-[length:500px] bg-top bg-no-repeat bg-[url('/images/vehicle.svg')]">
         <div className="lg:text-center bg-white">
           <p className="pt-4 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">

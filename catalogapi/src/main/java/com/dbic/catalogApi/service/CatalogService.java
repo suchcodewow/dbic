@@ -7,7 +7,7 @@ import java.util.List;
 public interface CatalogService {
     Catalog saveCatalog(Catalog catalog);
 
-    List<Catalog> getAllCatalog();
+    List<Catalog> getAllCatalog(int pageNo, int pageSize, String sortBy, String sortDir);
 
     Catalog getCatalogById(Long id);
 

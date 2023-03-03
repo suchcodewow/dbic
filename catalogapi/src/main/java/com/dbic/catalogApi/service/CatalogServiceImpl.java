@@ -5,6 +5,10 @@ import com.dbic.catalogApi.model.Catalog;
 import com.dbic.catalogApi.repository.CatalogRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +31,14 @@ public class CatalogServiceImpl implements CatalogService{
     }
 
     @Override
-    public List<Catalog> getAllCatalog() {
-        List<CatalogEntity> catalogEntities
-                = catalogRepository.findAll();
+    public List<Catalog> getAllCatalog(int pageNo, int pageSize, String sortBy, String sortDir) {
+         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                 : Sort.by(sortBy).descending();
+
+        // create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<CatalogEntity> catalogEntities = catalogRepository.findAll(pageable);
 
         List<Catalog> catalogs = catalogEntities
                 .stream()

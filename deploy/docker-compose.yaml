@@ -74,12 +74,24 @@ services:
     depends_on:
       - ordersdb
 
+  # quotesapi:
+  #   build:
+  #     context: ../quotesapi
+  #     dockerfile: Dockerfile
+  #   container_name: quotesapi
+  #   image: suchcodewow/dbic-quotesapi
+  #   restart: always
+  #   ports:
+  #     - 6000:6000
+  #   depends_on:
+  #     - maindb
+
   quotesapi:
     build:
-      context: ../quotesapi
+      context: ../quotesapi2
       dockerfile: Dockerfile
     container_name: quotesapi
-    image: suchcodewow/dbic-quotesapi
+    image: suchcodewow/dbic-quotesapi2
     restart: always
     ports:
       - 6000:6000

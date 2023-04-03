@@ -9,7 +9,7 @@ COPY . .
 
 RUN go mod download
 RUN go mod verify
-RUN CGO_ENABLED=1 GOOS=linux go build -ldflags '-linkmode=external' -o app
+RUN CGO_ENABLED=1 GOOS=linux go build -ldflags '-linkmode=external' -o quotesapi
 
 #FROM alpine:3.16
 #ENV APP_HOME /go/src/app
@@ -20,4 +20,4 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags '-linkmode=external' -o app
 COPY prod.env $APP_HOME/.env
 
 EXPOSE 6000
-CMD ["./app"]
+CMD ["./quotesapi"]

@@ -7,7 +7,12 @@ import (
 )
 
 func QuoteRoute(router *mux.Router) {
-	router.HandleFunc("/quote", controllers.CreateQuote()).Methods("POST") //add this
+	router.HandleFunc("/quote", controllers.CreateQuote()).Methods("POST")
+	router.HandleFunc("/quote/{quoteId}", controllers.GetAQuote()).Methods("GET")
+	router.HandleFunc("/quote", controllers.GetAllQuotes()).Methods("GET")
+	router.HandleFunc("/quote/my/{name}", controllers.GetMyQuotes()).Methods("GET")
+	// app.Put("/quote/:quoteId", controllers.EditAQuote)
+	// app.Delete("/quote/:quoteId", controllers.DeleteAQuote)
 }
 
 // func QuoteRoute(app *fiber.App) {

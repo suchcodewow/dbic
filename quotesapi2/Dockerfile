@@ -20,4 +20,4 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags '-linkmode=external' -o quotesapi
 COPY prod.env $APP_HOME/.env
 
 EXPOSE 6000
-CMD ["./quoteapi"]
+CMD ["./quotesapi"]

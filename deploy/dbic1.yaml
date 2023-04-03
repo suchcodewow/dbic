@@ -297,18 +297,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quotesapi2
+  name: quotesapi
   namespace: dbic
 spec:
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/part-of: dbic
-      app.kubernetes.io/name: quotesapi2
+      app.kubernetes.io/name: quotesapi
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: quotesapi2
+        app.kubernetes.io/name: quotesapi
         app.kubernetes.io/version: "1"
         app.kubernetes.io/component: service
         app.kubernetes.io/part-of: dbic
@@ -318,15 +318,15 @@ spec:
         chat-channel: dev-team-services
     spec:
       containers:
-        - name: quotesapi2
-          image: suchcodewow/dbic-quotesapi2:latest
+        - name: quotesapi
+          image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 6000
-              name: quotesapi2
+              name: quotesapi
           env:
             - name: DT_CUSTOM_PROP
-              value: "project=dbic service=quotesapi2"
+              value: "project=dbic service=quotesapi"
             - name: DOTNET_ENVIRONMENT
               value: DockerDeploy
 

@@ -319,7 +319,7 @@ spec:
     spec:
       containers:
         - name: quotesapi
-          image: suchcodewow/dbic-quotesapi:latest
+          image: suchcodewow/dbic-quotesapi2:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 6000
@@ -376,7 +376,7 @@ spec:
     spec:
       containers:
         - name: mainapi
-          image: suchcodewow/dbic-mainapi:latest
+          image: suchcodewow/dbic-mainapi2:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

@@ -108,11 +108,11 @@ services:
     depends_on:
       - ui
     environment:
-      frontendURL: ui
-      TEST_DURATION: 3600
-      TEST_RATE: 5
-      TEST_MAXUSERS: 5
-      TEST_DELAY: 5
+      frontendURL: 51.143.109.219
+      DELAY: 10
+      TIMEOUT: 15000
+      REPEAT: 3
+      WORKERS: 3
 
   #OPTIONAL
   #mongo express

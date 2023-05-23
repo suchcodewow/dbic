@@ -8,7 +8,7 @@ WORKDIR /e2e
 # Install dependencies
 RUN npm install
 # Install browsers
-RUN npx playwright install
+RUN npx playwright install chromium
 
 # Run playwright test
-CMD [ "npx", "playwright", "test", "--reporter=list" ]
+ENTRYPOINT ["sh", "/e2e/start.sh"] 

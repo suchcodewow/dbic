@@ -507,10 +507,10 @@ spec:
             - name: frontendURL
               value: "ui"
             - name: TEST_DURATION
-              value: "86400"
+              value: "28800"
             - name: TEST_RATE
               value: "5"
             - name: TEST_MAXUSERS
-              value: "5"
+              value: "3"
             - name: TEST_DELAY
               value: "45"

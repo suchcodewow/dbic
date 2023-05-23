@@ -1,7 +1,10 @@
-module.exports = { test };
-const { expect } = require("@playwright/test");
+// @ts-check
+
+// $Env:frontendURL = "blah blah"
+
+const { test, expect } = require("@playwright/test");
 const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";
-async function test(page) {
+test("dynabank", async ({ page }) => {
   await page.goto(frontendURL);
   await page.getByRole("link", { name: "Sign In" }).click();
   await expect(page).toHaveURL(frontendURL + "/login");
@@ -39,8 +42,8 @@ async function test(page) {
   await page.getByRole("button", { name: new RegExp("^Open user menu ") }).click();
   await page.getByRole("menuitem", { name: "Sign out" }).click();
   await expect(page).toHaveURL(frontendURL + "/");
-  //await browser.close();
-}
+});
+
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }

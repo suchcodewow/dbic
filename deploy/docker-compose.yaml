@@ -100,10 +100,11 @@ services:
       - catalogapi
       - quotesapi
 
+  # Loadgen
   loadgen:
-    build: ../loadgen
+    build: ../loadgen2
     container_name: loadgen
-    image: suchcodewow/dbic-loadgen
+    image: suchcodewow/dbic-loadgen2
     depends_on:
       - ui
     environment:

@@ -108,7 +108,7 @@ services:
     depends_on:
       - ui
     environment:
-      frontendURL: 51.143.109.219
+      frontendURL: ui
       DELAY: 10
       TIMEOUT: 15000
       REPEAT: 3

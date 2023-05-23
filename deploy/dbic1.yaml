@@ -501,16 +501,16 @@ spec:
             limits:
               memory: "3000Mi"
               cpu: "2200m"
-          image: suchcodewow/dbic-loadgen:latest
+          image: suchcodewow/dbic-loadgen2:latest
           imagePullPolicy: Always
           env:
             - name: frontendURL
               value: "ui"
-            - name: TEST_DURATION
-              value: "28800"
-            - name: TEST_RATE
-              value: "5"
-            - name: TEST_MAXUSERS
+            - name: DELAY
+              value: "10"
+            - name: TIMEOUT
+              value: "15000"
+            - name: REPEAT
+              value: "3000"
+            - name: WORKERS
               value: "3"
-            - name: TEST_DELAY
-              value: "45"

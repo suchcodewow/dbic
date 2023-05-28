@@ -386,11 +386,22 @@ spec:
               value: "project=dbic service=mainapi"
             - name: dbHostName
               value: maindb
-            - name: AUTOWRAPT_BOOTSTRAP
-              value: autodynatrace
-            - name: AUTODYNATRACE_APPLICATION_ID
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: http/protobuf
+            - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+              value: https://<dynatraceURL>/api/v2/otlp/v1/traces
+            - name: OTEL_EXPORTER_OTLP_HEADERS
+              value: Authorization=Api-Token%20<dynatraceToken>
+            - name: OTEL_SERVICE_NAME
               value: transactionAPI
-
+            - name: OTEL_TRACES_EXPORTER
+              value: otlp
+            - name: OTEL_METRICS_EXPORTER
+              value: none
+            - name: OTEL_LOGS_EXPORTER
+              value: none
+            - name: OTEL_TRACES_SAMPLER
+              value: "always_on"
 ---
 apiVersion: v1
 kind: Service

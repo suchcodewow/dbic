@@ -61,6 +61,29 @@ services:
     depends_on:
       - maindb
 
+  mainapi2:
+    build:
+      context: ../mainapi2
+      dockerfile: Dockerfile
+    container_name: mainapi
+    # mainapi2 switches from oneAgentSDK to OpenTel
+    image: suchcodewow/dbic-mainapi2
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      dbHostName: maindb
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "https://${OTL_URL}/api/v2/otlp/v1/traces"
+      OTEL_EXPORTER_OTLP_HEADERS: "Authorization=Api-Token%20${OTL_TOKEN}"
+      OTEL_SERVICE_NAME: "transactionAPI"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "none"
+      OTEL_LOGS_EXPORTER: "none"
+      OTEL_TRACES_SAMPLER: "always_on"
+    depends_on:
+      - maindb
+
   ordersapi:
     build:
       context: ../ordersapi

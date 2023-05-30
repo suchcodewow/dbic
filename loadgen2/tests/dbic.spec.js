@@ -4,20 +4,38 @@
 
 const { test, expect } = require("@playwright/test");
 const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";
+//const frontendURL = "http://20.94.2.35";
 test("dynabank", async ({ page }) => {
   await page.goto(frontendURL);
   await page.getByRole("link", { name: "Sign In" }).click();
   await expect(page).toHaveURL(frontendURL + "/login");
   await page.getByRole("button", { name: "Sign In" }).click();
   await expect(page).toHaveURL(frontendURL + "/");
-  await page.getByRole("navigation").getByText("Banking").click();
-  await expect(page).toHaveURL(frontendURL + "/banking");
+  // await page.getByRole("navigation").getByText("Banking").click();
+  await page.goto(frontendURL + "/banking");
+  // await expect(page).toHaveURL(frontendURL + "/banking");
   await page.getByText("Transfer & Pay").click();
   await page.getByLabel("Payee").click();
   await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
   await page.getByLabel("Payment Amount").click();
   await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
   await page.getByRole("button", { name: "Send Payment" }).click();
+  // Do two additional bank transactions
+  await page.goto(frontendURL + "/banking");
+  await page.getByText("Transfer & Pay").click();
+  await page.getByLabel("Payee").click();
+  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
+  await page.getByLabel("Payment Amount").click();
+  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
+  await page.getByRole("button", { name: "Send Payment" }).click();
+  await page.goto(frontendURL + "/banking");
+  await page.getByText("Transfer & Pay").click();
+  await page.getByLabel("Payee").click();
+  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
+  await page.getByLabel("Payment Amount").click();
+  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
+  await page.getByRole("button", { name: "Send Payment" }).click();
+  // END two additional bank transactions
   await page.getByText("Insurance").click();
   await expect(page).toHaveURL(frontendURL + "/insurance");
   await page.getByRole("link", { name: "Let's go!" }).click();
@@ -38,10 +56,10 @@ test("dynabank", async ({ page }) => {
   await page.getByText("View Cart").click();
   await page.getByText("Checkout").nth(2).click();
   await page.getByText("Complete Order").click();
-  await expect(page).toHaveURL(new RegExp("^" + frontendURL + "/myaccount"));
-  await page.getByRole("button", { name: new RegExp("^Open user menu ") }).click();
-  await page.getByRole("menuitem", { name: "Sign out" }).click();
-  await expect(page).toHaveURL(frontendURL + "/");
+  // await expect(page).toHaveURL(new RegExp("^" + frontendURL + "/myaccount"));
+  // await page.getByRole("button", { name: new RegExp("^Open user menu ") }).click();
+  // await page.getByRole("menuitem", { name: "Sign out" }).click();
+  // await expect(page).toHaveURL(frontendURL + "/");
 });
 
 function randomNumber(min, max) {

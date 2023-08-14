@@ -3,3 +3,4 @@ test.ps1
 dynakube.yaml
 /*.yaml
 *.conf
+*.csv

@@ -1,4 +1,4 @@
-package com.dbic.catalogApi;
+package com.dbic.usersystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.SpringBootConfiguration;

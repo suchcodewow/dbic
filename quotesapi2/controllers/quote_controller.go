@@ -67,8 +67,6 @@ func CreateQuote() http.HandlerFunc {
 	}
 }
 
-// These need to be fixed
-
 func GetAQuote() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

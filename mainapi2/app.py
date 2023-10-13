@@ -14,12 +14,10 @@ if "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT" in os.environ:
 if "OTEL_EXPORTER_OTLP_HEADERS" in os.environ:
     print("OTEL AUTH HEADER: " + os.environ["OTEL_EXPORTER_OTLP_HEADERS"])
 
-
 def response(a, b):
     _response = app.make_response((jsonify(a), b))
     _response.headers["Content-Type"] = "application/json"
     return _response
-
 
 app = Flask(__name__)
 db = MongoEngine()

@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"quotesapi2/configs"
-	"quotesapi2/routes" //add this
+	"quotesapi2/routes" 
 
 	"github.com/gorilla/mux"
 )
@@ -12,11 +12,11 @@ import (
 func main() {
 	router := mux.NewRouter()
 
-	//run database
+	//connect database
 	configs.ConnectDB()
 
 	//routes
-	routes.QuoteRoute(router) //add this
+	routes.QuoteRoute(router) 
 
 	log.Fatal(http.ListenAndServe(":6000", router))
 }

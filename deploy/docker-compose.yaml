@@ -119,7 +119,7 @@ services:
       frontendURL: ui
       DELAY: 10
       TIMEOUT: 15000
-      REPEAT: 3
+      REPEAT: 3000
       WORKERS: 3
 
   #OPTIONAL

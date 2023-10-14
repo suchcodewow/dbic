@@ -1,6 +1,6 @@
 // @ts-check
 
-// $Env:frontendURL = "blah blah"
+// $Env:frontendURL = "blah"
 
 const { test, expect } = require("@playwright/test");
 const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";

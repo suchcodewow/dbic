@@ -5,17 +5,14 @@ export async function getUser(userId) {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/users/login/" + userId,
-    options
-  );
+  const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/login/" + userId, options);
   return await response.json();
 }
 
 export async function postTransaction(data) {
   // Ensure user's account is debited before posting transaction
   const updateBalanceSuccess = await updateBalance(data);
-  console.log("current balance", updateBalanceSuccess);
+  // console.log("current balance", updateBalanceSuccess);
   // Check for valid debit
   if (updateBalanceSuccess.status !== 200) {
     return false;
@@ -28,10 +25,7 @@ export async function postTransaction(data) {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/transactions",
-    options
-  );
+  const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/transactions", options);
   const jsonResponse = await response.json();
   return jsonResponse;
 }
@@ -46,10 +40,7 @@ export async function updateBalance(data) {
     },
   };
   //Execute Request
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id,
-    options
-  );
+  const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id, options);
   const jsonResponse = await response.json();
   let newjson = {
     ...jsonResponse,
@@ -84,10 +75,7 @@ export async function updateBalance(data) {
     },
   };
   //Make call
-  const updateResponse = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id,
-    postOptions
-  );
+  const updateResponse = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id, postOptions);
   return updateResponse;
 }
 

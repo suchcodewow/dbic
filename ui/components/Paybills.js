@@ -4,12 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { postTransaction } from "./Library";
 import toast from "react-hot-toast";
 
-export default function PayBills({
-  setCurrentPanel,
-  refreshData,
-  user,
-  accounts,
-}) {
+export default function PayBills({ setCurrentPanel, refreshData, user, accounts }) {
   //Form Validation Config & Imports
   const schema = yup
     .object()
@@ -34,7 +29,7 @@ export default function PayBills({
     refreshData();
     setCurrentPanel("recent");
     toast.success("Payment Successful");
-    console.log(data);
+    // console.log(data);
   };
 
   return (
@@ -46,10 +41,7 @@ export default function PayBills({
             <div className="bg-white px-4  w-full"></div>
             <div className="grid grid-cols-6 gap-6 p-2 w-full">
               <div className="col-span-6">
-                <label
-                  htmlFor="vendor"
-                  className="text-sm font-medium text-gray-700 inline"
-                >
+                <label htmlFor="vendor" className="text-sm font-medium text-gray-700 inline">
                   Payee
                 </label>
                 {errors.vendor && (
@@ -67,10 +59,7 @@ export default function PayBills({
                 />
               </div>
               <div className="col-span-3">
-                <label
-                  htmlFor="accountName"
-                  className="text-sm font-medium text-gray-700 inline"
-                >
+                <label htmlFor="accountName" className="text-sm font-medium text-gray-700 inline">
                   From Account
                 </label>
                 {errors.accountName && (
@@ -90,19 +79,13 @@ export default function PayBills({
                     <option key={account.name} value={account.name}>
                       {account.name == "Dynacard"
                         ? "Dynacard (+$22.00 cash advance fee)"
-                        : account.name +
-                          " ($" +
-                          account.balance.toFixed(2) +
-                          ")"}
+                        : account.name + " ($" + account.balance.toFixed(2) + ")"}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="col-span-3">
-                <label
-                  htmlFor="amount"
-                  className="text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="amount" className="text-sm font-medium text-gray-700">
                   Payment Amount
                 </label>
                 {errors.amount && (

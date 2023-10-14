@@ -8,7 +8,7 @@ export default function Login() {
   const router = useRouter();
   const { userDispatch } = useUserContext();
 
-  console.log("returnURL", router.query.returnUrl);
+  // console.log("returnURL", router.query.returnUrl);
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
   const selectedName = Name[Math.floor(Math.random() * Name.length)];
   const randomId =

@@ -37,14 +37,14 @@ export default function Administration() {
         method: "GET",
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setTransactions(data);
     };
     fetchData().catch(console.error);
   }, []);
   const timezoneOffset = new Date().getTimezoneOffset();
 
-  console.log(timezoneOffset);
+  // console.log(timezoneOffset);
   return (
     <div className="bg-gray-100">
       <Nav />

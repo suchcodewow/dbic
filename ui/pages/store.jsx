@@ -81,7 +81,7 @@ export const getServerSideProps = async () => {
       },
     });
   } catch (error) {
-    console.log("Error connecting to the database!", error);
+    // console.log("Error connecting to the database!", error);
     return { props: {} };
   }
   const data = await response.json();

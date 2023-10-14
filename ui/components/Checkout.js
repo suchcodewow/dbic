@@ -13,7 +13,7 @@ export default function Checkout({ checkoutOpen, setCheckoutOpen, setPaymentOpen
   const { user, userDispatch } = useUserContext();
   const router = useRouter();
   if (!user) {
-    console.log("no user at checkout");
+    // console.log("no user at checkout");
     router.push({
       pathname: "/login",
       query: { returnUrl: "/store?step=checkout" },

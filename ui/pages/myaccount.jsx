@@ -18,7 +18,7 @@ export default function MyAccount() {
         },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setOrders(data);
     };
     fetchData().catch(console.error);
@@ -42,7 +42,7 @@ export default function MyAccount() {
       });
       const data = await response.json();
       setQuotes(data.data.data);
-      console.log(data.data);
+      // console.log(data.data);
     };
     fetchData().catch(console.error);
   }, []);

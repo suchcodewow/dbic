@@ -98,7 +98,7 @@ const Embla = ({
   });
 
   const loadingMore = useInfiniteScroll(embla, children, hasMoreToLoad);
-  console.log(children);
+  // console.log(children);
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
   const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
 
@@ -145,16 +145,8 @@ const Embla = ({
           )}
         </div>
       </EmblaViewport>
-      <EmblaArrow
-        onClick={scrollPrev}
-        direction="left"
-        enabled={prevBtnEnabled}
-      />
-      <EmblaArrow
-        onClick={scrollNext}
-        direction="right"
-        enabled={nextBtnEnabled}
-      />
+      <EmblaArrow onClick={scrollPrev} direction="left" enabled={prevBtnEnabled} />
+      <EmblaArrow onClick={scrollNext} direction="right" enabled={nextBtnEnabled} />
     </div>
   );
 };
@@ -234,14 +226,7 @@ export const useInfiniteScroll = (embla, slides, hasMoreToLoad) => {
     if (slides.length === embla.slideNodes().length - 1) return;
     reloadEmbla();
     addScrollListener();
-  }, [
-    embla,
-    slides,
-    pointerIsDown,
-    hasMoreToLoad,
-    reloadEmbla,
-    addScrollListener,
-  ]);
+  }, [embla, slides, pointerIsDown, hasMoreToLoad, reloadEmbla, addScrollListener]);
 
   useEffect(() => {
     if (!embla || hasMoreToLoad) return;
@@ -250,16 +235,7 @@ export const useInfiniteScroll = (embla, slides, hasMoreToLoad) => {
     reloadEmbla();
     embla.off("pointerDown", setPointerDown);
     embla.off("pointerUp", setPointerNotDown);
-  }, [
-    embla,
-    slides,
-    hasMoreToLoad,
-    pointerIsDown,
-    setPointerDown,
-    setPointerNotDown,
-    reloadEmbla,
-    lastSlideIsInView,
-  ]);
+  }, [embla, slides, hasMoreToLoad, pointerIsDown, setPointerDown, setPointerNotDown, reloadEmbla, lastSlideIsInView]);
 
   useEffect(() => {
     if (!embla) return;
@@ -271,12 +247,7 @@ export const useInfiniteScroll = (embla, slides, hasMoreToLoad) => {
   return loadingMore;
 };
 
-const VideoCard = ({
-  video = {},
-  isInView,
-  thumbnailStyle = "backdrop",
-  ...props
-}) => {
+const VideoCard = ({ video = {}, isInView, thumbnailStyle = "backdrop", ...props }) => {
   const { poster_path, id, backdrop_path, overview, title } = video;
   // const mediaType = 'poster';
   const mediaType = "backdrop";
@@ -304,9 +275,7 @@ const VideoCard = ({
             <span className="subpixel-antialiased font-medium leading-normal tracking-tight backface-hidden line-clamp-2 text-ellipsis">
               {!title ? "Not available" : title}
             </span>
-            <p className="mt-2 text-xs line-clamp-2 text-ellipsis">
-              {overview}
-            </p>
+            <p className="mt-2 text-xs line-clamp-2 text-ellipsis">{overview}</p>
           </div>
         </div>
       </div>
@@ -347,24 +316,14 @@ const Image = ({
           { "opacity-0": !isImageLoaded && fadeIn }
         )}
       >
-        <NextImage
-          src={src}
-          alt={alt}
-          layout={layout}
-          width={width}
-          height={height}
-          onLoad={handleLoad}
-          {...props}
-        />
+        <NextImage src={src} alt={alt} layout={layout} width={width} height={height} onLoad={handleLoad} {...props} />
       </div>
     </div>
   );
 };
 
 const Thumbnail = ({ alt, quality = "low", src, ...props }) => {
-  const imageSource = `https://image.tmdb.org/t/p/${
-    quality === "low" ? "w500" : "original"
-  }/${src}`;
+  const imageSource = `https://image.tmdb.org/t/p/${quality === "low" ? "w500" : "original"}/${src}`;
 
   return <Image src={imageSource} alt={alt} {...props} />;
 };
@@ -376,10 +335,8 @@ const EmblaArrow = ({ enabled, direction, onClick }) => {
       className={clsx(
         "absolute inset-y-0 items-center justify-center hidden h-full z-[1] p-0 text-lg disabled:opacity-30 hover:bg-ui-900/50 disabled:cursor-default transition-colors bg-transparent border-none cursor-pointer w-18 md:flex",
         {
-          "left-0 -ml-18 after:left-1/2 after:-translate-x-1/2":
-            direction === "left",
-          "right-0 -mr-18 after:right-1/2 after:translate-x-1/2":
-            direction === "right",
+          "left-0 -ml-18 after:left-1/2 after:-translate-x-1/2": direction === "left",
+          "right-0 -mr-18 after:right-1/2 after:translate-x-1/2": direction === "right",
         }
       )}
       onClick={onClick}

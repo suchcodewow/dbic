@@ -39,7 +39,7 @@ export default function Operations() {
 
   useEffect(() => {
     fetchTransactionsFlags();
-    console.log(fraudService);
+    // console.log(fraudService);
   }, []);
 
   return (

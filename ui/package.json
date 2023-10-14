@@ -15,6 +15,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.3",
+    "dtrum-react-kit": "^0.0.5",
     "embla-carousel-react": "^7.0.2",
     "eslint-plugin-react": "^7.31.8",
     "next": "12.2.5",

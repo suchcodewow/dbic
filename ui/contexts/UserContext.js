@@ -24,7 +24,7 @@ export const reducer = (state, action) => {
     case "INIT":
       return action.value;
     default:
-      console.log("NO USER ACTION");
+      // console.log("NO USER ACTION");
       return state;
   }
 };
@@ -51,11 +51,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
   //Return a provider to wrap in _app.js
-  return (
-    <UserContext.Provider value={{ user, userDispatch }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, userDispatch }}>{children}</UserContext.Provider>;
 };
 
 // Export the context for easy use in pages & components

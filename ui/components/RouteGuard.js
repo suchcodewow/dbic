@@ -27,7 +27,7 @@ export function RouteGuard({ children }) {
     // Add publicPaths to allow anonymous visits
     const publicPaths = ["/", "/login", "/logout", "/store", "/insurance"];
     const path = url.split("?")[0];
-    console.log(url);
+    // console.log(url);
     if (user.prerender) {
       return;
     }

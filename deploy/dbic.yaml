@@ -465,6 +465,8 @@ kind: Service
 metadata:
   name: ui
   namespace: dbic
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: dnsplaceholder
   labels:
     app.kubernetes.io/part-of: dbic
     app.kubernetes.io/name: ui

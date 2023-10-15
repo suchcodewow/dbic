@@ -36,7 +36,30 @@ module.exports = defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        launchOptions: {
+          args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-accelerated-2d-canvas",
+            "--no-first-run",
+            "--no-zygote",
+            "--single-process",
+            "--disable-gpu",
+            // "--ignore-gpu-blocklist",
+            // "--enable-gpu-rasterization",
+            "--enable-zero-copy",
+            "--disable-features=UseSkiaRenderer",
+            // "--enable-features=+VaapiVideoDecoder",
+            // "--enable-features=+CanvasOopRasterization",
+            // "--use-gl=egl",
+            "--user-data-dir=/tmp/.chromium-user-data",
+            "--disk-cache-dir=/tmp/.chromium-cache",
+          ],
+        },
+      },
     },
   ],
 

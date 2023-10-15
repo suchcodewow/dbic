@@ -59,8 +59,8 @@ services:
     environment:
       dbHostName: maindb
       OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "https://${OTL_URL}/api/v2/otlp/v1/traces"
-      OTEL_EXPORTER_OTLP_HEADERS: "Authorization=Api-Token%20${OTL_TOKEN}"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ""
+      OTEL_EXPORTER_OTLP_HEADERS: ""
       OTEL_SERVICE_NAME: "transactionAPI"
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "none"
@@ -112,7 +112,7 @@ services:
   loadgen:
     build: ../loadgen2
     container_name: loadgen
-    image: suchcodewow/dbic-loadgen2
+    image: suchcodewow/dbic-loadgen3
     depends_on:
       - ui
     environment:

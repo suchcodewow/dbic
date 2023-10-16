@@ -48,11 +48,10 @@ services:
 
   mainapi:
     build:
-      context: ../mainapi2
+      context: ../mainapi
       dockerfile: Dockerfile
     container_name: mainapi
-    # mainapi2 switches from oneAgentSDK to OpenTel
-    image: suchcodewow/dbic-mainapi2
+    image: suchcodewow/dbic-mainapi
     restart: always
     ports:
       - 5000:5000
@@ -85,11 +84,10 @@ services:
 
   quotesapi:
     build:
-      context: ../quotesapi2
+      context: ../quotesapi
       dockerfile: Dockerfile
     container_name: quotesapi
-    # Quotesapi2 removes fiber
-    image: suchcodewow/dbic-quotesapi2
+    image: suchcodewow/dbic-quotesapi
     restart: always
     ports:
       - 6000:6000
@@ -98,7 +96,7 @@ services:
 
   # UI
   ui:
-    build: ../UI
+    build: ../ui
     container_name: ui
     image: suchcodewow/dbic-ui
     ports:
@@ -112,7 +110,7 @@ services:
   loadgen:
     build: ../loadgen
     container_name: loadgen
-    image: suchcodewow/dbic-loadgen4
+    image: suchcodewow/dbic-loadgen
     depends_on:
       - ui
     environment:

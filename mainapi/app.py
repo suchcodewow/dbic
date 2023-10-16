@@ -3,104 +3,23 @@ from flask_mongoengine import MongoEngine
 from library import *
 import datetime, os, random, time, json
 
-# Opentel START
-# from opentelemetry import trace
-# from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-# from opentelemetry.sdk.resources import SERVICE_NAME, Resource
-# from opentelemetry.sdk.trace import TracerProvider
-# from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-
-# resource = Resource(attributes={SERVICE_NAME: "transfreakingAPI"})
-
-# provider = TracerProvider(resource=resource)
-# consoleProcessor = BatchSpanProcessor(ConsoleSpanExporter())
-# batchProcessor = BatchSpanProcessor(
-#     OTLPSpanExporter(
-#         endpoint="<url>",
-#         headers={
-#             "Authorization": "Api-Token <token>"
-#         },
-#     )
-# )
-
-# provider.add_span_processor(batchProcessor)
-# provider.add_span_processor(consoleProcessor)
-# trace.set_tracer_provider(provider)
-# Opentel END
-
-# OpenTel (1/2)
-# from opentelemetry.instrumentation.flask import FlaskInstrumentor
-# from opentelemetry import trace as OpenTelemetry
-# from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
-#     OTLPSpanExporter,
-# )
-# from opentelemetry.sdk.resources import Resource
-# from opentelemetry.sdk.trace import TracerProvider, sampling
-# from opentelemetry.sdk.trace.export import (
-#     BatchSpanProcessor,
-# )
-
-# merged = dict()
-# for name in [
-#     "dt_metadata_e617c525669e072eebe3d0f08212e8f2.json",
-#     "/var/lib/dynatrace/enrichment/dt_metadata.json",
-# ]:
-#     try:
-#         data = ""
-#         with open(name) as f:
-#             data = json.load(f if name.startswith("/var") else open(f.read()))
-#         merged.update(data)
-#     except:
-#         pass
-
-# merged.update(
-#     {
-#         "service.name": "transactionsAPI",  # TODO Replace with the name of your application
-#         "service.version": "1.0.1",  # TODO Replace with the version of your application
-#     }
-# )
-# resource = Resource.create(merged)
-
-# tracer_provider = TracerProvider(sampler=sampling.ALWAYS_ON, resource=resource)
-# OpenTelemetry.set_tracer_provider(tracer_provider)
-
-# tracer_provider.add_span_processor(
-#     BatchSpanProcessor(
-#         OTLPSpanExporter(endpoint="http://localhost:14499/otlp/v1/traces")
-#     )
-# )
-
-# tracer_provider.add_span_processor(
-#     BatchSpanProcessor(
-#         OTLPSpanExporter(
-#             endpoint="https://URL.live.dynatrace.com/api/v2/otlp/v1/traces",  # TODO Replace <URL> to your SaaS/Managed-URL as mentioned in the next step
-#             headers={
-#                 "Authorization": "Api-Token <value."
-#             },
-#         )
-#     )
-# )
-# Opentel End
-
 # Configuration
 if "dbHostName" in os.environ:
     dbHostName = os.environ["dbHostName"]
 else:
     dbHostName = "localhost"
 
+if "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT" in os.environ:
+    print("OTEL ENDPOINT: " + os.environ["OTEL_EXPORTER_OTLP_TRACES_ENDPOINT"])
+if "OTEL_EXPORTER_OTLP_HEADERS" in os.environ:
+    print("OTEL AUTH HEADER: " + os.environ["OTEL_EXPORTER_OTLP_HEADERS"])
 
 def response(a, b):
     _response = app.make_response((jsonify(a), b))
     _response.headers["Content-Type"] = "application/json"
     return _response
 
-
 app = Flask(__name__)
-
-# OpenTel (2/2)
-# FlaskInstrumentor().instrument_app(app)
-# Opentel End
-
 db = MongoEngine()
 app.config["MONGODB_SETTINGS"] = [
     {
@@ -184,7 +103,6 @@ class Users(db.Document):
             "defaultAddress": self.defaultAddress,
             "dynacard": self.dynacard,
         }
-
 
 @app.route("/api/users", methods=["GET"])
 def api_users():
@@ -323,4 +241,4 @@ def my_transctions(userId):
 print("dbHostname=" + dbHostName)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0", use_reloader=False)

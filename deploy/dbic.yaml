@@ -319,7 +319,7 @@ spec:
     spec:
       containers:
         - name: quotesapi
-          image: suchcodewow/dbic-quotesapi2:latest
+          image: suchcodewow/dbic-quotesapi:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 6000
@@ -376,7 +376,7 @@ spec:
     spec:
       containers:
         - name: mainapi
-          image: suchcodewow/dbic-mainapi2:latest
+          image: suchcodewow/dbic-mainapi:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -514,16 +514,16 @@ spec:
             limits:
               memory: "3000Mi"
               cpu: "2200m"
-          image: suchcodewow/dbic-loadgen3:latest
+          image: suchcodewow/dbic-loadgen:latest
           imagePullPolicy: Always
           env:
             - name: frontendURL
               value: "ui"
-            - name: DELAY
-              value: "10"
-            - name: TIMEOUT
-              value: "15000"
-            - name: REPEAT
+            - name: runTotal
               value: "3000"
-            - name: WORKERS
+            - name: workers
               value: "3"
+            - name: delay
+              value: "10"
+            - name: timeout
+              value: "2000"

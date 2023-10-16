@@ -104,7 +104,6 @@ class Users(db.Document):
             "dynacard": self.dynacard,
         }
 
-
 @app.route("/api/users", methods=["GET"])
 def api_users():
     users = []

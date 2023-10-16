@@ -1,9 +1,0 @@
-FROM node:19.0.0-bullseye-slim
-COPY . /e2e
-
-WORKDIR /e2e
-
-RUN npm install && npx playwright install --with-deps chromium
-
-# Run playwright test
-ENTRYPOINT ["sh", "/e2e/start.sh"] 

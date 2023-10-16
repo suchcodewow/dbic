@@ -110,17 +110,17 @@ services:
 
   # Loadgen
   loadgen:
-    build: ../loadgen2
+    build: ../loadgen
     container_name: loadgen
     image: suchcodewow/dbic-loadgen4
     depends_on:
       - ui
     environment:
       frontendURL: ui
-      DELAY: 10
-      TIMEOUT: 15000
-      REPEAT: 3000
-      WORKERS: 1
+      runTotal: 3000
+      workers: 3
+      delay: 10
+      timeout: 2000
 
   #OPTIONAL
   #mongo express
@@ -141,8 +141,7 @@ services:
   #local "workstation"
   #CMD -> docker exec -it term /bin/sh
   # term:
-
-  # build: .
-  # image: term
-  # tty: true
-  # container_name: term
+  #   build: .
+  #   image: term
+  #   tty: true
+  #   container_name: term

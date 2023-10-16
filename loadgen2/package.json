@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "loadgen2",
   "version": "1.0.0",
   "description": "",
@@ -7,7 +8,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.33.0"
+  "dependencies": {
+    "@playwright/browser-chromium": "^1.39.0",
+    "p-limit": "^4.0.0",
+    "playwright": "^1.39.0"
   }
 }

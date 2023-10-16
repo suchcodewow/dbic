@@ -1,0 +1,112 @@
+// $Env:frontendURL = "blah"
+// const assert = require("node:assert");
+import { chromium } from "playwright";
+import pLimit from "p-limit";
+
+const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";
+const runTotal = process.env.runTotal ? process.env.runTotal : 1;
+const workers = process.env.workers ? process.env.workers : 1;
+const limit = pLimit(parseInt(workers));
+
+async function runOne({ browser }) {
+  // Setup browser
+  const context = await browser.newContext();
+  const startTime = new Date();
+  // context.setDefaultTimeout(2000);
+  await context.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
+  const page = await context.newPage();
+  // Login
+  await page.goto(frontendURL + "/login");
+  await page.getByRole("button", { name: "Sign In" }).click();
+  const userName = await page.getByRole("button", { name: "Open user menu " }).textContent();
+  console.log("New login:", userName?.substring(14));
+  // Pay bill
+  // await page.getByText("Banking", { exact: true }).click();
+  await page.getByRole("navigation").getByText("Banking").click();
+  await page.getByText("Transfer & Pay").click();
+  await page.getByLabel("Payee").click();
+  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
+  await page.getByLabel("Payment Amount").click();
+  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
+  await page.getByRole("button", { name: "Send Payment" }).click();
+  // Get insurance
+  await page.getByText("Insurance", { exact: true }).click();
+  await page.getByRole("link", { name: "Let's go!" }).click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.getByRole("button", { name: "Submit Quote" }).click();
+  // Buy item
+
+  // await page.getByRole("navigation").getByText("Store").click();
+  await page.goto(frontendURL + "/store");
+  await page
+    .getByRole("heading", {
+      name: storeItems[Math.floor(Math.random() * storeItems.length)],
+    })
+    .locator("span")
+    .click();
+  await page.getByRole("button", { name: "Add to bag" }).click();
+  await page.getByText("View Cart").click();
+  await page.getByText("Checkout").nth(2).click();
+  await page.getByText("Complete Order").click();
+  // Logout
+  await page.getByRole("button", { name: "Open user menu " }).click();
+  await page.getByRole("menuitem", { name: "Sign out" }).click();
+  await context.close();
+  console.log("Logout:", userName?.substring(14), " ", Math.abs(new Date() - startTime), "ms");
+  // Teardown
+}
+
+(async () => {
+  // Setup
+  const browser = await chromium.launch({
+    headless: true,
+    timeout: 5000,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-accelerated-2d-canvas",
+      "--no-first-run",
+      "--no-zygote",
+      // "--single-process",
+      "--disable-gpu",
+      "--enable-zero-copy",
+      "--disable-features=UseSkiaRenderer",
+    ],
+  });
+  const input = [];
+  let i = 0;
+  do {
+    i++;
+    input.push(limit(() => runOne({ browser })));
+  } while (i < runTotal);
+  // console.log(input);
+  await Promise.all(input);
+  await browser.close();
+})();
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const storeItems = [
+  "Adazzo 4 in 1 Rolling Makeup Trolley Train Case Cosmetic Suitcase Nail Tech Box for Makeup Artist, Hairstylists, Nail Tech Students Barber Case with with Keys Swivel Wheels - Shiny Pink",
+  "NETGEAR Wi-Fi Range Extender EX3700 - Coverage Up to 1000 Sq Ft and 15 Devices with AC750 Dual Band Wireless Signal Booster & Repeater (Up to 750Mbps Speed), and Compact Wall Plug Design",
+  "Power Pet Fully Automatic Pet Door for Wall Installation (Wall Installation, Large)",
+  "Homall Gaming Chair Office Chair High Back Computer Chair Leather Desk Chair Racing Executive Ergonomic Adjustable Swivel Task Chair with Headrest and Lumbar Support (White)",
+];
+
+const payees = [
+  "Umbrella Corp",
+  "Gringotts Wizarding Bank",
+  "Monster's Inc",
+  "Cyberdyne Systems",
+  "Buy n Large",
+  "Wonka Industries",
+  "Acme Corp",
+  "Bubba Gump",
+  "Los Pollos Hermanos",
+  "Pritchett Closets & Blinds",
+  "Momcorp",
+];

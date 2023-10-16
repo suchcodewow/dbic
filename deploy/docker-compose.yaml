@@ -112,7 +112,7 @@ services:
   loadgen:
     build: ../loadgen2
     container_name: loadgen
-    image: suchcodewow/dbic-loadgen3
+    image: suchcodewow/dbic-loadgen4
     depends_on:
       - ui
     environment:

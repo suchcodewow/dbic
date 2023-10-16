@@ -5,8 +5,8 @@ const { defineConfig, devices } = require("@playwright/test");
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  timeout: 0,
-  expect: { timeout: 5000 },
+  timeout: 15000,
+  expect: { timeout: 10000 },
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -15,8 +15,8 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: 0,
   /* Opt out of parallel tests on CI. */
-  workers: 3,
-  // repeatEach: 3,
+  workers: 1,
+  repeatEach: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "list",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -46,17 +46,18 @@ module.exports = defineConfig({
             "--disable-accelerated-2d-canvas",
             "--no-first-run",
             "--no-zygote",
-            "--single-process",
+            // "--single-process",
             "--disable-gpu",
-            // "--ignore-gpu-blocklist",
-            // "--enable-gpu-rasterization",
             "--enable-zero-copy",
             "--disable-features=UseSkiaRenderer",
+            // DO NOT UNCOMMENT:
+            // "--ignore-gpu-blocklist",
+            // "--enable-gpu-rasterization",
             // "--enable-features=+VaapiVideoDecoder",
             // "--enable-features=+CanvasOopRasterization",
             // "--use-gl=egl",
-            "--user-data-dir=/tmp/.chromium-user-data",
-            "--disk-cache-dir=/tmp/.chromium-cache",
+            // "--user-data-dir=/tmp/.chromium-user-data",
+            // "--disk-cache-dir=/tmp/.chromium-cache",
           ],
         },
       },

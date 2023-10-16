@@ -120,7 +120,7 @@ services:
       DELAY: 10
       TIMEOUT: 15000
       REPEAT: 3000
-      WORKERS: 3
+      WORKERS: 1
 
   #OPTIONAL
   #mongo express

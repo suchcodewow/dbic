@@ -4,3 +4,5 @@ dynakube.yaml
 /*.yaml
 *.conf
 *.csv
+
+.fake

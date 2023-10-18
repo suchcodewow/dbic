@@ -10,7 +10,7 @@ import { useCartContext } from "contexts/CartContext";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Banking", href: "/banking" },
-  { name: "Insurance", href: "/insurance" },
+  { name: "Insurance", href: "/insurance", new: true },
   { name: "Store", href: "/store" },
 ];
 
@@ -52,27 +52,25 @@ export default function Nav() {
                   <img className="hidden h-8 w-auto lg:block" src="/images/wow.png" alt="SuchCodeWow" />
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
-                  <div className="flex space-x-4">
+                  <div className=" flex space-x-4">
                     {navigation.map((item) => (
-                      <div
-                        key={item.name}
-                        onClick={() => router.push(item.href)}
-                        className={classNames(
-                          item.href == router.pathname ? " bg-azure-600" : " hover:bg-azure-700",
-                          "px-3 py-2 rounded-md font-bold cursor-pointer"
-                        )}
-                      >
-                        {/* <a
+                      <>
+                        <div
+                          key={item.name}
+                          onClick={() => router.push(item.href)}
                           className={classNames(
-                            item.href == router.pathname
-                              ? "  bg-azure-600"
-                              : " hover:bg-azure-700",
-                            "px-3 py-2 rounded-md  font-bold"
+                            item.href == router.pathname ? " bg-azure-600" : " hover:bg-azure-700",
+                            "px-3 py-2 rounded-md font-bold cursor-pointer relative"
                           )}
-                        > */}
-                        {item.name}
-                        {/* </a> */}
-                      </div>
+                        >
+                          {item.new && (
+                            <div class="absolute -top-1  right-2 inline-flex items-center justify-center ml-1 w-10 h-4 text-xs  text-white bg-lime_green-300 border-2 border-white rounded-full  dark:border-gray-900">
+                              new
+                            </div>
+                          )}
+                          {item.name}
+                        </div>
+                      </>
                     ))}
                   </div>
                 </div>

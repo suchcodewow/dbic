@@ -6,6 +6,8 @@ import {
   ScaleIcon,
   HomeIcon,
   KeyIcon,
+  UserGroupIcon,
+  ClockIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
@@ -29,12 +31,91 @@ const features = [
   },
 ];
 
+const collecticareFeatures = [
+  {
+    name: "Boutique Feel, Abyss-sized Resources",
+    description:
+      "We proudly insure your priceless items our competition is too shocked to even consider.  Our 'above and beyond' attitude is backed by virtually limitless resources.  You can rest easy!",
+    icon: HomeIcon,
+  },
+  {
+    name: "Tested Experts",
+    description:
+      "Our appraisal experts will work tirelessly (where applicable labor laws don't interfere) to offer you the best possible rates. We're regularly pass industory audits from agencies most people don't even know about- let alone that are legal.",
+    icon: UserGroupIcon,
+  },
+  {
+    name: "A Rich History of Commitment",
+    description:
+      "Hundreds of years ago, it took months of correspondence with us to insure even mundane items.  But from day one we've taken extreme care in our commitment to our customers.",
+    icon: ClockIcon,
+  },
+  {
+    name: "Fast Responses",
+    description:
+      "We were made aware of the internet recently and found initial success building a 'Collecticare' facade for faster service.  Building on the success we're now offering nearly instant quotes in regions where our arcane workings go undisturbed.",
+    icon: BoltIcon,
+  },
+];
+
+const taglines = [
+  { text: "And we never call the Police.  Never even heard of 'em." },
+  { text: "And we don't ask questions." },
+  { text: "Even when it's super.... super.... weird." },
+  { text: "Even when it's the skeletons in your closet." },
+];
+const tagline = taglines[Math.floor(Math.random() * taglines.length)];
+
 export default function Insurance() {
-  // const { newquoteOpen, setNewquoteOpen } = useState(false);
   return (
     <div>
       <Nav />
-      <div className="bg-white  mx-auto pt-48 max-w-7xl  bg-[length:500px] bg-top bg-no-repeat bg-[url('/images/vehicle.svg')]">
+      {/* Collecticare frame */}
+      <div className="bg-gray-100 mx-auto pt-6 max-w-7xl">
+        {/* Announcements Block */}
+        <div className="flex flex-col items-center">
+          <p className="p-4 text-2xl text-center leading-8 tracking-tight text-gray-900 ">
+            <span className="block xl:inline font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+              DynaBankInsuraCart
+            </span>
+            &nbsp;is proud to announce our merger with Collecticare!
+          </p>
+          <Image src="/images/collecticare.svg" alt="credicare logo" width="300" height="300" />
+          <p>We care about whatever you collect-</p>
+          <p>{tagline.text}</p>
+
+          {/* Collecticare Features */}
+          <div className="mt-10 px-4 sm:px-6 lg:px-8">
+            <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-14  md:gap-y-10 md:space-y-0">
+              {collecticareFeatures.map((feature) => (
+                <div key={feature.name} className="relative">
+                  <dt>
+                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-slate-500 text-white">
+                      <feature.icon className="h-6 w-6" aria-hidden="true" />
+                    </div>
+                    <p className="ml-16 text-lg font-medium leading-6 text-gray-900">{feature.name}</p>
+                  </dt>
+                  <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="">
+            <div className="flex flex-row items-center space-x-4 my-4">
+              <a
+                href="/customquote"
+                className="bg-slate-500 hover:bg-slate-700 shadow-md py-2 px-8 text-xl text-white rounded-full flex"
+              >
+                I have a speciality item
+              </a>
+              <p className="flex text-lg">Or continue to standard insurance...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Page Background */}
+      <div className="bg-white mx-auto pt-4 max-w-7xl ">
+        <div className="pt-48 bg-[length:500px] bg-top bg-no-repeat bg-[url('/images/vehicle.svg')]"></div>
         <div className="lg:text-center bg-white">
           <p className="pt-4 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
             Insurance that fits like a glove

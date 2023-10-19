@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useUserContext } from "contexts/UserContext";
 import { Prefix, Name, getUser } from "components/Library";
 import { useRouter } from "next/router";
+import Footer from "components/footer";
 
 export default function Login() {
   const router = useRouter();
@@ -26,11 +27,11 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className=" min-h-screen flex flex-col w-screen">
       <Nav />
-      <div className="mt-10">
-        <div className="items-center">
-          <div className="items-center w-full sm:w-1/4 mx-auto">
+      <div className="mt-10 flex flex-1">
+        <div className="items-center mx-auto pt-6 max-w-7xl w-full">
+          <div className="items-center w-full max-w-xl mx-auto">
             <form onSubmit={handleLogin}>
               <div className="shadow mx-auto sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6 rounded-md">
@@ -80,6 +81,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

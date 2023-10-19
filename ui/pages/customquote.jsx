@@ -82,10 +82,10 @@ export default function Quote() {
   };
 
   return (
-    <div className="bg-gray-200 pb-48 min-h-screen flex flex-col w-screen ">
+    <div className="bg-gray-200  min-h-screen flex flex-col w-screen items-center">
       <Nav />
-      <div className="bg-white mt-10 mx-auto max-w-4xl rounded-md shadow-md w-full">
-        <form onSubmit={handleSubmit(onSubmit)} className="w-1/3 mx-auto py-10">
+      <div className="bg-white my-10 mx-10 rounded-md shadow-md w-1/2 max-w-xl flex flex-1">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto  py-10 p-10">
           {questionBlocks.map(
             (questions, idx) =>
               // Only add fields if the form has reached them
@@ -151,6 +151,7 @@ export default function Quote() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

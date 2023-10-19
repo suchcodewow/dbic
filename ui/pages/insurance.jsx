@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
+import Footer from "components/footer";
 
 const features = [
   {
@@ -68,7 +69,7 @@ const tagline = taglines[Math.floor(Math.random() * taglines.length)];
 
 export default function Insurance() {
   return (
-    <div>
+    <div className="flex flex-col w-screen min-h-screen">
       <Nav />
       {/* Collecticare frame */}
       <div className="bg-gray-100 mx-auto pt-6 max-w-7xl">
@@ -201,6 +202,7 @@ export default function Insurance() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,13 +1,9 @@
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
-import {
-  CreditCardIcon,
-  InboxIcon,
-  HomeModernIcon,
-  CurrencyDollarIcon,
-} from "@heroicons/react/24/outline";
+import { CreditCardIcon, InboxIcon, HomeModernIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { useUserContext } from "contexts/UserContext";
 import { NumericFormat } from "react-number-format";
+import Footer from "components/footer";
 
 import PayBills from "components/Paybills";
 import { format } from "date-fns";
@@ -23,22 +19,16 @@ export default function Banking() {
   const [transactions, setTransactions] = useState();
   const [accounts, setAccounts] = useState();
   const fetchTransactions = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_clientmainapi + "/mytransactions/" + user.user,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/mytransactions/" + user.user, {
+      method: "GET",
+    });
     const data = await response.json();
     setTransactions(data);
   };
   const fetchAccounts = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_clientmainapi + "/users/" + user.id,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/" + user.id, {
+      method: "GET",
+    });
     const data = await response.json();
     setAccounts(data.accounts);
   };
@@ -52,179 +42,162 @@ export default function Banking() {
   }
 
   return (
-    <div>
-      <Nav />
-
-      <div className="mx-auto h-fit max-w-7xl px-2 sm:px-6 lg:px-8 flex">
-        {/* SideBar */}
-        <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
-          <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md">
-            <ul className="space-y-2">
-              <li className="mb-6">
-                <span className="ml-1 font-bold">Overview</span>
-              </li>
-              <li>
-                <div className="flex">
-                  <CreditCardIcon className="w-5" />
-                  <span className="font-bold mr-1 ml-3 whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
-                    DYNACARD
-                  </span>
-                  <span>status: </span>
-                  <span className="inline-flex justify-center items-center px-2 ml-3 text-xs font-medium text-gray-800 shadow-md bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                    APPROVED
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex ">
-                  <InboxIcon className="w-5" />
-                  <span className="flex-1 ml-3 whitespace-nowrap">
-                    Account Messages
-                  </span>
-                  <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
-                    0
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex ">
-                  <HomeModernIcon className="w-5" />
-                  <span className="flex-1 ml-3 whitespace-nowrap">
-                    My Address
-                  </span>
-                </div>
-                <div className="text-sm ml-8 mt-1">
-                  {user.defaultAddress?.address1}
-                </div>
-                <div className="text-sm ml-8">
-                  {user.defaultAddress?.address2}
-                </div>
-                <div className="text-sm ml-8">
-                  {user.defaultAddress?.city +
-                    ", " +
-                    user.defaultAddress?.state.substring(0, 2) +
-                    " " +
-                    user.defaultAddress?.zip}
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md mt-4">
-            <ul className="space-y-1">
-              <li className="mb-2">
-                <span className="ml-1 font-bold">Quick Actions</span>
-              </li>
-              <li>
-                <div className="flex space-x-4">
-                  <div
-                    className=" cursor-pointer px-3 py-2 rounded-md font-bold w-full flex hover:bg-azure-500"
-                    onClick={() => setCurrentPanel("transfer")}
-                  >
-                    <CurrencyDollarIcon className="w-5 mr-1" />
-                    Transfer & Pay
+    <>
+      <div className="flex flex-col w-screen min-h-screen items-center">
+        <Nav />
+        <div className="w-full max-w-7xl px-2 sm:px-6 lg:px-8 flex bg-gray-100  ">
+          {/* SideBar */}
+          <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
+            <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md">
+              <ul className="space-y-2">
+                <li className="mb-6">
+                  <span className="ml-1 font-bold">Overview</span>
+                </li>
+                <li>
+                  <div className="flex">
+                    <CreditCardIcon className="w-5" />
+                    <span className="font-bold mr-1 ml-3 whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#ae67fa] to-[#f49867]">
+                      DYNACARD
+                    </span>
+                    <span>status: </span>
+                    <span className="inline-flex justify-center items-center px-2 ml-3 text-xs font-medium text-gray-800 shadow-md bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                      APPROVED
+                    </span>
                   </div>
+                </li>
+                <li>
+                  <div className="flex ">
+                    <InboxIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">Account Messages</span>
+                    <span className="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium  bg-azure-600 shadow-md rounded-full ">
+                      0
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex ">
+                    <HomeModernIcon className="w-5" />
+                    <span className="flex-1 ml-3 whitespace-nowrap">My Address</span>
+                  </div>
+                  <div className="text-sm ml-8 mt-1">{user.defaultAddress?.address1}</div>
+                  <div className="text-sm ml-8">{user.defaultAddress?.address2}</div>
+                  <div className="text-sm ml-8">
+                    {user.defaultAddress?.city +
+                      ", " +
+                      user.defaultAddress?.state.substring(0, 2) +
+                      " " +
+                      user.defaultAddress?.zip}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md mt-4">
+              <ul className="space-y-1">
+                <li className="mb-2">
+                  <span className="ml-1 font-bold">Quick Actions</span>
+                </li>
+                <li>
+                  <div className="flex space-x-4">
+                    <div
+                      className=" cursor-pointer px-3 py-2 rounded-md font-bold w-full flex hover:bg-azure-500"
+                      onClick={() => setCurrentPanel("transfer")}
+                    >
+                      <CurrencyDollarIcon className="w-5 mr-1" />
+                      Transfer & Pay
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          {/* activity panel */}
+          {currentPanel == "recent" && (
+            <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
+              <div className="bg-white rounded-lg p-2 w-full ">
+                <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
+                  <span className="p-1 text-lg font-bold">My Account Balances</span>
+                  <table className="mb-4 w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                    <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
+                      <tr>
+                        <th scope="col" className="p-2 pl-2">
+                          Account
+                        </th>
+                        <th scope="col" className="p-2">
+                          Balance
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {accounts?.map((account) => (
+                        <tr key={account.name} className="border-b bg-gray-100 ">
+                          <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">{account.name}</td>
+                          <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                            <NumericFormat
+                              displayType="text"
+                              prefix={"$"}
+                              valueIsNumericString={true}
+                              thousandSeparator=","
+                              value={account.balance.toFixed(2)}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <span className="text-lg font-bold">Recent Activity</span>
+                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+                    <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
+                      <tr>
+                        <th scope="col" className="p-2 pl-2">
+                          Payee
+                        </th>
+                        <th scope="col" className="p-2 pl-2">
+                          Account
+                        </th>
+                        <th scope="col" className="p-2">
+                          Amount
+                        </th>
+                        <th scope="col" className="p-2">
+                          Date
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {transactions?.map((element) => (
+                        <tr key={element.id} className="border-b bg-gray-100 ">
+                          <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">{element.vendor}</td>
+                          <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
+                            {element.accountName}
+                          </td>
+                          <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                            <NumericFormat
+                              displayType="text"
+                              prefix={"$"}
+                              valueIsNumericString={true}
+                              thousandSeparator=","
+                              value={element.amount.toFixed(2)}
+                            />
+                          </td>
+                          <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
+                            {format(new Date(element.timestamp), "M/d/yy H:m")}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </li>
-            </ul>
-          </div>
-        </aside>
-        {/* activity panel */}
-        {currentPanel == "recent" && (
-          <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
-            <div className="bg-white rounded-lg p-2 w-full ">
-              <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
-                <span className="p-1 text-lg font-bold">
-                  My Account Balances
-                </span>
-                <table className="mb-4 w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                  <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
-                    <tr>
-                      <th scope="col" className="p-2 pl-2">
-                        Account
-                      </th>
-                      <th scope="col" className="p-2">
-                        Balance
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {accounts?.map((account) => (
-                      <tr key={account.name} className="border-b bg-gray-100 ">
-                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
-                          {account.name}
-                        </td>
-                        <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                          <NumericFormat
-                            displayType="text"
-                            prefix={"$"}
-                            valueIsNumericString={true}
-                            thousandSeparator=","
-                            value={account.balance.toFixed(2)}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <span className="text-lg font-bold">Recent Activity</span>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-                  <thead className=" text-xs text-gray-700 uppercase bg-gray-200">
-                    <tr>
-                      <th scope="col" className="p-2 pl-2">
-                        Payee
-                      </th>
-                      <th scope="col" className="p-2 pl-2">
-                        Account
-                      </th>
-                      <th scope="col" className="p-2">
-                        Amount
-                      </th>
-                      <th scope="col" className="p-2">
-                        Date
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {transactions?.map((element) => (
-                      <tr key={element.id} className="border-b bg-gray-100 ">
-                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
-                          {element.vendor}
-                        </td>
-                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
-                          {element.accountName}
-                        </td>
-                        <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                          <NumericFormat
-                            displayType="text"
-                            prefix={"$"}
-                            valueIsNumericString={true}
-                            thousandSeparator=","
-                            value={element.amount.toFixed(2)}
-                          />
-                        </td>
-                        <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">
-                          {format(new Date(element.timestamp), "M/d/yy H:m")}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </div>
-          </div>
-        )}
-        {/* transfer & pay */}
-        {currentPanel == "transfer" && (
-          <>
-            <PayBills
-              setCurrentPanel={setCurrentPanel}
-              refreshData={refreshData}
-              accounts={accounts}
-              user={user}
-            />
-          </>
-        )}
+          )}
+          {/* transfer & pay */}
+          {currentPanel == "transfer" && (
+            <>
+              <PayBills setCurrentPanel={setCurrentPanel} refreshData={refreshData} accounts={accounts} user={user} />
+            </>
+          )}
+        </div>
+        <Footer />
       </div>
-    </div>
+    </>
   );
 }

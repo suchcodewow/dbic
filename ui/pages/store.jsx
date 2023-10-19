@@ -8,6 +8,7 @@ import Dynacard from "components/Dynacard";
 import Checkout from "components/Checkout";
 import { userAgent } from "next/server";
 import { useUserContext } from "contexts/UserContext";
+import Footer from "components/footer";
 
 export default function Store({ _catalog, _carousel }) {
   // Panels
@@ -25,9 +26,9 @@ export default function Store({ _catalog, _carousel }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col w-screen min-h-screen">
       <Nav />
-      <div className="bg-white  sticky w-full z-10 top-0">
+      <div className="bg-white w-full z-10 top-0">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-end">
             {cartTotal > 0 && (
@@ -51,6 +52,7 @@ export default function Store({ _catalog, _carousel }) {
       {user?.user && (
         <Checkout checkoutOpen={checkoutOpen} setCheckoutOpen={setCheckoutOpen} setPaymentOpen={setPaymentOpen} />
       )}
+      <Footer />
     </div>
   );
 }

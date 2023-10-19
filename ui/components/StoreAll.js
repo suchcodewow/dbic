@@ -13,11 +13,9 @@ export default function StoreAll({ catalog }) {
     setQuickView(true);
   }
   return (
-    <div className="bg-white">
+    <div className="bg-white py-6">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-2 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-xl font-bold tracking-tight text-gray-900">
-          Best Sellers in Fashion and Tech...
-        </h2>
+        <h2 className="text-xl font-bold tracking-tight text-gray-900">Best Sellers in Fashion and Tech...</h2>
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
           {catalog?.map((product) => (
             <div
@@ -28,10 +26,7 @@ export default function StoreAll({ catalog }) {
               }}
             >
               <div className="min-h-80">
-                <img
-                  className="scale-100 hover:scale-75 ease-in duration-500"
-                  src={`/images/store/${product.img}`}
-                />
+                <img className="scale-100 hover:scale-75 ease-in duration-500" src={`/images/store/${product.img}`} />
               </div>
               <div className="mt-4 flex justify-between items-center ">
                 {/* Reviews */}
@@ -43,9 +38,7 @@ export default function StoreAll({ catalog }) {
                         <StarIcon
                           key={rating}
                           className={classNames(
-                            product.rating > rating
-                              ? "text-yellow-700"
-                              : "text-gray-200",
+                            product.rating > rating ? "text-yellow-700" : "text-gray-200",
                             "h-5 w-5 flex-shrink-0"
                           )}
                           aria-hidden="true"
@@ -66,11 +59,7 @@ export default function StoreAll({ catalog }) {
             </div>
           ))}
         </div>
-        <StoreQuickView
-          quickView={quickView}
-          setQuickView={setQuickView}
-          item={item}
-        />
+        <StoreQuickView quickView={quickView} setQuickView={setQuickView} item={item} />
       </div>
     </div>
   );

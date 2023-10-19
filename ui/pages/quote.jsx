@@ -82,9 +82,9 @@ export default function Quote() {
   };
 
   return (
-    <div className="bg-gray-200  pb-48 min-h-screen">
+    <div className="bg-gray-200 pb-48 min-h-screen flex flex-col w-screen ">
       <Nav />
-      <div className="bg-white mt-10 mx-auto max-w-4xl rounded-md shadow-md">
+      <div className="bg-white mt-10 mx-auto max-w-4xl rounded-md shadow-md w-full">
         <form onSubmit={handleSubmit(onSubmit)} className="w-1/3 mx-auto py-10">
           {questionBlocks.map(
             (questions, idx) =>

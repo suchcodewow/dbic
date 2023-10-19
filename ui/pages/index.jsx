@@ -9,6 +9,7 @@ import {
   KeyIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Footer from "components/footer";
 const features = [
   {
     name: "Comprehensive Home Coverage",
@@ -78,6 +79,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );

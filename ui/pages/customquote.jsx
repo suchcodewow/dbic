@@ -5,6 +5,13 @@ import { useUserContext } from "contexts/UserContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Footer from "components/footer";
+import { customItems } from "components/Library";
+
+const customItem = customItems[Math.floor(Math.random() * customItems.length)];
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,9 +34,21 @@ export default function Quote() {
         default: user.user ? user.user + "@dynabankinsuracart.com" : "",
         rules: [{ required: true, minlength: 50 }],
       },
+      {
+        label: "Item Name",
+        value: "ItemName",
+        default: customItem.name,
+        rules: [{ required: true, minlength: 50 }],
+      },
+      {
+        label: "Item Description",
+        value: "ItemDesc",
+        default: customItem.description,
+        rules: [{ required: true, minlength: 50 }],
+      },
     ],
     [
-      { label: "Your Birthday", value: "BirthDate", default: "4/3/1995" },
+      { label: "Declared Value ($USD)", value: "itemValue", default: randomNumber(10, 10000).toString() },
       {
         label: "Your home's size in square feet",
         value: "homeSize",
@@ -63,7 +82,7 @@ export default function Quote() {
     };
     const apicall = await fetch(process.env.NEXT_PUBLIC_clientquotesapi, options);
     const response = await apicall.json();
-    // console.log(response);
+    console.log(response);
     if (response.message == "success") {
       // Quote went through
       toast.success("Submitted Quote");
@@ -95,9 +114,6 @@ export default function Quote() {
                     Step {idx + 1} of {questionBlocks.length}
                   </p>
                   {questions.map((question, idx) => (
-                    // {
-                    //   console.log(question);
-                    // }
                     <div key={idx} className="relative z-0 my-6 w-full group">
                       <input
                         {...register(question.value, question.rules)}

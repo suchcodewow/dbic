@@ -61,7 +61,13 @@ export default function Home() {
           <div className="py-12 h-48 my-12 flex justify-center">
             {/* image */}
             <div className="w-64 relative">
-              <Image src="/images/neighborhood.svg" layout="fill" className="object-scale-down" />
+              <Image
+                src="/images/neighborhood.svg"
+                alt="neighboorhood"
+                width="500"
+                height="100"
+                className="object-scale-down"
+              />
             </div>
             {/* CTA */}
             <div className="ml-6 text-lg">

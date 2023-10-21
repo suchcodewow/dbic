@@ -81,7 +81,9 @@ export default function Insurance() {
             </span>
             &nbsp;is proud to announce our merger with Collecticare!
           </p>
-          <Image src="/images/collecticare.svg" alt="credicare logo" width="300" height="300" />
+          <div className="relative h-64 w-64 ">
+            <Image src="/images/collecticare.svg" alt="credicare logo" fill priority="true" />
+          </div>
           <p>We care about whatever you collect-</p>
           <p>{tagline.text}</p>
 
@@ -143,7 +145,7 @@ export default function Insurance() {
           <div className="py-12 h-48 my-12 flex justify-center">
             {/* image */}
             <div className="w-64 relative">
-              <Image src="/images/neighborhood.svg" layout="fill" className="object-scale-down" />
+              <Image src="/images/neighborhood.svg" fill alt="neighborhood" className="object-scale-down" />
             </div>
             {/* CTA */}
             <div className="ml-6 text-lg">
@@ -196,7 +198,7 @@ export default function Insurance() {
             </div>
             <div>
               <div className="w-64 h-64 relative mx-auto ">
-                <Image src="/images/choices.svg" layout="fill" className="" />
+                <Image src="/images/choices.svg" alt="choices" fill className="" />
               </div>
             </div>
           </div>

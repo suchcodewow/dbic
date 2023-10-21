@@ -20,7 +20,7 @@ function classNames(...classes) {
 
 export default function Nav() {
   const router = useRouter();
-  // Page Functions
+
   const handleLogout = () => {
     router.push({
       pathname: "/logout",
@@ -54,23 +54,21 @@ export default function Nav() {
                 <div className="hidden sm:ml-6 sm:block ">
                   <div className=" flex space-x-4">
                     {navigation.map((item) => (
-                      <>
-                        <div
-                          key={item.name}
-                          onClick={() => router.push(item.href)}
-                          className={classNames(
-                            item.href == router.pathname ? " bg-azure-600" : " hover:bg-azure-700",
-                            "px-3 py-2 rounded-md font-bold cursor-pointer relative"
-                          )}
-                        >
-                          {item.new && (
-                            <div class="absolute -top-1  right-2 inline-flex items-center justify-center ml-1 w-10 h-4 text-xs  text-white bg-lime_green-300 border-2 border-white rounded-full  dark:border-gray-900">
-                              new
-                            </div>
-                          )}
-                          {item.name}
-                        </div>
-                      </>
+                      <div
+                        key={item.name}
+                        onClick={() => router.push(item.href)}
+                        className={classNames(
+                          item.href == router.pathname ? " bg-azure-600" : " hover:bg-azure-700",
+                          "px-3 py-2 rounded-md font-bold cursor-pointer relative"
+                        )}
+                      >
+                        {item.new && (
+                          <div className="absolute -top-1  right-2 inline-flex items-center justify-center ml-1 w-10 h-4 text-xs  text-white bg-lime_green-300 border-2 border-white rounded-full  dark:border-gray-900">
+                            new
+                          </div>
+                        )}
+                        {item.name}
+                      </div>
                     ))}
                   </div>
                 </div>

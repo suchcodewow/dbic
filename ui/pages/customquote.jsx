@@ -88,7 +88,8 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    const apicall = await fetch(process.env.NEXT_PUBLIC_clientquotesapi, options);
+    console.log(process.env.NEXT_PUBLIC_specialtyapi);
+    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
     const response = await apicall.json();
 
     if (response.message == "success") {

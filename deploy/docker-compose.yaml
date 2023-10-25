@@ -91,6 +91,18 @@ services:
     depends_on:
       - maindb
 
+  specialtyapi:
+    build:
+      context: ../specialityapi
+      dockerfile: Dockerfile
+    container_name: specialtyapi
+    image: suchcodewow/dbic-specialtyapi
+    restart: always
+    ports:
+      - 3666:3666
+    depends_on:
+      - maindb
+
   # UI
   ui:
     build: ../ui

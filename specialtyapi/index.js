@@ -1,7 +1,11 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const router = express.Router();
+const port = 3666;
+
+//API setup
+const app = express();
+app.use(express.json());
 
 // Database connection
 const dbUrl = process.env.DATABASE_URL;
@@ -10,46 +14,52 @@ const database = mongoose.connection;
 database.on("error", (error) => {
   console.log(error);
 });
-const app = express();
 
-// Define schema
+// Define quote schema
 const Schema = mongoose.Schema;
 
 const CustomQuoteSchema = new Schema({
-  a_string: String,
-  a_date: Date,
+  Name: String,
 });
-
-// Compile model from schema
 const CustomQuote = mongoose.model("CustomQUote", CustomQuoteSchema);
 
-//Post Method
-router.post("/post", (req, res) => {
-  res.send("Post API");
+// API: Create
+app.post("/", async (req, res) => {
+  const newQuote = new CustomQuote({ ...req.body });
+  const insertedQuote = await newQuote.save();
+  return res.status(201).json(insertedQuote);
 });
 
-//Get all Method
-router.get("/getAll", (req, res) => {
-  res.send("Get All API");
+// API: Read
+app.get("/", async (req, res) => {
+  const allQuotes = await CustomQuote.find();
+  return res.status(200).json(allQuotes);
 });
 
-//Get by ID Method
-router.get("/getOne/:id", (req, res) => {
-  res.send("Get by ID API");
+// API: Update
+app.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  await CustomQuote.updateOne({ _id: id }, req.body);
+  console.log(req.body);
+  const updatedQuote = await CustomQuote.findById(id);
+  return res.status(200).json(updatedQuote);
 });
 
-//Update by ID Method
-router.patch("/update/:id", (req, res) => {
-  res.send("Update by ID API");
+// API: Delete
+app.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedQuote = await CustomQuote.findByIdAndDelete(id);
+  return res.status(200).json(deletedQuote);
 });
 
-//Delete by ID Method
-router.delete("/delete/:id", (req, res) => {
-  res.send("Delete by ID API");
+// API: Get One
+app.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const quote = await CustomQuote.findById(id);
+  return res.status(200).json(quote);
 });
 
-app.use(express.json());
-app.listen(3000, () => {
-  console.log("The server is active on port 3000");
+//Start application
+app.listen(port, () => {
+  console.log("The server is active on port", port);
 });
-console.log(dbUrl);

@@ -56,18 +56,14 @@ export default function Quote() {
       { type: "text", label: "Declared Value ($USD)", value: "itemValue", default: randomNumber(10, 10000).toString() },
       {
         type: "text",
-        label: "Your home's size in square feet",
-        value: "homeSize",
-        default: "1600",
+        label: "Year created",
+        value: "CreateYear",
+        default: randomNumber(700, 2023).toString(),
       },
-    ],
-    [
-      { type: "text", label: "Car's model", value: "CarModel", default: "Generat Boxer" },
       {
-        type: "text",
-        label: "Car's manufacturer year",
-        value: "CarYear",
-        default: "2016",
+        type: "dropdown",
+        label: "Primary Insurance Type",
+        options: insuranceTypes,
       },
       { type: "dropdown", label: "Previous Insurer", options: insurers },
     ],
@@ -90,6 +86,7 @@ export default function Quote() {
     };
     console.log(process.env.NEXT_PUBLIC_specialtyapi);
     const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
+    console.log(apicall);
     const response = await apicall.json();
 
     if (response.message == "success") {
@@ -179,10 +176,16 @@ const insurers = [
   {
     index: 7,
     name: "My Purple Cousin Herbert",
-    tagline: "we hired a child to develop our brand name so we could pay them in candy and pass the savings on to you!",
+    tagline:
+      "We found a child that accepted candy as payment to develop our brand name so we could pass the savings on to you!",
   },
 ];
 
+const insuranceTypes = [
+  { index: 1, name: "Burglary or Theft" },
+  { index: 2, name: "Water or Fire Damage" },
+  { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
+];
 const Questions = ({ register, question }) => {
   switch (question.type) {
     case "text": {
@@ -243,8 +246,8 @@ const Questions = ({ register, question }) => {
                         static
                         className="max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5"
                       >
-                        {question.options.map((insurer) => (
-                          <Listbox.Option key={insurer.index} value={insurer.name}>
+                        {question.options.map((item) => (
+                          <Listbox.Option key={item.index} value={item.name}>
                             {({ selected, active }) => (
                               <div
                                 className={`${
@@ -252,8 +255,9 @@ const Questions = ({ register, question }) => {
                                 } cursor-default select-none relative py-2 pl-8 pr-4`}
                               >
                                 <span className={`${selected ? "font-semibold" : "font-normal"} block truncate`}>
-                                  {insurer.name}
+                                  {item.name}
                                 </span>
+                                {item.tagline && <span>{item.tagline}</span>}
                                 {selected && (
                                   <span
                                     className={`${

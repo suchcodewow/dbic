@@ -6,6 +6,11 @@ const port = 3666;
 //API setup
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Database connection
 const dbUrl = process.env.DATABASE_URL;

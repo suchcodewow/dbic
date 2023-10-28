@@ -25,6 +25,11 @@ const Schema = mongoose.Schema;
 
 const CustomQuoteSchema = new Schema({
   Name: String,
+  Email: String,
+  ItemName: String,
+  ItemDesc: String,
+  itemValue: String,
+  CreateYear: String,
 });
 const CustomQuote = mongoose.model("CustomQUote", CustomQuoteSchema);
 

@@ -20,6 +20,7 @@ function classNames(...classes) {
 
 export default function Quote() {
   const { user, userDispatch } = useUserContext();
+
   const router = useRouter();
   const questionBlocks = [
     [
@@ -62,10 +63,11 @@ export default function Quote() {
       },
       {
         type: "dropdown",
-        label: "Primary Insurance Type",
+        label: "Which type of insurane are you most interested in?",
+        value: "InsuranceType",
         options: insuranceTypes,
       },
-      { type: "dropdown", label: "Previous Insurer", options: insurers },
+      { type: "dropdown", label: "Previous Insurer", value: "PreviousInsurer", options: insurers },
     ],
   ];
   const {
@@ -76,7 +78,7 @@ export default function Quote() {
   } = useForm({ mode: "all" });
 
   async function onSubmit(data) {
-    // console.log(data);
+    console.log(data);
     const options = {
       method: "POST",
       body: JSON.stringify(data),
@@ -94,11 +96,12 @@ export default function Quote() {
       toast.success("Submitted Quote");
       router.push("/myaccount");
     } else {
-      toast.error("Sorry, your quote failed to process [E-INS1]");
+      toast.error("Sorry, your quote failed to process [E-INS1904]");
     }
     // return response;
   }
   const [formStep, setFormStep] = useState(1);
+  const [zorder, setZorder] = useState(50);
   const nextStep = () => {
     setFormStep((current) => current + 1);
   };
@@ -120,7 +123,13 @@ export default function Quote() {
                   </p>
                   {questions.map((question, idx) => (
                     <div key={idx} className="relative z-0 my-6 w-full group">
-                      <Questions question={question} idx={idx} register={register} />
+                      <Questions
+                        question={question}
+                        idx={idx}
+                        register={register}
+                        zorder={zorder}
+                        setZorder={setZorder}
+                      />
                     </div>
                   ))}
                 </div>
@@ -186,7 +195,7 @@ const insuranceTypes = [
   { index: 2, name: "Water or Fire Damage" },
   { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
 ];
-const Questions = ({ register, question }) => {
+const Questions = ({ register, question, zorder, setZorder }) => {
   switch (question.type) {
     case "text": {
       // text
@@ -208,20 +217,28 @@ const Questions = ({ register, question }) => {
       );
     }
     case "dropdown": {
-      const [selectedInsurer, setSelectedInsurer] = useState(question.options[0].name);
+      // const [selectedInsurer, setSelectedInsurer] = useState(question.options[0].name);
+      const itemZorder = zorder;
+      console.log(itemZorder);
+      setZorder(itemZorder - 1);
       return (
-        <div className="flex items-center justify-center p-12">
-          <div className="w-full max-w-xs mx-auto">
-            <Listbox as="div" className="space-y-1" value={selectedInsurer} onChange={setSelectedInsurer}>
+        <div className="flex items-center justify-center py-1 z-0">
+          <div className="w-full relative z-{itemZorder}">
+            <Listbox
+              name={question.value}
+              as="div"
+              className="space-y-1"
+              // value={selectedInsurer}
+              {...register(question.value, question.rules)}
+              // onChange={setSelectedInsurer}
+            >
               {({ open }) => (
                 <>
-                  <Listbox.Label className="block text-sm leading-5 font-medium text-gray-700">
-                    Previous Insurer
-                  </Listbox.Label>
+                  <Listbox.Label className="  text-gray-500 text-xs ">{question.label}</Listbox.Label>
                   <div className="relative">
                     <span className="inline-block w-full rounded-md shadow-sm">
                       <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                        <span className="block truncate">{selectedInsurer}</span>
+                        <span className="block truncate">{question.value}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                             <path
@@ -254,7 +271,7 @@ const Questions = ({ register, question }) => {
                                   active ? "text-white bg-blue-600" : "text-gray-900"
                                 } cursor-default select-none relative py-2 pl-8 pr-4`}
                               >
-                                <span className={`${selected ? "font-semibold" : "font-normal"} block truncate`}>
+                                <span className={`${selected ? "font-semibold" : "font-normal"} block text-sm`}>
                                   {item.name}
                                 </span>
                                 {item.tagline && <span>{item.tagline}</span>}

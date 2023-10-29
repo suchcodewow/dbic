@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Nav from "components/Nav";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useUserContext } from "contexts/UserContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
@@ -74,6 +74,7 @@ export default function Quote() {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
@@ -101,7 +102,6 @@ export default function Quote() {
     // return response;
   }
   const [formStep, setFormStep] = useState(1);
-  const [formItems, setFormItems] = useState({});
   const nextStep = () => {
     setFormStep((current) => current + 1);
   };
@@ -122,8 +122,8 @@ export default function Quote() {
                     Step {idx + 1} of {questionBlocks.length}
                   </p>
                   {questions.map((question, idx) => (
-                    <div key={idx} className={classNames("my-6", "relative", "z-" + (50 - idx))}>
-                      <Questions question={question} idx={idx} register={register} />
+                    <div key={idx} className={classNames("my-6", "relative")}>
+                      <Questions question={question} idx={idx} register={register} control={control} />
                     </div>
                   ))}
                 </div>
@@ -189,7 +189,7 @@ const insuranceTypes = [
   { index: 2, name: "Water or Fire Damage" },
   { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
 ];
-const Questions = ({ register, question }) => {
+const Questions = ({ register, question, control }) => {
   switch (question.type) {
     case "text": {
       // text
@@ -214,84 +214,93 @@ const Questions = ({ register, question }) => {
       // console.log(question);
       const [itemValue, setItemValue] = useState(question.options[0].name);
       return (
-        <Listbox
+        <Controller
+          control={control}
+          defaultValue=""
           name={question.value}
-          value={itemValue}
-          {...register(question.value, question.rules)}
-          onChange={setItemValue}
-        >
-          {({ open }) => (
-            <>
-              <Listbox.Label className=" text-gray-500 text-xs ">{question.label}</Listbox.Label>
-              <div className="">
-                <span className="relative w-full rounded-md shadow-sm">
-                  <Listbox.Button className="cursor-hand relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                    <span className="">{itemValue}</span>
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                      <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                        <path
-                          d="M7 7l3-3 3 3m0 6l-3 3-3-3"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+          render={() => (
+            <Listbox
+              name={question.value}
+              value={itemValue}
+              onChange={(e) => {
+                console.log(e);
+                setItemValue(e);
+              }}
+            >
+              {({ open }) => (
+                <>
+                  <Listbox.Label className=" text-gray-500 text-xs ">{question.label}</Listbox.Label>
+                  <div className="">
+                    <span className="relative w-full rounded-md shadow-sm">
+                      <Listbox.Button className="cursor-hand relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                        <span className="">{itemValue}</span>
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <path
+                              d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </Listbox.Button>
                     </span>
-                  </Listbox.Button>
-                </span>
-                <Transition
-                  show={open}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                  className="mt-1 w-full rounded-md bg-white shadow-lg"
-                >
-                  <Listbox.Options
-                    static
-                    className="bg-white absolute z-10 cursor-pointer max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5 border-1 drop-shadow-lg"
-                  >
-                    {question.options.map((item) => (
-                      <Listbox.Option key={item.index} value={item.name}>
-                        {({ selected, active }) => (
-                          <div
-                            className={`${
-                              active ? "text-white bg-blue-600" : "text-gray-900"
-                            }  select-none relative py-2 pl-8 pr-4`}
-                          >
-                            <span className={`${selected ? "font-semibold" : "font-normal"} block text-sm`}>
-                              {item.name}
-                            </span>
-                            {item.tagline && <span>{item.tagline}</span>}
-                            {selected && (
-                              <span
+                    <Transition
+                      show={open}
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                      className="mt-1 w-full rounded-md bg-white shadow-lg"
+                    >
+                      <Listbox.Options
+                        static
+                        className="bg-white absolute z-10 cursor-pointer max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5 border-1 drop-shadow-lg"
+                      >
+                        {question.options.map((item) => (
+                          <Listbox.Option key={item.index} value={item.name}>
+                            {({ selected, active }) => (
+                              <div
                                 className={`${
-                                  active ? "text-white" : "text-blue-600"
-                                } absolute inset-y-0 left-0 flex items-center pl-1.5`}
+                                  active ? "text-white bg-blue-600" : "text-gray-900"
+                                }  select-none relative py-2 pl-8 pr-4`}
                               >
-                                <svg
-                                  className="h-5 w-5"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </span>
+                                <span className={`${selected ? "font-semibold" : "font-normal"} block text-sm`}>
+                                  {item.name}
+                                </span>
+                                {item.tagline && <span>{item.tagline}</span>}
+                                {selected && (
+                                  <span
+                                    className={`${
+                                      active ? "text-white" : "text-blue-600"
+                                    } absolute inset-y-0 left-0 flex items-center pl-1.5`}
+                                  >
+                                    <svg
+                                      className="h-5 w-5"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      viewBox="0 0 20 20"
+                                      fill="currentColor"
+                                    >
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
+                                )}
+                              </div>
                             )}
-                          </div>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </>
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Transition>
+                  </div>
+                </>
+              )}
+            </Listbox>
           )}
-        </Listbox>
+        />
       );
     }
     default: {

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useUserContext } from "contexts/UserContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import Footer from "components/footer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

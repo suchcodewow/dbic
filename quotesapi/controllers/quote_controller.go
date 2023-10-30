@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"quotesapi2/configs"
-	"quotesapi2/models"
-	"quotesapi2/responses"
+	"quotesapi/configs"
+	"quotesapi/models"
+	"quotesapi/responses"
 	"time"
 
 	"github.com/go-playground/validator/v10"

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"quotesapi2/controllers"
+	"quotesapi/controllers"
 
 	"github.com/gorilla/mux"
 )

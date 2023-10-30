@@ -72,9 +72,9 @@ export default function Quote() {
   ];
   const {
     register,
+    control,
     handleSubmit,
     watch,
-    control,
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
@@ -189,7 +189,8 @@ const insuranceTypes = [
   { index: 2, name: "Water or Fire Damage" },
   { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
 ];
-const Questions = ({ register, question, control }) => {
+const Questions = (props) => {
+  const { question, register, control } = props;
   switch (question.type) {
     case "text": {
       // text
@@ -212,28 +213,22 @@ const Questions = ({ register, question, control }) => {
     }
     case "dropdown": {
       // console.log(question);
-      const [itemValue, setItemValue] = useState(question.options[0].name);
+      // const [itemValue, setItemValue] = useState(question.options[0].name);
       return (
         <Controller
           control={control}
-          defaultValue=""
+          // defaultValue=""
           name={question.value}
-          render={() => (
-            <Listbox
-              name={question.value}
-              value={itemValue}
-              onChange={(e) => {
-                console.log(e);
-                setItemValue(e);
-              }}
-            >
+          defaultValue={question.options[0].name}
+          render={({ onChange, value }) => (
+            <Listbox onChange={onChange} value={value}>
               {({ open }) => (
                 <>
                   <Listbox.Label className=" text-gray-500 text-xs ">{question.label}</Listbox.Label>
                   <div className="">
                     <span className="relative w-full rounded-md shadow-sm">
                       <Listbox.Button className="cursor-hand relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                        <span className="">{itemValue}</span>
+                        <span>{value}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                             <path
@@ -258,7 +253,7 @@ const Questions = ({ register, question, control }) => {
                         className="bg-white absolute z-10 cursor-pointer max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5 border-1 drop-shadow-lg"
                       >
                         {question.options.map((item) => (
-                          <Listbox.Option key={item.index} value={item.name}>
+                          <Listbox.Option key={item.name} value={item.name}>
                             {({ selected, active }) => (
                               <div
                                 className={`${

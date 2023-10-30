@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-	"quotesapi2/configs"
-	"quotesapi2/routes" 
+	"quotesapi/configs"
+	"quotesapi/routes"
 
 	"github.com/gorilla/mux"
 )
@@ -16,7 +16,7 @@ func main() {
 	configs.ConnectDB()
 
 	//routes
-	routes.QuoteRoute(router) 
+	routes.QuoteRoute(router)
 
 	log.Fatal(http.ListenAndServe(":6000", router))
 }

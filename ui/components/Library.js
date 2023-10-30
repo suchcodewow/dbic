@@ -1,3 +1,5 @@
+import { useUserContext } from "contexts/UserContext";
+
 export async function getUser(userId) {
   const options = {
     method: "GET",
@@ -8,7 +10,6 @@ export async function getUser(userId) {
   const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/login/" + userId, options);
   return await response.json();
 }
-
 export async function postTransaction(data) {
   // Ensure user's account is debited before posting transaction
   const updateBalanceSuccess = await updateBalance(data);
@@ -29,7 +30,6 @@ export async function postTransaction(data) {
   const jsonResponse = await response.json();
   return jsonResponse;
 }
-
 export async function updateBalance(data) {
   // TODO: check funds
   // Build HTTP Request
@@ -78,7 +78,6 @@ export async function updateBalance(data) {
   const updateResponse = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/users/" + data.id, postOptions);
   return updateResponse;
 }
-
 export const USStates = [
   "AK - Alaska",
   "AL - Alabama",
@@ -136,7 +135,6 @@ export const USStates = [
   "WV - West Virginia",
   "WY - Wyoming",
 ];
-
 export const USCities = [
   "Abbeville",
   "Abbotsford",
@@ -6878,7 +6876,6 @@ export const USCities = [
   "Zolfo Springs",
   "Zuni",
 ];
-
 export const Prefix = [
   "abundant",
   "delightful",
@@ -7017,7 +7014,6 @@ export const Prefix = [
   "young",
   "delicious",
 ];
-
 export const Name = [
   "apple",
   "seashore",
@@ -7074,7 +7070,6 @@ export const Name = [
   "visitor",
   "voyage",
 ];
-
 export const USStreets = [
   "Briarwood Court",
   "Hanover Court",
@@ -7327,7 +7322,6 @@ export const USStreets = [
   "Hawthorne Lane",
   "Railroad Street",
 ];
-
 export const customItems = [
   {
     name: "Quantum Harmonizer",
@@ -7713,4 +7707,75 @@ export const customItems = [
     name: "The Fountain of Youth",
     description: "A source of water that grants eternal youth when consumed.",
   },
+];
+const customItem = customItems[Math.floor(Math.random() * customItems.length)];
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+export const AllQuestions = () => {
+  const { user } = useUserContext();
+  const AllQuestions = [
+    {
+      type: "text",
+      label: "Your Name",
+      value: "Name",
+      default: user.user,
+      rules: { minlength: 50 },
+    },
+    {
+      type: "text",
+      label: "Email Address",
+      value: "Email",
+      default: user.user ? user.user + "@dynabankinsuracart.com" : "",
+      rules: [{ required: true, minlength: 50 }],
+    },
+    {
+      type: "text",
+      label: "Item Name",
+      value: "ItemName",
+      default: customItem.name,
+      rules: [{ required: true, minlength: 50 }],
+    },
+    {
+      type: "text",
+      label: "Item Description",
+      value: "ItemDesc",
+      default: customItem.description,
+      rules: [{ required: true, minlength: 50 }],
+    },
+    { type: "text", label: "Declared Value ($USD)", value: "itemValue", default: randomNumber(10, 10000).toString() },
+    {
+      type: "text",
+      label: "Year created",
+      value: "CreateYear",
+      default: randomNumber(700, 2023).toString(),
+    },
+    {
+      type: "dropdown",
+      label: "Which type of insurane are you most interested in?",
+      value: "InsuranceType",
+      options: insuranceTypes,
+    },
+    { type: "dropdown", label: "Previous Insurer", value: "PreviousInsurer", options: insurers },
+  ];
+  return AllQuestions;
+};
+const insurers = [
+  { index: 1, name: "Not previously insured.", tagline: "" },
+  { index: 2, name: "Skeleton Securities", tagline: "we'll even insure the ones in your closet" },
+  { index: 3, name: "Route 666", tagline: "The end of the road for your insurance problems" },
+  { index: 4, name: "Friends on the Other Side", tagline: "Let's make a deal- we hope you're satisfied" },
+  { index: 5, name: "Infinity Eye", tagline: "We're watching your most valuable possessions.  And also you." },
+  { index: 6, name: "Abyssal Assurance", tagline: "Literally endless resources to protect you." },
+  {
+    index: 7,
+    name: "My Purple Cousin Herbert",
+    tagline:
+      "We found a child that accepted candy as payment to develop our brand name so we could pass the savings on to you!",
+  },
+];
+const insuranceTypes = [
+  { index: 1, name: "Burglary or Theft" },
+  { index: 2, name: "Water or Fire Damage" },
+  { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
 ];

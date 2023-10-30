@@ -150,7 +150,7 @@ export default function MyAccount() {
                     <tr key={quote._id} className="border-b bg-gray-100 ">
                       <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">{quote.CustRef}</td>
                       <td>{quote.Status}</td>
-                      <td>{quote.UpdateTime.toLocaleString()}</td>
+                      <td>{new Date(quote.UpdateTime).toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -51,8 +51,8 @@ app.post("/", async (req, res) => {
 
 // API: Read
 app.get("/", async (req, res) => {
-  const allQuotes = await CustomQuote.find();
-  return res.status(200).json(allQuotes).sort({ UpdateTime: 1 });
+  const allQuotes = await CustomQuote.find().sort({ UpdateTime: -1 });
+  return res.status(200).json(allQuotes);
 });
 
 // API: Update
@@ -81,8 +81,8 @@ app.get("/:id", async (req, res) => {
 // API: My Quotes
 app.get("/my/:name", async (req, res) => {
   const { name } = req.params;
-  const quotes = await CustomQuote.find({ Name: name });
-  return res.status(200).json(quotes).sort({ UpdateTime: -1 });
+  const quotes = await CustomQuote.find({ Name: name }).sort({ UpdateTime: -1 });
+  return res.status(200).json(quotes);
 });
 
 //Start application

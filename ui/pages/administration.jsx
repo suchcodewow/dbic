@@ -86,7 +86,9 @@ export default function Administration() {
                     <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {item.CustRef}
                     </th>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{item.Status}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                      {item.Status + "@" + new Date(item.UpdateTime).toLocaleString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>

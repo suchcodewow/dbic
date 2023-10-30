@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import Nav from "components/Nav";
 import { useForm, Controller } from "react-hook-form";
 import { useUserContext } from "contexts/UserContext";
@@ -11,7 +11,7 @@ import { Listbox, Transition } from "@headlessui/react";
 const customItem = customItems[Math.floor(Math.random() * customItems.length)];
 
 export default function Quote() {
-  const { user, userDispatch } = useUserContext();
+  // const { user, userDispatch } = useUserContext();
   const allQuestions = AllQuestions();
   const router = useRouter();
 
@@ -24,6 +24,9 @@ export default function Quote() {
   } = useForm({ mode: "all" });
 
   async function onSubmit(data) {
+    data.CustRef = data.Name.substring(0, 4) + data.ItemName.substring(0, 4) + data.MFREF;
+    data.CreateTime = new Date();
+    data.UpdateTime = new Date();
     console.log(data);
     const options = {
       method: "POST",
@@ -32,19 +35,14 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    console.log(process.env.NEXT_PUBLIC_specialtyapi);
-    // const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
-    // console.log(apicall);
-    // const response = await apicall.json();
-
-    // if (response.message == "success") {
-    //   // Quote went through
-    //   toast.success("Submitted Quote");
-    //   router.push("/myaccount");
-    // } else {
-    //   toast.error("Sorry, your quote failed to process [E-INS1904]");
-    // }
-    // return response;
+    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
+    if (apicall.status === 201) {
+      // Quote went through
+      toast.success("Submitted Quote");
+      router.push("/myaccount");
+    } else {
+      toast.error("Sorry, your quote failed to process [E-CC485]");
+    }
   }
   return (
     <div className="bg-gray-200  min-h-screen flex flex-col w-screen items-center">
@@ -56,7 +54,27 @@ export default function Quote() {
               case "text": {
                 // text
                 return (
-                  <div className="relative py-3">
+                  <div key={question.value} className="relative py-3">
+                    <input
+                      {...register(question.value, question.rules)}
+                      type="text"
+                      name={question.value}
+                      defaultValue={question.default}
+                      id={question.value}
+                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                    />
+                    <label className="peer-focus:font-medium absolute  text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                      {question.label}
+                    </label>
+                  </div>
+                );
+              }
+              // Hidden/Reference
+              case "hidden": {
+                // text
+                return (
+                  <div key={question.value} className="hidden">
                     <input
                       {...register(question.value, question.rules)}
                       type="text"
@@ -74,13 +92,13 @@ export default function Quote() {
               }
               case "dropdown": {
                 return (
-                  <div className="py-3 relative">
+                  <div key={question.value} className="py-3 relative">
                     <Controller
                       control={control}
                       // defaultValue=""
                       name={question.value}
                       defaultValue={question.options[0].name}
-                      render={({ field: { onChange, value, onBlur } }) => (
+                      render={({ field: { onChange, value } }) => (
                         <Listbox onChange={onChange} value={value}>
                           {({ open }) => (
                             <>
@@ -111,11 +129,11 @@ export default function Quote() {
                                   leave="transition ease-in duration-100"
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
-                                  className="mt-1 w-full rounded-md bg-white shadow-lg"
+                                  className=" w-full rounded-md bg-white shadow-lg"
                                 >
                                   <Listbox.Options
                                     static
-                                    className="bg-white relative z-10 cursor-pointer max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5 border-1 drop-shadow-lg"
+                                    className="absolute bg-white  z-10 cursor-pointer max-h-60 rounded-md py-1 text-base leading-6 shadow-xs overflow-auto focus:outline-none sm:text-sm sm:leading-5 border-1 drop-shadow-lg"
                                   >
                                     {question.options.map((item) => (
                                       <Listbox.Option key={item.name} value={item.name}>

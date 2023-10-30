@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-slim
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies
@@ -9,6 +9,6 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --omit=dev
 # Bundle app source
-COPY .js .
+COPY *.js ./
 EXPOSE 3666
-CMD [ "node", "server.js" ]
+CMD [ "node", "index.js" ]

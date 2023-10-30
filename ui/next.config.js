@@ -39,6 +39,10 @@ const nextConfig = {
         destination: "http://localhost:5000/api/:path*",
       },
       {
+        source: "/devapi/specialtyapi/:path*",
+        destination: "http://localhost:3666/:path*",
+      },
+      {
         source: "/api/order/:path*",
         destination: "http://ordersapi:8000/api/Order/:path*",
       },
@@ -53,6 +57,10 @@ const nextConfig = {
       {
         source: "/api/api/:path*",
         destination: "http://mainapi:5000/api/:path*",
+      },
+      {
+        source: "/specialtyapi/:path*",
+        destination: "http://specialtyapi:3666/:path*",
       },
     ];
   },

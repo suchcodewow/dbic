@@ -1,5 +1,4 @@
 const express = require("express");
-require("dotenv").config();
 const mongoose = require("mongoose");
 const port = 3666;
 
@@ -13,7 +12,10 @@ app.use((req, res, next) => {
 });
 
 // Database connection
-const dbUrl = process.env.DATABASE_URL;
+const dbUrl = process.env.DATABASE_URL
+  ? process.env.DATABASE_URL
+  : "mongodb://root:password@localhost/specialty?authSource=admin";
+console.log(dbUrl);
 mongoose.connect(dbUrl);
 const database = mongoose.connection;
 database.on("error", (error) => {
@@ -24,14 +26,21 @@ database.on("error", (error) => {
 const Schema = mongoose.Schema;
 
 const CustomQuoteSchema = new Schema({
-  Name: String,
+  CreateYear: Number,
   Email: String,
-  ItemName: String,
+  InsuranceType: String,
   ItemDesc: String,
-  itemValue: String,
-  CreateYear: String,
+  ItemName: String,
+  Name: String,
+  PreviousInsurer: String,
+  ItemValue: String,
+  MFREF: Number,
+  Status: String,
+  CustRef: String,
+  CreateTime: Date,
+  UpdateTime: Date,
 });
-const CustomQuote = mongoose.model("CustomQUote", CustomQuoteSchema);
+const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 
 // API: Create
 app.post("/", async (req, res) => {
@@ -43,7 +52,7 @@ app.post("/", async (req, res) => {
 // API: Read
 app.get("/", async (req, res) => {
   const allQuotes = await CustomQuote.find();
-  return res.status(200).json(allQuotes);
+  return res.status(200).json(allQuotes).sort({ UpdateTime: 1 });
 });
 
 // API: Update
@@ -67,6 +76,13 @@ app.get("/:id", async (req, res) => {
   const { id } = req.params;
   const quote = await CustomQuote.findById(id);
   return res.status(200).json(quote);
+});
+
+// API: My Quotes
+app.get("/my/:name", async (req, res) => {
+  const { name } = req.params;
+  const quotes = await CustomQuote.find({ Name: name });
+  return res.status(200).json(quotes).sort({ UpdateTime: -1 });
 });
 
 //Start application

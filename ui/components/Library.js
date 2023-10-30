@@ -7743,7 +7743,12 @@ export const AllQuestions = () => {
       default: customItem.description,
       rules: [{ required: true, minlength: 50 }],
     },
-    { type: "text", label: "Declared Value ($USD)", value: "itemValue", default: randomNumber(10, 10000).toString() },
+    {
+      type: "text",
+      label: "Declared Value ($USD)",
+      value: "ItemValue",
+      default: randomNumber(1000, 1000000).toString(),
+    },
     {
       type: "text",
       label: "Year created",
@@ -7757,6 +7762,18 @@ export const AllQuestions = () => {
       options: insuranceTypes,
     },
     { type: "dropdown", label: "Previous Insurer", value: "PreviousInsurer", options: insurers },
+    {
+      type: "hidden",
+      label: "Mainframe Reference Number",
+      value: "MFREF",
+      default: randomNumber(1000, 9999).toString(),
+    },
+    {
+      type: "hidden",
+      label: "Status",
+      value: "Status",
+      default: "new",
+    },
   ];
   return AllQuestions;
 };

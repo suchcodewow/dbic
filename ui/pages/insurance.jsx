@@ -1,16 +1,7 @@
 import Nav from "components/Nav";
-import {
-  BoltIcon,
-  ChatBubbleBottomCenterTextIcon,
-  GlobeAltIcon,
-  ScaleIcon,
-  HomeIcon,
-  KeyIcon,
-  UserGroupIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import { BoltIcon, HomeIcon, KeyIcon, UserGroupIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { useState } from "react";
+
 import Footer from "components/footer";
 
 const features = [

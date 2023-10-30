@@ -2,9 +2,22 @@ import { KeyIcon } from "@heroicons/react/24/outline";
 import Nav from "components/Nav";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import Footer from "components/footer";
 //TODO: make all 3 transactions recent down
 //TODO: fix date field for banking.  last digit of time gets cut off
 export default function Administration() {
+  //Collecticare data
+  const [customQuotes, setCustomQuotes] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(process.env.NEXT_PUBLIC_specialtyapi, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setCustomQuotes(data);
+    };
+    fetchData().catch(console.error);
+  }, []);
   //Shop data
   const [orders, setOrders] = useState();
   useEffect(() => {
@@ -46,13 +59,40 @@ export default function Administration() {
 
   // console.log(timezoneOffset);
   return (
-    <div className="bg-gray-100">
+    <div className="flex flex-col w-screen min-h-screen bg-gray-100">
       <Nav />
       <div className="flex p-4 py-2">
         <KeyIcon className="w-8 " />
         <h1 className=" text-4xl font-bold ml-2">Administration</h1>
       </div>
-      <div className="flex gap-4 justify-around p-2">
+      <div className="flex gap-4 justify-around p-2 flex-1">
+        <div className="bg-white rounded-lg  shadow p-2 w-full">
+          <span className="p-1 ">Collecticare Quotes</span>
+          <div className="overflow-x-auto relative mt-2 shadow-sm sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                <tr>
+                  <th scope="col" className="p-1">
+                    Ref
+                  </th>
+                  <th scope="col" className="p-1">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {customQuotes?.map((item) => (
+                  <tr key={item._id} className="border-b bg-gray-100 ">
+                    <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
+                      {item.CustRef}
+                    </th>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{item.Status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div className="bg-white rounded-lg  shadow p-2 w-full">
           <span className="p-1 ">Shop Orders</span>
 
@@ -163,6 +203,7 @@ export default function Administration() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

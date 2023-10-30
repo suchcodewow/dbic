@@ -23,7 +23,7 @@ services:
       - 27017:27017
 
   ordersdb:
-    image: "mcr.microsoft.com/mssql/server"
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
     container_name: ordersdb
     restart: always
     environment:
@@ -93,7 +93,7 @@ services:
 
   specialtyapi:
     build:
-      context: ../specialityapi
+      context: ../specialtyapi
       dockerfile: Dockerfile
     container_name: specialtyapi
     image: suchcodewow/dbic-specialtyapi
@@ -102,6 +102,8 @@ services:
       - 3666:3666
     depends_on:
       - maindb
+    environment:
+      DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
 
   # UI
   ui:

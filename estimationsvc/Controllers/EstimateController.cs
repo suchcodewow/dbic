@@ -1,27 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
-
-namespace estimationsvc.Controllers;
+namespace estimatesvc.Controllers;
 
 [ApiController]
 [Route("/")]
-public class WeatherForecastController : ControllerBase
+public class EstimateController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<EstimateController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public EstimateController(ILogger<EstimateController> logger)
     {
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [HttpGet(Name = "GetEstimate")]
+    public IEnumerable<Estimate> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        return Enumerable.Range(1, 5).Select(index => new Estimate
         {
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),

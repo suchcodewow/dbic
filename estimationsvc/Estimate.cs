@@ -1,6 +1,6 @@
-namespace estimationsvc;
+namespace estimatesvc;
 
-public class WeatherForecast
+public class Estimate
 {
     public DateTime Date { get; set; }
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1157w\\source\\dbic\\estimationsvc\\estimationsvc.csproj": {}
+    "C:\\Users\\admin\\source\\dbic\\estimationsvc\\estimationsvc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1157w\\source\\dbic\\estimationsvc\\estimationsvc.csproj": {
+    "C:\\Users\\admin\\source\\dbic\\estimationsvc\\estimationsvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1157w\\source\\dbic\\estimationsvc\\estimationsvc.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\source\\dbic\\estimationsvc\\estimationsvc.csproj",
         "projectName": "estimationsvc",
-        "projectPath": "C:\\Users\\1157w\\source\\dbic\\estimationsvc\\estimationsvc.csproj",
-        "packagesPath": "C:\\Users\\1157w\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1157w\\source\\dbic\\estimationsvc\\obj\\",
+        "projectPath": "C:\\Users\\admin\\source\\dbic\\estimationsvc\\estimationsvc.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\source\\dbic\\estimationsvc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\1157w\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -38,6 +38,18 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.1-dev-00320, )"
+            },
+            "Serilog.Expressions": {
+              "target": "Package",
+              "version": "[4.0.0-dev-00139, )"
+            },
+            "Serilog.Sinks.Seq": {
+              "target": "Package",
+              "version": "[6.0.0-dev-00268, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -62,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.416\\RuntimeIdentifierGraph.json"
         }
       }
     }

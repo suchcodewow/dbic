@@ -16,4 +16,5 @@ public class Estimate
     public String? CustRef { get; set; }
     public DateTime? CreateTime { get; set; }
     public DateTime? UpdateTime { get; set; }
+    public int? PolicyEstimate { get; set; }
 }

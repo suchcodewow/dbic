@@ -30,12 +30,12 @@ public class EstimateController : ControllerBase
     //     .ToArray();
     // }
     [HttpGet(Name = "ProcessEstimate")]
-    public IActionResult Get(Estimate estimate)
+    public Estimate Get(Estimate estimate)
     {
-        return estimate;
+        var PolicyCost = new Estimate { PolicyEstimate = 5 };
+        return PolicyCost;
     }
 }
-
 
 // Call Another Api
 // ControllerPublic async Task PostRequestAsync()

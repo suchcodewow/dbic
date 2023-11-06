@@ -38,6 +38,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.22.0, )"
+            },
             "Serilog.AspNetCore": {
               "target": "Package",
               "version": "[7.0.1-dev-00320, )"

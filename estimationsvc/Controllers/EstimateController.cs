@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 namespace estimatesvc.Controllers;
 
@@ -11,6 +12,13 @@ public class EstimateController : ControllerBase
     public EstimateController(ILogger<EstimateController> logger)
     {
         _logger = logger;
+    }
+
+    [HttpGet(Name = "healthcheck")]
+    public ActionResult Get()
+    {
+        var response = new { Status = "ready" };
+        return Ok(response);
     }
 
     [HttpPost(Name = "ProcessEstimate")]

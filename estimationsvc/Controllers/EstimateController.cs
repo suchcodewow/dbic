@@ -17,7 +17,8 @@ public class EstimateController : ControllerBase
     [HttpGet(Name = "healthcheck")]
     public ActionResult Get()
     {
-        var response = new { Status = "ready" };
+        var webAppName = Environment.GetEnvironmentVariable("APPSETTING_WEBSITE_SITE_NAME");
+        var response = new { Status = "ready", appname = webAppName };
         return Ok(response);
     }
 
@@ -25,13 +26,19 @@ public class EstimateController : ControllerBase
     public ActionResult<Estimate> ProcessEstimate(Estimate estimate)
     {
         var PolicyCost = estimate;
-        var estimateBuilder = 0;
-        if (PolicyCost.CreateYear > 1500)
+        var EstimateBuilder = estimate.ItemValue;
+        EstimateBuilder = (EstimateBuilder * .1);
+        if (PolicyCost.CreateYear < 1500)
         {
-            estimateBuilder = estimateBuilder + 500;
+            EstimateBuilder = EstimateBuilder + 500;
         }
-        PolicyCost.PolicyEstimate = estimateBuilder;
-        _logger.LogInformation("Hi mom");
+        if (PolicyCost.CreateYear > 1900)
+        {
+            EstimateBuilder = EstimateBuilder * .9;
+        }
+        PolicyCost.PolicyEstimate = EstimateBuilder;
+        PolicyCost.Status = "quoted";
+        _logger.LogInformation(PolicyCost.CustRef);
         return Ok(PolicyCost);
     }
 }

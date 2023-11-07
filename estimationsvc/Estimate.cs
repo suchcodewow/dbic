@@ -10,11 +10,11 @@ public class Estimate
     public String? ItemName { get; set; }
     public String? Name { get; set; }
     public String? PreviousInsurer { get; set; }
-    public String? ItemValue { get; set; }
+    public Double? ItemValue { get; set; }
     public String? MFREF { get; set; }
     public String? Status { get; set; }
     public String? CustRef { get; set; }
     public DateTime? CreateTime { get; set; }
     public DateTime? UpdateTime { get; set; }
-    public int? PolicyEstimate { get; set; }
+    public Double? PolicyEstimate { get; set; }
 }

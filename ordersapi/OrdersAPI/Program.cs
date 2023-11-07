@@ -13,7 +13,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 }
 );
-System.Diagnostics.Debug.WriteLine("hello");
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -56,7 +56,7 @@ export default function MyAccount() {
       });
       const data = await response.json();
       setCustomQuotes(data);
-      console.log(data);
+      // console.log(data);
     };
     fetchData().catch(console.error);
   }, []);

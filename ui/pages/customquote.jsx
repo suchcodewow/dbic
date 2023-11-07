@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Nav from "components/Nav";
 import { useForm, Controller } from "react-hook-form";
-import { useUserContext } from "contexts/UserContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Footer from "components/footer";
@@ -19,10 +18,10 @@ export default function Quote() {
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
+  // Submit New Quote
   async function onSubmit(data) {
     data.CustRef = data.Name.substring(0, 4) + data.ItemName.substring(0, 4) + data.MFREF;
     data.CreateTime = new Date();
@@ -35,15 +34,19 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
-    if (apicall.status === 201) {
-      // Quote went through
-      toast.success("Submitted Quote");
-      router.push("/myaccount");
-    } else {
-      toast.error("Sorry, your quote failed to process [E-CC485]");
-    }
+    const estimateAiStatus = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
+    const estimateAiBody = await estimateAiStatus.json();
+    console.log(estimateAiBody);
+    // const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
+    // if (apicall.status === 201) {
+    //   // Quote went through
+    //   toast.success("Submitted Quote");
+    //   router.push("/myaccount");
+    // } else {
+    //   toast.error("Sorry, your quote failed to process [E-CC485]");
+    // }
   }
+
   return (
     <div className="bg-gray-200  min-h-screen flex flex-col w-screen items-center">
       <Nav />

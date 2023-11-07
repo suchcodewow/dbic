@@ -30,10 +30,10 @@ public class EstimateController : ControllerBase
     //     .ToArray();
     // }
     [HttpGet(Name = "ProcessEstimate")]
-    public Estimate Get(Estimate estimate)
+    public IResult Get(Estimate estimate)
     {
         var PolicyCost = new Estimate { PolicyEstimate = 5 };
-        return PolicyCost;
+        return (IResult)PolicyCost;
     }
 }
 

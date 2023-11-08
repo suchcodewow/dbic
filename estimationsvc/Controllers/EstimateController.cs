@@ -27,16 +27,16 @@ public class EstimateController : ControllerBase
     {
         var PolicyCost = estimate;
         var EstimateBuilder = estimate.ItemValue;
-        EstimateBuilder = (EstimateBuilder * .1);
+        EstimateBuilder = (EstimateBuilder * (decimal).03);
         if (PolicyCost.CreateYear < 1500)
         {
             EstimateBuilder = EstimateBuilder + 500;
         }
         if (PolicyCost.CreateYear > 1900)
         {
-            EstimateBuilder = EstimateBuilder * .9;
+            EstimateBuilder = EstimateBuilder * (decimal).9;
         }
-        PolicyCost.PolicyEstimate = EstimateBuilder;
+        PolicyCost.PolicyEstimate = Math.Round((decimal)EstimateBuilder, 2);
         PolicyCost.Status = "quoted";
         _logger.LogInformation(PolicyCost.CustRef);
         return Ok(PolicyCost);

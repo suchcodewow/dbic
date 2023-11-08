@@ -34,17 +34,18 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    const estimateAiStatus = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
-    const estimateAiBody = await estimateAiStatus.json();
-    console.log(estimateAiBody);
-    // const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
-    // if (apicall.status === 201) {
-    //   // Quote went through
-    //   toast.success("Submitted Quote");
-    //   router.push("/myaccount");
-    // } else {
-    //   toast.error("Sorry, your quote failed to process [E-CC485]");
-    // }
+    // const estimateAiStatus = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
+    // const estimateAiBody = await estimateAiStatus.json();
+    // console.log(estimateAiBody);
+    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
+    console.log(apicall);
+    if (apicall.status === 201) {
+      // Quote went through
+      toast.success("Submitted Quote");
+      router.push("/myaccount");
+    } else {
+      toast.error("Sorry, your quote failed to process [E-CC485]");
+    }
   }
 
   return (

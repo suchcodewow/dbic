@@ -33,12 +33,13 @@ const CustomQuoteSchema = new Schema({
   ItemName: String,
   Name: String,
   PreviousInsurer: String,
-  ItemValue: String,
+  ItemValue: Number,
   MFREF: Number,
   Status: String,
   CustRef: String,
   CreateTime: Date,
   UpdateTime: Date,
+  PolicyEstimate: Number,
 });
 const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 
@@ -46,6 +47,28 @@ const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 app.post("/", async (req, res) => {
   const newQuote = new CustomQuote({ ...req.body });
   const insertedQuote = await newQuote.save();
+  // Need flag logic here AND confirm save was successful
+  // Assuming yes:
+  const options = {
+    method: "POST",
+    body: JSON.stringify(insertedQuote),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  // console.log(options);
+  // const quoteResponse = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
+  const quoteResponse = await fetch("http://localhost:5130", options);
+  const quoteJson = await quoteResponse.json();
+  const updateValues = {
+    Status: quoteJson.status,
+    UpdateTime: new Date(),
+    PolicyEstimate: quoteJson.policyEstimate,
+  };
+  console.log(updateValues);
+  const updateResult = await CustomQuote.updateOne({ _id: insertedQuote.id }, updateValues);
+  console.log(updateResult);
+  // Return result after flag logic
   return res.status(201).json(insertedQuote);
 });
 

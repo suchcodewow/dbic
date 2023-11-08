@@ -15,11 +15,11 @@ app.use((req, res, next) => {
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
-console.log(dbUrl);
+// console.log(dbUrl);
 mongoose.connect(dbUrl);
 const database = mongoose.connection;
 database.on("error", (error) => {
-  console.log(error);
+  // console.log(error);
 });
 
 // Define quote schema
@@ -65,9 +65,9 @@ app.post("/", async (req, res) => {
     UpdateTime: new Date(),
     PolicyEstimate: quoteJson.policyEstimate,
   };
-  console.log(updateValues);
+  // console.log(updateValues);
   const updateResult = await CustomQuote.updateOne({ _id: insertedQuote.id }, updateValues);
-  console.log(updateResult);
+  // console.log(updateResult);
   // Return result after flag logic
   return res.status(201).json(insertedQuote);
 });
@@ -81,8 +81,7 @@ app.get("/", async (req, res) => {
 // API: Update
 app.put("/:id", async (req, res) => {
   const { id } = req.params;
-  await CustomQuote.updateOne({ _id: id }, req.body);
-  console.log(req.body);
+  await CustomQuote.findByIdAndUpdate(id, req.body);
   const updatedQuote = await CustomQuote.findById(id);
   return res.status(200).json(updatedQuote);
 });

@@ -4,10 +4,13 @@ import { useUserContext } from "contexts/UserContext";
 import { CreditCardIcon, InboxIcon, ShoppingBagIcon, BanknotesIcon, HomeIcon } from "@heroicons/react/20/solid";
 import { NumericFormat } from "react-number-format";
 import Footer from "components/footer";
+import CollectiQuote from "components/CollecticareEdit";
 
 export default function MyAccount() {
   // Setup
   const { user, userDispatch } = useUserContext();
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [currentQuote, setCurrentQuote] = useState(false);
   // Pull Orders
   const [orders, setOrders] = useState();
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function MyAccount() {
       // console.log(data);
     };
     fetchData().catch(console.error);
-  }, []);
+  }, [customQuotes]);
   useEffect(() => {
     fetchAccounts().catch(console.error);
   }, []);
@@ -67,6 +70,7 @@ export default function MyAccount() {
     <div className="flex flex-col w-screen min-h-screen ">
       <Nav />
       <div className="mx-auto h-fit w-full px-2 sm:px-6 lg:px-8 flex-1">
+        <CollectiQuote quoteOpen={quoteOpen} setQuoteOpen={setQuoteOpen} currentQuote={currentQuote} />
         <div className="flex max-w-7xl">
           {/* SideBar */}
           <aside className="pl-4 py-4 sticky" aria-label="Sidebar">
@@ -147,7 +151,14 @@ export default function MyAccount() {
                 </thead>
                 <tbody>
                   {customQuotes?.map((quote) => (
-                    <tr key={quote._id} className="border-b bg-gray-100 ">
+                    <tr
+                      key={quote._id}
+                      onClick={() => {
+                        setCurrentQuote(quote);
+                        setQuoteOpen(true);
+                      }}
+                      className="border-b bg-gray-100 cursor-pointer"
+                    >
                       <td className="py-2 pl-2 font-medium text-gray-900 whitespace-nowrap">{quote.CustRef}</td>
                       <td>{quote.Status}</td>
                       <td>{new Date(quote.UpdateTime).toLocaleString()}</td>

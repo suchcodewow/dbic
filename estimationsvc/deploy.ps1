@@ -13,7 +13,6 @@ $azAllAccounts | Out-Host
 write-host "Publishing to $azAccount change with:"
 write-host "az account set -s <id from above>"
 
-
 # Build
 if (Test-Path .\publish) { remove-item .\publish -r -force }
 write-host "Building application"

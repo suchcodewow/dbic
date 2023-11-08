@@ -26,7 +26,7 @@ export default function Quote() {
     data.CustRef = data.Name.substring(0, 4) + data.ItemName.substring(0, 4) + data.MFREF;
     data.CreateTime = new Date();
     data.UpdateTime = new Date();
-    console.log(data);
+    // console.log(data);
     const options = {
       method: "POST",
       body: JSON.stringify(data),

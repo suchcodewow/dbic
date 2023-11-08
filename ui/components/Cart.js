@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -43,9 +42,7 @@ export default function Cart({ cartOpen, setCartOpen, setCheckoutOpen }) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">
-                          My Bag
-                        </Dialog.Title>
+                        <Dialog.Title className="text-lg font-medium text-gray-900">My Bag</Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -60,10 +57,7 @@ export default function Cart({ cartOpen, setCartOpen, setCheckoutOpen }) {
 
                       <div className="mt-8">
                         <div className="flow-root">
-                          <ul
-                            role="list"
-                            className="-my-6 divide-y divide-gray-200"
-                          >
+                          <ul role="list" className="-my-6 divide-y divide-gray-200">
                             {cart.map((item) => (
                               <li key={item.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md">
@@ -78,9 +72,7 @@ export default function Cart({ cartOpen, setCartOpen, setCheckoutOpen }) {
                                       <h3>
                                         <a href={item.href}>{item.shortDesc}</a>
                                       </h3>
-                                      <p className="ml-4">
-                                        ${item.price * item.qty}.00
-                                      </p>
+                                      <p className="ml-4">${item.price * item.qty}.00</p>
                                     </div>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
@@ -96,9 +88,7 @@ export default function Cart({ cartOpen, setCartOpen, setCheckoutOpen }) {
                                       >
                                         -
                                       </p>
-                                      <p className="text-gray-500">
-                                        Qty {item.qty}
-                                      </p>
+                                      <p className="text-gray-500">Qty {item.qty}</p>
                                       <p
                                         onClick={() =>
                                           cartDispatch({
@@ -139,9 +129,7 @@ export default function Cart({ cartOpen, setCartOpen, setCheckoutOpen }) {
                         <p>Subtotal</p>
                         <p>${cartTotal}.00</p>
                       </div>
-                      <p className="mt-0.5 text-sm text-gray-500">
-                        Shipping and taxes calculated at checkout.
-                      </p>
+                      <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div
                         onClick={() => {
                           setCartOpen(false);

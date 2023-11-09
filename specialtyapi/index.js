@@ -15,7 +15,9 @@ app.use((req, res, next) => {
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
-// console.log(dbUrl);
+const estimationSvc = process.env.ESTIMATION_URL ? process.env.ESTIMATION_URL : "http://localhost:5130";
+const useEstimationSvc = process.env.USE_ESTIMATE_SVC ? process.env.USE_ESTIMATE_SVC : false;
+console.log("Use estimation service:" + useEstimationSvc + " on URL:" + estimationSvc);
 mongoose.connect(dbUrl);
 const database = mongoose.connection;
 database.on("error", (error) => {
@@ -24,7 +26,6 @@ database.on("error", (error) => {
 
 // Define quote schema
 const Schema = mongoose.Schema;
-
 const CustomQuoteSchema = new Schema({
   CreateYear: Number,
   Email: String,
@@ -47,28 +48,23 @@ const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 app.post("/", async (req, res) => {
   const newQuote = new CustomQuote({ ...req.body });
   const insertedQuote = await newQuote.save();
-  // Need flag logic here AND confirm save was successful
-  // Assuming yes:
-  const options = {
-    method: "POST",
-    body: JSON.stringify(insertedQuote),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  // console.log(options);
-  // const quoteResponse = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
-  const quoteResponse = await fetch("http://localhost:5130", options);
-  const quoteJson = await quoteResponse.json();
-  const updateValues = {
-    Status: quoteJson.status,
-    UpdateTime: new Date(),
-    PolicyEstimate: quoteJson.policyEstimate,
-  };
-  // console.log(updateValues);
-  const updateResult = await CustomQuote.updateOne({ _id: insertedQuote.id }, updateValues);
-  // console.log(updateResult);
-  // Return result after flag logic
+  if (useEstimationSvc) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(insertedQuote),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const quoteResponse = await fetch(estimationSvc, options);
+    const quoteJson = await quoteResponse.json();
+    const updateValues = {
+      Status: quoteJson.status,
+      UpdateTime: new Date(),
+      PolicyEstimate: quoteJson.policyEstimate,
+    };
+    const updateResult = await CustomQuote.updateOne({ _id: insertedQuote.id }, updateValues);
+  }
   return res.status(201).json(insertedQuote);
 });
 

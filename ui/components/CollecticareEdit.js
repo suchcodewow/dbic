@@ -2,8 +2,10 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon, EnvelopeOpenIcon } from "@heroicons/react/24/outline";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CollectiQuote({ quoteOpen, setQuoteOpen, currentQuote }) {
+  const router = useRouter();
   async function AcceptQuote() {
     const body = { Status: "accepted" };
     const options = {
@@ -16,6 +18,7 @@ export default function CollectiQuote({ quoteOpen, setQuoteOpen, currentQuote })
     console.log(currentQuote._id);
     const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/" + currentQuote._id, options);
     toast.success("Quote Accepted!");
+    router.refresh();
   }
   return (
     <Transition.Root show={quoteOpen} as={Fragment}>
@@ -82,7 +85,7 @@ export default function CollectiQuote({ quoteOpen, setQuoteOpen, currentQuote })
                     </div>
                   </div>
                   {currentQuote.Status == "quoted" && (
-                    <div className="m-5 p-3 border-2 text-green-400 border-green-400  rounded-xl ">
+                    <div className="m-5 p-8 border-2 text-green-700 border-green-700 shadow-md rounded-xl ">
                       Exciting news! Your one-year quote is ready and your property is moments away from the perfect
                       coverage.
                       <p className="pt-2">Payment Options:</p>

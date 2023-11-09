@@ -62,7 +62,8 @@ export default function MyAccount() {
       // console.log(data);
     };
     fetchData().catch(console.error);
-  }, [customQuotes]);
+    // }, [customQuotes]);
+  }, []);
   useEffect(() => {
     fetchAccounts().catch(console.error);
   }, []);

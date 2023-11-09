@@ -12,7 +12,6 @@ builder.Services.AddHttpLogging(logging =>
     logging.RequestHeaders.Add("sec-ch-ua");
     logging.RequestBodyLogLimit = 4096;
     logging.ResponseBodyLogLimit = 4096;
-
 });
 
 // Add app options
@@ -28,4 +27,5 @@ app.UseHttpLogging();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
+app.Urls.Add("http://*:5130");
 app.Run();

@@ -35,7 +35,7 @@ async function runOne({ browser }) {
   await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
   await page.getByRole("button", { name: "Send Payment" }).click();
   // Get insurance
-  await page.getByText("Insurance", { exact: true }).click();
+  await page.getByText("newInsurance").click();
   await page.getByRole("link", { name: "Let's go!" }).click();
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByRole("button", { name: "Next" }).click();

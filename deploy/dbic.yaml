@@ -150,7 +150,7 @@ spec:
     spec:
       containers:
         - name: maindb
-          image: mongo:latest
+          image: mongo:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 27017
@@ -207,7 +207,7 @@ spec:
     spec:
       containers:
         - name: catalogapi
-          image: suchcodewow/dbic-catalogapi:latest
+          image: suchcodewow/dbic-catalogapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -262,7 +262,7 @@ spec:
     spec:
       containers:
         - name: ordersapi
-          image: suchcodewow/dbic-ordersapi:latest
+          image: suchcodewow/dbic-ordersapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -272,6 +272,10 @@ spec:
               value: "project=dbic service=ordersapi"
             - name: DOTNET_ENVIRONMENT
               value: DockerDeploy
+            - name: ESTIMATION_URL
+              value: <estimateurl>
+            - name: USE_ESTIMATE_SVC
+              value: false
 
 ---
 apiVersion: v1
@@ -319,7 +323,7 @@ spec:
     spec:
       containers:
         - name: quotesapi
-          image: suchcodewow/dbic-quotesapi:latest
+          image: suchcodewow/dbic-quotesapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 6000
@@ -376,7 +380,7 @@ spec:
     spec:
       containers:
         - name: mainapi
-          image: suchcodewow/dbic-mainapi:latest
+          image: suchcodewow/dbic-mainapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -421,6 +425,67 @@ spec:
     app.kubernetes.io/name: mainapi
   type: ClusterIP
 
+#specialtyapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: specialtyapi
+  namespace: dbic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dbic
+      app.kubernetes.io/name: specialtyapi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: specialtyapi
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dbic
+        app.kubernetes.io/created-by: suchcodewow
+      annotations:
+        owner: Services Team
+        chat-channel: dev-team-services
+    spec:
+      containers:
+        - name: specialtyapi
+          image: suchcodewow/dbic-specialtyapi:ccare
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3666
+              name: specialtyapi
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "project=dbic service=specialtyapi"
+            - name: DATABASE_URL
+              value: mongodb://root:password@specialtyapi/specialty?authSource=admin
+            - name: ESTIMATION_URL
+              value: http://estimationsvc:5130
+            - name: USE_ESTIMATE_SVC
+              value: false
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: specialtyapi
+  namespace: dbic
+  labels:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: specialtyapi
+spec:
+  ports:
+    - port: 3666
+      targetPort: 3666
+      name: specialtyapi
+  selector:
+    app.kubernetes.io/part-of: dbic
+    app.kubernetes.io/name: specialtyapi
+  type: ClusterIP
+
 #ui
 ---
 apiVersion: apps/v1
@@ -448,7 +513,7 @@ spec:
     spec:
       containers:
         - name: ui
-          image: suchcodewow/dbic-ui:latest
+          image: suchcodewow/dbic-ui:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -514,7 +579,7 @@ spec:
             limits:
               memory: "3000Mi"
               cpu: "2200m"
-          image: suchcodewow/dbic-loadgen:latest
+          image: suchcodewow/dbic-loadgen:ccare
           imagePullPolicy: Always
           env:
             - name: frontendURL

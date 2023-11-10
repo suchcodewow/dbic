@@ -272,10 +272,6 @@ spec:
               value: "project=dbic service=ordersapi"
             - name: DOTNET_ENVIRONMENT
               value: DockerDeploy
-            - name: ESTIMATION_URL
-              value: <estimateurl>
-            - name: USE_ESTIMATE_SVC
-              value: false
 
 ---
 apiVersion: v1
@@ -406,61 +402,6 @@ spec:
               value: none
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mainapi
-  namespace: dbic
-  labels:
-    app.kubernetes.io/part-of: dbic
-    app.kubernetes.io/name: mainapi
-spec:
-  ports:
-    - port: 5000
-      targetPort: 5000
-      name: mainapi
-  selector:
-    app.kubernetes.io/part-of: dbic
-    app.kubernetes.io/name: mainapi
-  type: ClusterIP
-
-#specialtyapi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: specialtyapi
-  namespace: dbic
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/part-of: dbic
-      app.kubernetes.io/name: specialtyapi
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: specialtyapi
-        app.kubernetes.io/version: "1"
-        app.kubernetes.io/component: service
-        app.kubernetes.io/part-of: dbic
-        app.kubernetes.io/created-by: suchcodewow
-      annotations:
-        owner: Services Team
-        chat-channel: dev-team-services
-    spec:
-      containers:
-        - name: specialtyapi
-          image: suchcodewow/dbic-specialtyapi:latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 5000
-              name: specialtyapi
-          env:
-            - name: DT_CUSTOM_PROP
-              value: "project=dbic service=specialtyapi"
-
 ---
 apiVersion: v1
 kind: Service

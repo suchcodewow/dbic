@@ -150,7 +150,7 @@ spec:
     spec:
       containers:
         - name: maindb
-          image: mongo:ccare
+          image: mongo
           imagePullPolicy: Always
           ports:
             - containerPort: 27017

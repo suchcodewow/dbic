@@ -465,7 +465,7 @@ spec:
             - name: ESTIMATION_URL
               value: http://estimationsvc:5130
             - name: USE_ESTIMATE_SVC
-              value: false
+              value: "false"
 
 ---
 apiVersion: v1

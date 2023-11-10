@@ -272,10 +272,6 @@ spec:
               value: "project=dbic service=ordersapi"
             - name: DOTNET_ENVIRONMENT
               value: DockerDeploy
-            - name: ESTIMATION_URL
-              value: <estimateurl>
-            - name: USE_ESTIMATE_SVC
-              value: false
 
 ---
 apiVersion: v1

@@ -100,7 +100,7 @@ export default function Insurance() {
                 href="/customquote"
                 className="bg-slate-500 hover:bg-slate-700 shadow-md py-2 px-8 text-xl text-white rounded-full flex"
               >
-                Insurance specialty item!
+                Insurance specialty item
               </a>
               <p className="flex text-lg">Or continue to standard insurance...</p>
             </div>

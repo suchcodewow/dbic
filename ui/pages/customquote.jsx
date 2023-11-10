@@ -101,7 +101,7 @@ export default function Quote() {
                       control={control}
                       // defaultValue=""
                       name={question.value}
-                      defaultValue={question.options[0].name}
+                      defaultValue={question.options[Math.floor(Math.random() * question.options.length)].name}
                       render={({ field: { onChange, value } }) => (
                         <Listbox onChange={onChange} value={value}>
                           {({ open }) => (

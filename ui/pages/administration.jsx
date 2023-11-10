@@ -3,9 +3,12 @@ import Nav from "components/Nav";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import Footer from "components/footer";
+import CollectiAdmin from "components/CollecticareAdmin";
 //TODO: make all 3 transactions recent down
 //TODO: fix date field for banking.  last digit of time gets cut off
 export default function Administration() {
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [currentQuote, setCurrentQuote] = useState(false);
   //Collecticare data
   const [customQuotes, setCustomQuotes] = useState();
   useEffect(() => {
@@ -59,18 +62,19 @@ export default function Administration() {
 
   // console.log(timezoneOffset);
   return (
-    <div className="flex flex-col w-screen min-h-screen bg-gray-100">
+    <div className="flex flex-col w-full min-h-screen bg-gray-100">
       <Nav />
       <div className="flex p-4 py-2">
         <KeyIcon className="w-8 " />
         <h1 className=" text-4xl font-bold ml-2">Administration</h1>
       </div>
-      <div className="flex gap-4 justify-around p-2 flex-1">
-        <div className="bg-white rounded-lg  shadow p-2 w-full">
+      <div className="flex gap-4 justify-around p-2 flex-1 ">
+        <CollectiAdmin quoteOpen={quoteOpen} setQuoteOpen={setQuoteOpen} currentQuote={currentQuote} />
+        <div className="bg-white rounded-lg shadow p-2 w-full">
           <span className="p-1 ">Collecticare Quotes</span>
-          <div className="overflow-x-auto relative mt-2 shadow-sm sm:rounded-lg">
+          <div className="overflow-x-auto relative mt-2 rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+              <thead className=" text-gray-700 uppercase bg-gray-200">
                 <tr>
                   <th scope="col" className="p-1">
                     Ref
@@ -82,7 +86,14 @@ export default function Administration() {
               </thead>
               <tbody>
                 {customQuotes?.map((item) => (
-                  <tr key={item._id} className="border-b bg-gray-100 ">
+                  <tr
+                    onClick={() => {
+                      setCurrentQuote(item);
+                      setQuoteOpen(true);
+                    }}
+                    key={item._id}
+                    className="border-b bg-gray-50 hover:bg-blue-100 cursor-pointer "
+                  >
                     <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {item.CustRef}
                     </th>
@@ -100,7 +111,7 @@ export default function Administration() {
 
           <div className="overflow-x-auto relative mt-2 shadow-sm sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+              <thead className=" text-gray-700 uppercase bg-gray-200">
                 <tr>
                   <th scope="col" className="p-1">
                     Order
@@ -128,7 +139,7 @@ export default function Administration() {
         <div className="bg-white rounded-lg  shadow p-2 w-full">
           <span className="p-1 ">Banking Transactions</span>
 
-          <div className="overflow-x-auto relative shadow-sm mt-2 sm:rounded-lg">
+          <div className="overflow-x-hidden relative shadow-sm mt-2 sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
@@ -150,7 +161,7 @@ export default function Administration() {
                 {transactions?.map((transaction) => (
                   <tr key={transaction.id} className="border-b bg-gray-100 ">
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{transaction.userId}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
+                    <td className="p-1 text-xs font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${transaction.amount}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {format(new Date(transaction.timestamp), "M/d/yy H:m")}
@@ -168,9 +179,6 @@ export default function Administration() {
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
                   <th scope="col" className="p-1">
-                    Status
-                  </th>
-                  <th scope="col" className="p-1">
                     Customer
                   </th>
                   <th scope="col" className="p-1">
@@ -181,7 +189,6 @@ export default function Administration() {
               <tbody>
                 {quotes?.map((quote) => (
                   <tr key={quote.id} className="border-b bg-gray-100 ">
-                    <td className="py-1 font-medium text-gray-900 whitespace-nowrap">{quote.status}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{quote.name}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{quote.id.slice(18)}</td>
                   </tr>

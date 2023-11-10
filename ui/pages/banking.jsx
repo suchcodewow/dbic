@@ -44,7 +44,7 @@ export default function Banking() {
     <>
       <div className="flex flex-col w-screen min-h-screen items-center">
         <Nav />
-        <div className="w-full max-w-7xl px-2 sm:px-6 lg:px-8 flex bg-gray-100  ">
+        <div className="w-full max-w-7xl px-2 sm:px-6 lg:px-8 flex flex-1 ">
           {/* SideBar */}
           <aside className="pl-4 py-4 w-1/3 sticky" aria-label="Sidebar">
             <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md">

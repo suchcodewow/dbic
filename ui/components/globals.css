@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#__next {
+  @apply w-full;
+}
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;

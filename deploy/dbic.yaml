@@ -457,11 +457,9 @@ spec:
             - name: DT_CUSTOM_PROP
               value: "project=dbic service=specialtyapi"
             - name: DATABASE_URL
-              value: mongodb://root:password@specialtyapi/specialty?authSource=admin
+              value: mongodb://root:password@maindb/specialty?authSource=admin
             - name: ESTIMATION_URL
-              value: http://estimationsvc:5130
-            - name: USE_ESTIMATE_SVC
-              value: "false"
+              value: offline
 
 ---
 apiVersion: v1
@@ -587,4 +585,4 @@ spec:
             - name: delay
               value: "10"
             - name: timeout
-              value: "2000"
+              value: "5000"

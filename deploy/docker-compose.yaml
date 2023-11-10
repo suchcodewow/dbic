@@ -104,8 +104,7 @@ services:
       - maindb
     environment:
       DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
-      ESTIMATION_URL: http://estimationsvc:5130
-      USE_ESTIMATE_SVC: true
+      ESTIMATION_URL: offline
 
   estimationsvc:
     build:

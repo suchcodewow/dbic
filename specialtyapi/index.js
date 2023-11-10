@@ -15,9 +15,12 @@ app.use((req, res, next) => {
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
-const estimationSvc = process.env.ESTIMATION_URL ? process.env.ESTIMATION_URL : "http://localhost:5130";
-const useEstimationSvc = process.env.USE_ESTIMATE_SVC ? process.env.USE_ESTIMATE_SVC : false;
-console.log("Use estimation service:" + useEstimationSvc + " on URL:" + estimationSvc);
+const estimationSvc = process.env.ESTIMATION_URL ? process.env.ESTIMATION_URL : "offline";
+if (estimationSvc != "offline") {
+  console.log("Estitmation service online @: " + estimationSvc);
+} else {
+  console.log("Estimation service OFFLINE");
+}
 mongoose.connect(dbUrl);
 const database = mongoose.connection;
 database.on("error", (error) => {
@@ -48,7 +51,7 @@ const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 app.post("/", async (req, res) => {
   const newQuote = new CustomQuote({ ...req.body });
   const insertedQuote = await newQuote.save();
-  if (useEstimationSvc) {
+  if (estimationSvc != "offline") {
     const options = {
       method: "POST",
       body: JSON.stringify(insertedQuote),

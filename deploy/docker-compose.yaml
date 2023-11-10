@@ -142,12 +142,10 @@ services:
       runTotal: 3000
       workers: 3
       delay: 10
-      timeout: 2000
+      timeout: 5000
 
-  #OPTIONAL
-  #mongo express
+  # (OPTIONAL) mongo express
   #CMD -> http://localhost:8081
-
   mongo-express:
     image: mongo-express
     container_name: mongo-express

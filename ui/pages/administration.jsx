@@ -103,9 +103,6 @@ export default function Administration() {
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                 <tr>
                   <th scope="col" className="p-1">
-                    Status
-                  </th>
-                  <th scope="col" className="p-1">
                     Order
                   </th>
                   <th scope="col" className="p-1">
@@ -119,9 +116,6 @@ export default function Administration() {
               <tbody>
                 {orders?.map((order) => (
                   <tr key={order.id} className="border-b bg-gray-100 ">
-                    <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                      {order.status}
-                    </th>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">#{order.id}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{order.name}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${order.cartTotal}</td>
@@ -142,9 +136,6 @@ export default function Administration() {
                     Customer
                   </th>
                   <th scope="col" className="p-1">
-                    Account
-                  </th>
-                  <th scope="col" className="p-1">
                     Vendor
                   </th>
                   <th scope="col" className="p-1">
@@ -159,7 +150,6 @@ export default function Administration() {
                 {transactions?.map((transaction) => (
                   <tr key={transaction.id} className="border-b bg-gray-100 ">
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{transaction.userId}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{transaction.accountName}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${transaction.amount}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
@@ -186,9 +176,6 @@ export default function Administration() {
                   <th scope="col" className="p-1">
                     Quote
                   </th>
-                  <th scope="col" className="p-1">
-                    Type
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -196,8 +183,7 @@ export default function Administration() {
                   <tr key={quote.id} className="border-b bg-gray-100 ">
                     <td className="py-1 font-medium text-gray-900 whitespace-nowrap">{quote.status}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{quote.name}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{quote.id.slice(0, 7)}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">Home/Auto</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{quote.id.slice(18)}</td>
                   </tr>
                 ))}
               </tbody>

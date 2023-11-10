@@ -27,25 +27,25 @@ const collecticareFeatures = [
   {
     name: "Boutique Feel, Abyss-sized Resources",
     description:
-      "We proudly insure your priceless items our competition is too shocked to even consider.  Our 'above and beyond' attitude is backed by virtually limitless resources.  You can rest easy!",
+      "Our core princicples derive from a single idea: LoveCrafted (TM).  We proudly insure your priceless items our competition is too shocked to even consider.  Our 'above and beyond' attitude is backed by virtually limitless resources.  You can rest easy!",
     icon: HomeIcon,
   },
   {
     name: "Tested Experts",
     description:
-      "Our appraisal experts will work tirelessly (where applicable labor laws don't interfere) to offer you the best possible rates. We're regularly pass industory audits from agencies most people don't even know about- let alone that are legal.",
+      "Our appraisal experts will work tirelessly (where applicable labor laws don't interfere) to offer you the best possible rates. We routinely complete industory audits from agencies most people don't even know about- or are even remotely legal.",
     icon: UserGroupIcon,
   },
   {
     name: "A Rich History of Commitment",
     description:
-      "Hundreds of years ago, it took months of correspondence with us to insure even mundane items.  But from day one we've taken extreme care in our commitment to our customers.",
+      "Hundreds of years ago, it took months of correspondence to insure even mundane items.  But from day one we've taken extreme care in our commitment to our customers.",
     icon: ClockIcon,
   },
   {
     name: "Fast Responses",
     description:
-      "We were made aware of the internet recently and found initial success building a 'Collecticare' facade for faster service.  Building on the success we're now offering nearly instant quotes in regions where our arcane workings go undisturbed.",
+      "We were made aware of the internet recently and found initial success with our 'Collecticare' facade.  Building on the success we're now offering nearly instant quotes in regions where the ley lines go undisturbed.",
     icon: BoltIcon,
   },
 ];
@@ -100,7 +100,7 @@ export default function Insurance() {
                 href="/customquote"
                 className="bg-slate-500 hover:bg-slate-700 shadow-md py-2 px-8 text-xl text-white rounded-full flex"
               >
-                I have a speciality item
+                Insurance specialty item!
               </a>
               <p className="flex text-lg">Or continue to standard insurance...</p>
             </div>

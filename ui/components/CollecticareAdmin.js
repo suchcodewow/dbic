@@ -21,6 +21,10 @@ export default function CollectiAdmin({ quoteOpen, setQuoteOpen, currentQuote })
     toast.success("Quote Accepted!");
     router.refresh();
   }
+  // Quote proposal
+  async function proposal() {
+    console.log(currentQuote.CustRef);
+  }
   return (
     <Transition.Root show={quoteOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setQuoteOpen}>
@@ -88,17 +92,15 @@ export default function CollectiAdmin({ quoteOpen, setQuoteOpen, currentQuote })
                   {currentQuote.Status == "new" && (
                     <div className="m-5 p-8 ">
                       <p>Enter yearly quote amount provided by underwriting:</p>
-                      <text>hi</text>
-                      <button
-                        type="button"
-                        className="inline-flex  justify-center rounded-md bg-green-300 hover:bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ml-3 w-auto"
-                        onClick={(currentQuote) => {
-                          AcceptQuote(currentQuote);
-                          setQuoteOpen(false);
-                        }}
-                      >
-                        Submit Policy Cost
-                      </button>
+                      <form action={proposal}>
+                        <input name="proposal" />
+                        <button
+                          type="submit"
+                          className="inline-flex  justify-center rounded-md bg-green-300 hover:bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ml-3 w-auto"
+                        >
+                          Submit Policy Cost
+                        </button>
+                      </form>
                     </div>
                   )}
                 </div>

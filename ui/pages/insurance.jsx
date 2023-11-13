@@ -60,7 +60,7 @@ const tagline = taglines[Math.floor(Math.random() * taglines.length)];
 
 export default function Insurance() {
   return (
-    <div className="flex flex-col w-screen min-h-screen">
+    <div className="flex flex-col w-full min-h-screen">
       <Nav />
       {/* Collecticare frame */}
       <div className="bg-gray-100 mx-auto pt-6 max-w-7xl">
@@ -154,10 +154,10 @@ export default function Insurance() {
             </div>
           </div>
         </div>
-        <div className="px-8 sm:px-24 md:px-48 py-8 bg-gray-100 text-center text-azure-500 text-6xl">
+        <div className="px-8  md:px-4 py-8 bg-gray-100 text-center text-azure-500 text-6xl">
           Personalized Coverage
           <div className="flex w-full justify-center text-left text-gray-900 mt-8 text-xl gap-14">
-            <div className="w-96">
+            <div className="md:w-96">
               <ul>
                 <li className="font-bold">
                   Required Coverages

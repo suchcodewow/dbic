@@ -46,8 +46,8 @@ export default function Banking() {
         <Nav />
         <div className="w-full max-w-7xl px-2 sm:px-6 lg:px-8 md:flex flex-1 ">
           {/* SideBar */}
-          <aside className="pl-4 py-4 md:w-1/3 sticky" aria-label="Sidebar">
-            <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md">
+          <aside className="md:pl-4 py-1 md:py-4 md:w-1/3 sticky" aria-label="Sidebar">
+            <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white md:rounded-md">
               <ul className="space-y-2">
                 <li className="mb-6">
                   <span className="ml-1 font-bold">Overview</span>
@@ -90,10 +90,10 @@ export default function Banking() {
                 </li>
               </ul>
             </div>
-            <div className="overflow-y-auto py-4 px-3 bg-azure-800 text-white rounded-md mt-4">
-              <ul className="space-y-1">
-                <li className="mb-2">
-                  <span className="ml-1 font-bold">Quick Actions</span>
+            <div className="overflow-y-auto py-1 md:py-4 px-3 bg-azure-800 text-white md:rounded-md mt-1 md:mt-4">
+              <ul className="md:space-y-1">
+                <li className="md:mb-2">
+                  <span className="md:ml-1 font-bold">Quick Actions</span>
                 </li>
                 <li>
                   <div className="flex space-x-4">
@@ -111,8 +111,8 @@ export default function Banking() {
           </aside>
           {/* activity panel */}
           {currentPanel == "recent" && (
-            <div className=" mx-auto bg-white border  rounded-md m-4 w-full ml-5 p-5">
-              <div className="bg-white rounded-lg p-2 w-full ">
+            <div className=" mx-auto bg-white border md:rounded-md md:m-4 w-full md:ml-5 md:p-5">
+              <div className="bg-white rounded-lg p-1 md:p-2 w-full ">
                 <div className="overflow-x-auto relative mt-2  sm:rounded-lg">
                   <span className="p-1 text-lg font-bold">My Account Balances</span>
                   <table className="mb-4 w-full text-sm text-left text-gray-500 dark:text-gray-400 ">

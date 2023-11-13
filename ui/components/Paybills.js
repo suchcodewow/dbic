@@ -82,9 +82,7 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
                 >
                   {accounts?.map((account) => (
                     <option key={account.name} value={account.name}>
-                      {account.name == "Dynacard"
-                        ? "Dynacard (+$22.00 cash advance fee)"
-                        : account.name + " ($" + account.balance.toFixed(2) + ")"}
+                      {account.name == "Dynacard" ? "Dynacard (+$22.00 cash advance fee)" : account.name}
                     </option>
                   ))}
                 </select>

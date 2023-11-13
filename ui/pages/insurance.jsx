@@ -95,7 +95,7 @@ export default function Insurance() {
             </dl>
           </div>
           <div className="">
-            <div className="flex flex-row items-center space-x-4 my-4">
+            <div className="md:flex flex-row items-center space-x-4 my-4">
               <a
                 href="/customquote"
                 className="bg-slate-500 hover:bg-slate-700 shadow-md py-2 px-8 text-xl text-white rounded-full flex"
@@ -133,9 +133,9 @@ export default function Insurance() {
               </div>
             ))}
           </dl>
-          <div className="py-12 h-48 my-12 flex justify-center">
+          <div className="md:py-12 h-48 my-12 flex justify-center">
             {/* image */}
-            <div className="w-64 relative">
+            <div className="md:w-64 relative">
               <Image src="/images/neighborhood.svg" fill alt="neighborhood" className="object-scale-down" />
             </div>
             {/* CTA */}
@@ -154,9 +154,9 @@ export default function Insurance() {
             </div>
           </div>
         </div>
-        <div className="px-8  md:px-4 py-8 bg-gray-100 text-center text-azure-500 text-6xl">
+        <div className="md:px-4 py-8 bg-gray-100 text-center text-azure-500 text-2xl md:text-6xl">
           Personalized Coverage
-          <div className="flex w-full justify-center text-left text-gray-900 mt-8 text-xl gap-14">
+          <div className="flex w-full justify-center text-left text-gray-900 mt-8 text-xl md:gap-14">
             <div className="md:w-96">
               <ul>
                 <li className="font-bold">
@@ -178,7 +178,7 @@ export default function Insurance() {
                   </p>
                 </li>
               </ul>
-              <div className="flex space-x-4 my-4">
+              <div className="flex md:space-x-4 md:my-4">
                 <a
                   href="/quote"
                   className="bg-lime_green-300 hover:bg-lime_green-400 shadow-md py-2 px-8 text-xl text-white rounded-full"
@@ -188,8 +188,8 @@ export default function Insurance() {
               </div>
             </div>
             <div>
-              <div className="w-64 h-64 relative mx-auto ">
-                <Image src="/images/choices.svg" alt="choices" fill className="" />
+              <div className="md:w-64 md:h-64 relative mx-auto ">
+                <Image src="/images/choices.svg" alt="choices" fill />
               </div>
             </div>
           </div>

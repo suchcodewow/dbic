@@ -29,10 +29,10 @@ async function runOne({ browser }) {
   // await page.getByText("Banking", { exact: true }).click();
   await page.getByRole("navigation").getByText("Banking").click();
   await page.getByText("Transfer & Pay").click();
-  await page.getByLabel("Payee").click();
-  await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
-  await page.getByLabel("Payment Amount").click();
-  await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
+  // await page.getByLabel("Payee").click();
+  // await page.getByLabel("Payee").fill(payees[Math.floor(Math.random() * payees.length)]);
+  // await page.getByLabel("Payment Amount").click();
+  // await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
   await page.getByRole("button", { name: "Send Payment" }).click();
   // Get insurance
   await page.getByText("newInsurance").click();
@@ -41,7 +41,6 @@ async function runOne({ browser }) {
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByRole("button", { name: "Submit Quote" }).click();
   // Buy item
-
   // await page.getByRole("navigation").getByText("Store").click();
   await page.goto(frontendURL + "/store");
   await page

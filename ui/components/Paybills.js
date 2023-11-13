@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { postTransaction } from "./Library";
+import { postTransaction, payees } from "./Library";
 import toast from "react-hot-toast";
 
 export default function PayBills({ setCurrentPanel, refreshData, user, accounts }) {
+  function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  const randomPayee = payees[Math.floor(Math.random() * payees.length)];
   //Form Validation Config & Imports
   const schema = yup
     .object()
@@ -33,7 +37,7 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
   };
 
   return (
-    <div className=" mx-auto bg-white m-4 w-full ml-5 p-5  rounded-md">
+    <div className=" mx-auto bg-white md:m-4 w-full md:ml-5 p-5  md:rounded-md">
       <div className="mb-4 font-bold text-xl">Pay a bill</div>
       <div className="flex align-bottom w-full">
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +59,7 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
                   name="vendor"
                   id="vendor"
                   autoComplete="vendor"
+                  defaultValue={randomPayee}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-azure-500 focus:ring-azure-500 sm:text-sm"
                 />
               </div>
@@ -99,6 +104,7 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
                   name="amount"
                   id="amount"
                   autoComplete="amount"
+                  defaultValue={randomNumber(50, 200)}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-azure-500 focus:ring-azure-500 sm:text-sm"
                 />
               </div>

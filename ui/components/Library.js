@@ -7709,7 +7709,7 @@ export const customItems = [
   },
 ];
 const customItem = customItems[Math.floor(Math.random() * customItems.length)];
-function randomNumber(min, max) {
+export function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 export const AllQuestions = () => {
@@ -7795,4 +7795,17 @@ const insuranceTypes = [
   { index: 1, name: "Burglary or Theft" },
   { index: 2, name: "Water or Fire Damage" },
   { index: 4, name: "Object becomes self-aware or develops aspirations of world domination" },
+];
+export const payees = [
+  "Umbrella Corp",
+  "Gringotts Wizarding Bank",
+  "Monster's Inc",
+  "Cyberdyne Systems",
+  "Buy n Large",
+  "Wonka Industries",
+  "Acme Corp",
+  "Bubba Gump",
+  "Los Pollos Hermanos",
+  "Pritchett Closets & Blinds",
+  "Momcorp",
 ];

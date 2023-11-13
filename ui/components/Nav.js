@@ -86,7 +86,7 @@ export default function Nav() {
                 {user.user ? (
                   <Menu as="div" className="relative ml-3 z-25">
                     <div>
-                      <Menu.Button className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer flex  text-sm  focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <Menu.Button className="bg-orange-400 hover:bg-orange-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer flex  text-sm  focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
                         {user.user}
                       </Menu.Button>
@@ -155,7 +155,10 @@ export default function Nav() {
                     </Transition>
                   </Menu>
                 ) : (
-                  <a href="/login" className="bg-orange-400 text-white font-bold px-3 py-2 rounded-md cursor-pointer">
+                  <a
+                    href="/login"
+                    className="bg-orange-400 hover:bg-orange-500 text-white font-bold px-3 py-2 rounded-md cursor-pointer"
+                  >
                     Sign In
                   </a>
                 )}

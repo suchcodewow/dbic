@@ -98,7 +98,7 @@ export default function Banking() {
                 <li>
                   <div className="flex space-x-4">
                     <div
-                      className=" cursor-pointer px-3 py-2 rounded-md font-bold w-full flex hover:bg-azure-500"
+                      className="cursor-pointer px-3 py-2 rounded-md font-bold w-full flex justify-center bg-orange-400 hover:bg-orange-500"
                       onClick={() => setCurrentPanel("transfer")}
                     >
                       <CurrencyDollarIcon className="w-5 mr-1" />

@@ -8,6 +8,7 @@ import CollectiQuote from "components/CollecticareEdit";
 
 export default function MyAccount() {
   // Setup
+
   const { user, userDispatch } = useUserContext();
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState(false);

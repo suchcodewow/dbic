@@ -15,7 +15,7 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
     .shape({
       vendor: yup.string().required(),
       accountName: yup.string().required(),
-      amount: yup.number().positive().required(),
+      amount: yup.number().test("isvalid", "Valid Number", (value, context) => value > 0 || value == -100),
     })
     .required();
   const {
@@ -32,7 +32,18 @@ export default function PayBills({ setCurrentPanel, refreshData, user, accounts 
     console.log("postback", postSuccess);
     refreshData();
     setCurrentPanel("recent");
-    toast.success("Payment Successful");
+    switch (postSuccess) {
+      case "transaction added":
+        toast.success("Payment Successful");
+        break;
+      case "dbissuestart":
+        toast.success("Payment Succes...*KABOOM*");
+        break;
+      case "dberror":
+        toast.error("ERR-1091 Transaction Failed");
+        break;
+    }
+
     // console.log(data);
   };
 

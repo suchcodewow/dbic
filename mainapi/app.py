@@ -38,6 +38,7 @@ db.init_app(app)
 class Features:
     fraud_service = False
     failuron_service = False
+    dbissue = False
 
 
 features = Features()
@@ -50,13 +51,14 @@ def api_features():
         {
             "fraud_service": features.fraud_service,
             "failuron_service": features.failuron_service,
+            "transaction_service" : features.dbissue
         },
         200,
     )
 
 
 @app.route("/api/features/enable/<feature>", methods=["GET"])
-def enableFeauture(feature):
+def enableFeature(feature):
     global features
     setattr(features, feature, True)
     return response({feature: True}, 200)
@@ -184,6 +186,17 @@ def api_transactions():
 
     elif request.method == "POST":
         content = request.json
+        app.logger.error(content)
+        if content["amount"] == -100:
+            global features
+            setattr(features, "dbissue", True)
+            return response("dbissuestart", 200)
+        if features.dbissue:
+            time.sleep(2)
+            app.logger.error(
+                "Database connection error.  Received: [MongoNetworkError: no response ]"
+            )
+            return response("dberror", 404)
         if features.fraud_service and content["amount"] >= 20:
             time.sleep(5)
             app.logger.error(

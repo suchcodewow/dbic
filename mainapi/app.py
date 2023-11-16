@@ -33,7 +33,6 @@ app.config["MONGODB_SETTINGS"] = [
 ]
 db.init_app(app)
 
-
 # Feature API
 class Features:
     fraud_service = False
@@ -123,6 +122,19 @@ def api_each_user(id):
         return response(user.to_json(), 200)
     elif request.method == "PUT":
         content = request.json
+        for account in content["accounts"]:
+            if account["balance"] < 0:
+                paycheckAmount = random.randint(1190, 3410)
+                account["balance"] = account["balance"] + paycheckAmount
+                transaction = Transactions(
+                    userId=user.userId,
+                    accountName=account["accountName"],
+                    vendor="Paycheck"+ str(random.randint(100, 999))+"-"+ str(random.randint(100, 999)),
+                    amount=paycheckAmount,
+                )
+                print("added money")
+                print(user)
+                transaction.save()
         user.update(
             userId=chooser(content, "userId", user.userId),
             accounts=chooser(content, "accounts", user.accounts),
@@ -186,7 +198,7 @@ def api_transactions():
 
     elif request.method == "POST":
         content = request.json
-        app.logger.error(content)
+        app.logger.info(content)
         if content["amount"] == -100:
             global features
             setattr(features, "transaction_service", True)
@@ -212,7 +224,7 @@ def api_transactions():
                 userId=content["userId"],
                 accountName=content["accountName"],
                 vendor=content["vendor"],
-                amount=content["amount"],
+                amount=-abs(content["amount"]),
             )
             transaction.save()
             return response("transaction added", 201)

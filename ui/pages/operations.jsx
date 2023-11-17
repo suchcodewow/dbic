@@ -47,7 +47,7 @@ export default function Operations() {
   };
 
   const enableTransactionService = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/enable/dbissue", {
+    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/enable/transaction_service", {
       method: "GET",
     });
     const data = await response.json();
@@ -56,7 +56,7 @@ export default function Operations() {
   };
 
   const disableTransactionService = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/disable/dbissue", {
+    const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/disable/transaction_service", {
       method: "GET",
     });
     const data = await response.json();

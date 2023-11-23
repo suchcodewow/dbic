@@ -129,7 +129,7 @@ def api_each_user(id):
                 transaction = Transactions(
                     userId=user.userId,
                     accountName=account["accountName"],
-                    vendor="Paycheck"+ str(random.randint(100, 999))+"-"+ str(random.randint(100, 999)),
+                    vendor="Paycheck "+ str(random.randint(100, 999))+"-"+ str(random.randint(100, 999)),
                     amount=paycheckAmount,
                 )
                 print("added money")

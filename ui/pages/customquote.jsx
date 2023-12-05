@@ -37,8 +37,9 @@ export default function Quote() {
     // const estimateAiStatus = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
     // const estimateAiBody = await estimateAiStatus.json();
     // console.log(estimateAiBody);
-    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi, options);
-    console.log(apicall);
+    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/api", options);
+    const apicallJson = await apicall.json();
+    console.log(apicallJson);
     if (apicall.status === 201) {
       // Quote went through
       toast.success("Submitted Quote");

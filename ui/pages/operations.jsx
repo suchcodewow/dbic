@@ -9,6 +9,7 @@ function classNames(...classes) {
 }
 
 export default function Operations() {
+  // Toggles
   const [creditService, setCreditService] = useState(true);
   const [distributionService, setDistributionService] = useState(false);
   const [failuronService, setFailuronService] = useState(true);
@@ -18,15 +19,41 @@ export default function Operations() {
   const [monsterService, setMonsterService] = useState(true);
   const [terminatorService, setTerminatorService] = useState(false);
   const [transactionService, setTransactionService] = useState(false);
+  // Configurables
+  const [estimationService, setEstimationService] = useState("");
 
-  const fetchTransactionsFlags = async () => {
+  const fetchCurrentSettings = async () => {
     const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/", {
       method: "GET",
     });
     const data = await response.json();
     setFraudService(data.fraud_service);
     setTransactionService(data.transaction_service);
+    const estimateResponse = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/status", {
+      method: "GET",
+    });
+    const estimateData = await estimateResponse.json();
+    if (estimateData.estimationSvc) {
+      setEstimationService(estimateData.estimationSvc);
+    } else {
+      console.log("Didn't get an estimation service URL back.");
+    }
   };
+
+  async function updateEstimationService() {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        estimationSvc: estimationService,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/status", options);
+    const apicallJson = await apicall.json();
+    console.log(apicallJson);
+  }
 
   const enableFraudService = async () => {
     const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/enable/fraud_service", {
@@ -65,7 +92,7 @@ export default function Operations() {
   };
 
   useEffect(() => {
-    fetchTransactionsFlags();
+    fetchCurrentSettings();
     // console.log(fraudService);
   }, []);
 
@@ -319,7 +346,7 @@ export default function Operations() {
               </div>
               <div
                 onClick={() => {
-                  toast.error("Cyberdyne denied authorization");
+                  toast.error("Cyberdyne denied 'shutdown' authorization");
                 }}
                 className="bg-gray-400 hover:bg-gray-500 shadow-md ml-1 py-2 px-6 text-white rounded-full cursor-pointer"
               >
@@ -354,8 +381,23 @@ export default function Operations() {
             </dd>
           </div>
         </dl>
-        <div className="h-32"></div>
+        {/* Configurable Services */}
+        <div className="py-14 flex flex-row items-center">
+          <label className="flex">Estimation Service URL:</label>
+          <input
+            className="mx-2 flex-1"
+            value={estimationService}
+            onInput={(e) => setEstimationService(e.target.value)}
+          ></input>
+          <button
+            className="flex bg-green-500 px-6 py-4  h-10 w-24 items-center justify-center rounded-md text-white"
+            onClick={updateEstimationService}
+          >
+            save
+          </button>
+        </div>
       </div>
+
       <Footer />
     </div>
   );

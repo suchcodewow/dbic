@@ -17,4 +17,5 @@ public class Estimate
     public DateTime? CreateTime { get; set; }
     public DateTime? UpdateTime { get; set; }
     public decimal? PolicyEstimate { get; set; }
+    public string? Messages { get; set; }
 }

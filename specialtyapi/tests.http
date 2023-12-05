@@ -1,0 +1,4 @@
+POST http://localhost:3666/status
+Content-Type: application/json
+
+{"estimationSvc":"yourmom"}

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Json.Net;
 namespace estimatesvc.Controllers;
 
 [ApiController]
@@ -28,17 +29,47 @@ public class EstimateController : ControllerBase
         var PolicyCost = estimate;
         var EstimateBuilder = estimate.ItemValue;
         EstimateBuilder = (EstimateBuilder * (decimal).03);
+        // CreateYear policies
         if (PolicyCost.CreateYear < 1500)
         {
             EstimateBuilder = EstimateBuilder + 500;
+            PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (CreateYear): antique item fee +$500";
         }
         if (PolicyCost.CreateYear > 1900)
         {
             EstimateBuilder = EstimateBuilder * (decimal).9;
+            PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (CreateYear): new item -10% discount";
+        }
+        // Insurance type policies
+        if (PolicyCost.InsuranceType == "Object becomes self-aware or develops aspirations of world domination")
+        {
+            EstimateBuilder = EstimateBuilder * (decimal)1.3;
+            PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (Insurance Type): Self-Awareness World Domination Rider required + 30%";
+        }
+        // Value policies
+        if (PolicyCost.ItemValue > 150000)
+        {
+            EstimateBuilder = EstimateBuilder + 10000;
+            PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (ItemValue): Expensive Product fee +$10,000";
+        }
+        // Other insurer policies
+        if (PolicyCost.PreviousInsurer == "Infinity Eye")
+        {
+            if (PolicyCost.ItemValue > 850000)
+            {
+                PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (PreviousInsurer): Infinity Eye special pricing & itemvalue > $850,000 [TODO: ADD HIGH VALUE PRICE TABLE- DEFAULT TO $1 FOR NOW. WILL FIX TOMORROW. OO! A SQURREL!]";
+                EstimateBuilder = 1;
+            }
+            if (PolicyCost.ItemValue < 850000)
+            {
+                PolicyCost.Messages = PolicyCost.Messages + ";estimation svc (PreviousInsurer): Infinity Eye special pricing & itemvalue < $850,000 -18% discount";
+                EstimateBuilder = EstimateBuilder * (decimal).82;
+            }
         }
         PolicyCost.PolicyEstimate = Math.Round((decimal)EstimateBuilder, 2);
         PolicyCost.Status = "quoted";
-        _logger.LogInformation(PolicyCost.CustRef);
+        string text = JsonNet.Serialize(PolicyCost);
+        _logger.LogInformation(text);
         return Ok(PolicyCost);
     }
 }

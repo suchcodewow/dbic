@@ -10,7 +10,8 @@ const timeout = process.env.timeout ? process.env.timeout : 15000;
 const limit = pLimit(parseInt(workers));
 
 console.log("Using", workers, "workers to run", runTotal, "tests with timeout", timeout, "targetting:", frontendURL);
-console.log("Delaying start by ", delay, "s.");
+console.log("Delaying start by", delay, "s.");
+console.log("Running version 3.2");
 await new Promise((r) => setTimeout(r, parseInt(delay)));
 
 async function runOne({ browser }) {
@@ -18,7 +19,7 @@ async function runOne({ browser }) {
   const context = await browser.newContext();
   const startTime = new Date();
   context.setDefaultTimeout(parseInt(timeout));
-  await context.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
+  // await context.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
   const page = await context.newPage();
   // Login
   await page.goto(frontendURL + "/login");
@@ -34,14 +35,21 @@ async function runOne({ browser }) {
   // await page.getByLabel("Payment Amount").click();
   // await page.getByLabel("Payment Amount").fill(randomNumber(10, 1000).toString());
   await page.getByRole("button", { name: "Send Payment" }).click();
+  await page.waitForLoadState("networkidle");
   // Get insurance
   await page.getByText("newInsurance").click();
   await page.getByRole("link", { name: "Let's go!" }).click();
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByRole("button", { name: "Submit Quote" }).click();
+  await page.waitForLoadState("networkidle");
+  // Get new specialty Insurance!
+  await page.getByText("newInsurance").click();
+  await page.getByRole("link", { name: "Insure specialty item" }).click();
+  await page.getByRole("button", { name: "Submit Quote" }).click();
+  await page.waitForLoadState("networkidle");
   // Buy item
-  // await page.getByRole("navigation").getByText("Store").click();
+  await page.getByRole("navigation").getByText("Store").click();
   await page.goto(frontendURL + "/store");
   await page
     .getByRole("heading", {
@@ -68,16 +76,16 @@ async function runOne({ browser }) {
     headless: true,
     timeout: 5000,
     args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-accelerated-2d-canvas",
-      "--no-first-run",
-      "--no-zygote",
+      //"--no-sandbox",
+      //"--disable-setuid-sandbox",
+      //"--disable-dev-shm-usage",
+      //"--disable-accelerated-2d-canvas",
+      //"--no-first-run",
+      //"--no-zygote",
       // "--single-process",
-      "--disable-gpu",
-      "--enable-zero-copy",
-      "--disable-features=UseSkiaRenderer",
+      // "--disable-gpu",
+      //"--enable-zero-copy",
+      //"--disable-features=UseSkiaRenderer",
     ],
   });
   const input = [];

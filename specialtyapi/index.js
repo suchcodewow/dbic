@@ -1,4 +1,5 @@
 const express = require("express");
+const winston = require("winston");
 const mongoose = require("mongoose");
 const port = 3666;
 
@@ -11,13 +12,21 @@ app.use((req, res, next) => {
   next();
 });
 
+// Logging
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  // transports: [new winston.transports.Console(), new winston.transports.File({ filename: "logs/app.log" })],
+  transports: [new winston.transports.Console()],
+});
+
 // Database connection
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
-const estimationSvc = process.env.ESTIMATION_URL ? process.env.ESTIMATION_URL : "offline";
+var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "offline";
 if (estimationSvc != "offline") {
-  console.log("Estitmation service online @: " + estimationSvc);
+  console.log("Estimation service online @: " + estimationSvc);
 } else {
   console.log("Estimation service OFFLINE");
 }
@@ -44,14 +53,41 @@ const CustomQuoteSchema = new Schema({
   CreateTime: Date,
   UpdateTime: Date,
   PolicyEstimate: Number,
+  Messages: String,
 });
 const CustomQuote = mongoose.model("CustomQuote", CustomQuoteSchema);
 
+// Status: GET
+app.get("/status", async (req, res) => {
+  const status = {
+    status: "OK",
+    estimationSvc: estimationSvc,
+  };
+  return res.status(200).json(status);
+});
+
+// Status: SET
+app.post("/status", async (req, res) => {
+  const newUrl = req.body;
+  if (newUrl.estimationSvc) {
+    estimationSvc = newUrl.estimationSvc;
+  }
+  const status = {
+    status: "OK",
+    estimationSvc: estimationSvc,
+  };
+  return res.status(200).json(status);
+});
+
 // API: Create
-app.post("/", async (req, res) => {
+app.post("/api", async (req, res) => {
   const newQuote = new CustomQuote({ ...req.body });
+  newQuote["Messages"] = "specialtyapi: saved";
+  logger.info(newQuote);
   const insertedQuote = await newQuote.save();
+  // Forward to estimation service if online
   if (estimationSvc != "offline") {
+    logger.info("Quote " + insertedQuote["_id"] + " sent to estimation svc:" + estimationSvc);
     const options = {
       method: "POST",
       body: JSON.stringify(insertedQuote),
@@ -72,13 +108,13 @@ app.post("/", async (req, res) => {
 });
 
 // API: Read
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
   const allQuotes = await CustomQuote.find().sort({ UpdateTime: -1 });
   return res.status(200).json(allQuotes);
 });
 
 // API: Update
-app.put("/:id", async (req, res) => {
+app.put("/api:id", async (req, res) => {
   const { id } = req.params;
   await CustomQuote.findByIdAndUpdate(id, req.body);
   const updatedQuote = await CustomQuote.findById(id);
@@ -86,14 +122,14 @@ app.put("/:id", async (req, res) => {
 });
 
 // API: Delete
-app.delete("/:id", async (req, res) => {
+app.delete("/api:id", async (req, res) => {
   const { id } = req.params;
   const deletedQuote = await CustomQuote.findByIdAndDelete(id);
   return res.status(200).json(deletedQuote);
 });
 
 // API: Get One
-app.get("/:id", async (req, res) => {
+app.get("/api:id", async (req, res) => {
   const { id } = req.params;
   const quote = await CustomQuote.findById(id);
   return res.status(200).json(quote);

@@ -583,6 +583,6 @@ spec:
             - name: workers
               value: "3"
             - name: delay
-              value: "10"
+              value: "30"
             - name: timeout
               value: "5000"

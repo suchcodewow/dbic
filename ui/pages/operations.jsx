@@ -21,14 +21,18 @@ export default function Operations() {
   const [transactionService, setTransactionService] = useState(false);
   // Configurables
   const [estimationService, setEstimationService] = useState("");
+  const [estimationSuccess, setEstimationSuccess] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCurrentSettings = async () => {
+    // Update feature flags
     const response = await fetch(process.env.NEXT_PUBLIC_clientmainapi + "/features/", {
       method: "GET",
     });
     const data = await response.json();
     setFraudService(data.fraud_service);
     setTransactionService(data.transaction_service);
+    // Update configurable settings
     const estimateResponse = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/status", {
       method: "GET",
     });
@@ -41,6 +45,7 @@ export default function Operations() {
   };
 
   async function updateEstimationService() {
+    setIsLoading(true);
     const options = {
       method: "POST",
       body: JSON.stringify({
@@ -52,7 +57,8 @@ export default function Operations() {
     };
     const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/status", options);
     const apicallJson = await apicall.json();
-    console.log(apicallJson);
+    setEstimationSuccess(apicallJson);
+    setIsLoading(false);
   }
 
   const enableFraudService = async () => {
@@ -126,6 +132,7 @@ export default function Operations() {
               >
                 enable
               </div>
+
               <div
                 onClick={() => {
                   setCreditService(false);
@@ -382,7 +389,7 @@ export default function Operations() {
           </div>
         </dl>
         {/* Configurable Services */}
-        <div className="py-14 flex flex-row items-center">
+        <div className="pt-14 pb-2 flex flex-row items-center">
           <label className="flex">Estimation Service URL:</label>
           <input
             className="mx-2 flex-1"
@@ -390,12 +397,30 @@ export default function Operations() {
             onInput={(e) => setEstimationService(e.target.value)}
           ></input>
           <button
-            className="flex bg-green-500 px-6 py-4  h-10 w-24 items-center justify-center rounded-md text-white"
+            disabled={isLoading}
+            className={classNames(
+              isLoading ? "bg-gray-300" : "bg-green-500",
+              "flex  px-6 py-4  h-10 w-24 items-center justify-center rounded-md text-white"
+            )}
             onClick={updateEstimationService}
           >
             save
           </button>
         </div>
+        {estimationSuccess.status == "RESET" && (
+          <div className="text-center text-green-500">Successfully Disabled Estimation Service</div>
+        )}
+        {estimationSuccess.status == "OK" && (
+          <div className="text-center text-green-500">
+            Successfully configured. App Name: '{estimationSuccess.appname}'
+          </div>
+        )}
+        {estimationSuccess.status == "ERROR" && (
+          <div className="text-center text-green-500">Failed with error: '{estimationSuccess.message}'</div>
+        )}
+        {estimationSuccess.status == "INVALID" && (
+          <div className="text-center text-yellow-700">URL exists, but not an estimation service</div>
+        )}
       </div>
 
       <Footer />

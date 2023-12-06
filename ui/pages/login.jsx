@@ -1,22 +1,21 @@
 import Nav from "components/Nav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUserContext } from "contexts/UserContext";
 import { Prefix, Name, getUser } from "components/Library";
 import { useRouter } from "next/router";
 import Footer from "components/footer";
 
+const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
+const selectedName = Name[Math.floor(Math.random() * Name.length)];
+const randomId =
+  selectedPrefix.charAt(0).toUpperCase() +
+  selectedPrefix.slice(1) +
+  selectedName.charAt(0).toUpperCase() +
+  selectedName.slice(1);
+
 export default function Login() {
   const router = useRouter();
   const { userDispatch } = useUserContext();
-
-  // console.log("returnURL", router.query.returnUrl);
-  const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)];
-  const selectedName = Name[Math.floor(Math.random() * Name.length)];
-  const randomId =
-    selectedPrefix.charAt(0).toUpperCase() +
-    selectedPrefix.slice(1) +
-    selectedName.charAt(0).toUpperCase() +
-    selectedName.slice(1);
   const [userId, setUserId] = useState(randomId);
   const handleLogin = async (e) => {
     e.preventDefault();

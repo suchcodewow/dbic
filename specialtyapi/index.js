@@ -24,8 +24,8 @@ const logger = winston.createLogger({
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
-var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "offline";
-if (estimationSvc != "offline") {
+var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "";
+if (estimationSvc != "") {
   console.log("Estimation service online @: " + estimationSvc);
 } else {
   console.log("Estimation service OFFLINE");
@@ -70,13 +70,47 @@ app.get("/status", async (req, res) => {
 app.post("/status", async (req, res) => {
   const newUrl = req.body;
   if (newUrl.estimationSvc) {
-    estimationSvc = newUrl.estimationSvc;
+    try {
+      const testEstimateUrl = await fetch(newUrl.estimationSvc, { method: "GET" });
+      const testEstimateResult = await testEstimateUrl.json();
+      if (testEstimateResult.appname) {
+        // Valid endpoint, update
+        estimationSvc = newUrl.estimationSvc;
+        const status = {
+          status: "OK",
+          estimationSvc: estimationSvc,
+          appname: testEstimateResult.appname,
+        };
+        return res.status(200).json(status);
+      } else {
+        console.log(testEstimateResult);
+        const status = {
+          status: "INVALID",
+        };
+        return res.status(200).json(status);
+      }
+    } catch (error) {
+      var message = "unknown";
+      console.log(error);
+      if (error.cause) {
+        message = error.cause.code;
+      }
+      if (error.SyntaxError) {
+        message = error;
+      }
+      const status = {
+        status: "ERROR",
+        message: message,
+      };
+      return res.status(200).json(status);
+    }
+  } else {
+    estimationSvc = "";
+    const status = {
+      status: "RESET",
+    };
+    return res.status(200).json(status);
   }
-  const status = {
-    status: "OK",
-    estimationSvc: estimationSvc,
-  };
-  return res.status(200).json(status);
 });
 
 // API: Create
@@ -86,7 +120,7 @@ app.post("/api", async (req, res) => {
   logger.info(newQuote);
   const insertedQuote = await newQuote.save();
   // Forward to estimation service if online
-  if (estimationSvc != "offline") {
+  if (estimationSvc != "") {
     logger.info("Quote " + insertedQuote["_id"] + " sent to estimation svc:" + estimationSvc);
     const options = {
       method: "POST",

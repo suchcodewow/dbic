@@ -19,6 +19,10 @@ public class EstimateController : ControllerBase
     public ActionResult Get()
     {
         var webAppName = Environment.GetEnvironmentVariable("APPSETTING_WEBSITE_SITE_NAME");
+        if (webAppName == null)
+        {
+            webAppName = "local";
+        }
         var response = new { Status = "ready", appname = webAppName };
         return Ok(response);
     }

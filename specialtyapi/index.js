@@ -24,17 +24,19 @@ const logger = winston.createLogger({
 const dbUrl = process.env.DATABASE_URL
   ? process.env.DATABASE_URL
   : "mongodb://root:password@localhost/specialty?authSource=admin";
+mongoose.connect(dbUrl);
+const database = mongoose.connection;
+database.on("error", (error) => {
+  console.log(error);
+});
+
+//
 var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "";
 if (estimationSvc != "") {
   console.log("Estimation service online @: " + estimationSvc);
 } else {
   console.log("Estimation service OFFLINE");
 }
-mongoose.connect(dbUrl);
-const database = mongoose.connection;
-database.on("error", (error) => {
-  // console.log(error);
-});
 
 // Define quote schema
 const Schema = mongoose.Schema;

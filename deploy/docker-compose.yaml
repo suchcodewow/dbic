@@ -104,7 +104,7 @@ services:
       - maindb
     environment:
       DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
-      ESTIMATION_URL: offline
+      ESTIMATION_URL: ""
 
   estimationsvc:
     build:

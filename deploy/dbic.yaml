@@ -459,7 +459,7 @@ spec:
             - name: DATABASE_URL
               value: mongodb://root:password@maindb/specialty?authSource=admin
             - name: ESTIMATION_URL
-              value: offline
+              value: ""
 
 ---
 apiVersion: v1

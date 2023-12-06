@@ -14,12 +14,12 @@ write-host "Publishing to $azAccount change with:"
 write-host "az account set -s <id from above>"
 
 # Build
-if (Test-Path .\publish) { remove-item .\publish -r -force }
+# if (Test-Path .\publish) { remove-item .\publish -r -force }
 write-host "Building application"
-dotnet publish -o publish
-Set-Location .\publish
-Compress-Archive * ..\publish.zip -Force
-Set-Location ..
+dotnet publish -c Release
+# Set-Location .\bin\publish
+Compress-Archive .\bin\Release\net6.0\publish\* publish.zip -Force
+# Set-Location ..
 
 #az appservice plan show --resource-group $resourceGroup --name $webASPName
 #az appservice plan create --name $webASPName --resource-group $resourceGroup --sku B1

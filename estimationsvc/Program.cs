@@ -27,5 +27,5 @@ app.UseHttpLogging();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
-app.Urls.Add("http://*:5130");
+// app.Urls.Add("http://*:5130");
 app.Run();

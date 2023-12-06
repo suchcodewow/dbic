@@ -83,6 +83,7 @@ app.post("/status", async (req, res) => {
         };
         return res.status(200).json(status);
       } else {
+        // website found, but invalid
         console.log(testEstimateResult);
         const status = {
           status: "INVALID",
@@ -90,6 +91,7 @@ app.post("/status", async (req, res) => {
         return res.status(200).json(status);
       }
     } catch (error) {
+      // Errors: typically website not found/SyntaxError against an incorrect website
       var message = "unknown";
       console.log(error);
       if (error.cause) {

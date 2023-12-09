@@ -106,12 +106,12 @@ services:
       DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
       ESTIMATION_URL: ""
 
-  estimationsvc:
+  instamationsvc:
     build:
-      context: ../estimationsvc
+      context: ../instamationsvc
       dockerfile: Dockerfile
-    container_name: estimationsvc
-    image: suchcodewow/dbic-estimationsvc
+    container_name: instamationsvc
+    image: suchcodewow/dbic-instamationsvc
     environment:
       - DOTNET_ENVIRONMENT=DockerDeploy
     restart: always

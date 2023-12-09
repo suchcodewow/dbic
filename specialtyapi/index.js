@@ -30,7 +30,6 @@ database.on("error", (error) => {
   console.log(error);
 });
 
-//
 var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "";
 if (estimationSvc != "") {
   console.log("Estimation service online @: " + estimationSvc);

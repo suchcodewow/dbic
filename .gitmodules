@@ -1,0 +1,3 @@
+[submodule "instamationsvc"]
+	path = instamationsvc
+	url = https://github.com/suchcodewow/instamationsvc

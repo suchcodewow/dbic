@@ -1,0 +1,20 @@
+{
+  "azure": [
+    {
+      "description": "Create ",
+      "key": "FIRSTCHOICE",
+      "dependsOnKey": "",
+      "current": "your mom",
+      "function": "write-host 'hi'",
+      "parameters": ""
+    },
+    {
+        "description": "secondchoice",
+        "key": "SECONDCHOICE",
+        "dependsOnKey": "FIRSTCHOICE",
+        "current": "your mom",
+        "function": "write-host 'hi'",
+        "parameters": ""
+      },s
+  ]
+}

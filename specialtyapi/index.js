@@ -146,7 +146,7 @@ app.post("/api", async (req, res) => {
 
 // API: Read
 app.get("/api", async (req, res) => {
-  const allQuotes = await CustomQuote.find().sort({ UpdateTime: -1 });
+  const allQuotes = await CustomQuote.find().sort({ UpdateTime: -1 }).limit(100);
   return res.status(200).json(allQuotes);
 });
 

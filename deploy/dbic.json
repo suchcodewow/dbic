@@ -9,12 +9,12 @@
       "parameters": ""
     },
     {
-        "description": "secondchoice",
-        "key": "SECONDCHOICE",
-        "dependsOnKey": "FIRSTCHOICE",
-        "current": "your mom",
-        "function": "write-host 'hi'",
-        "parameters": ""
-      },s
+      "description": "secondchoice",
+      "key": "SECONDCHOICE",
+      "dependsOnKey": "FIRSTCHOICE",
+      "current": "your mom",
+      "function": "write-host 'hi'",
+      "parameters": ""
+    }
   ]
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import Footer from "components/footer";
 import CollectiAdmin from "components/CollecticareAdmin";
+import { NumericFormat } from "react-number-format";
 //TODO: make all 3 transactions recent down
 //TODO: fix money field. negatives are wrong
 export default function Administration() {
@@ -82,6 +83,9 @@ export default function Administration() {
                   <th scope="col" className="p-1">
                     Status
                   </th>
+                  <th scope="col" className="p-1">
+                    Updated
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -97,8 +101,9 @@ export default function Administration() {
                     <th scope="row" className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {item.CustRef}
                     </th>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{item.Status}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {item.Status + "@" + new Date(item.UpdateTime).toLocaleString()}
+                      {format(new Date(item.UpdateTime), "M/d/yy H:m")}
                     </td>
                   </tr>
                 ))}
@@ -162,7 +167,15 @@ export default function Administration() {
                   <tr key={transaction.id} className="border-b bg-gray-100 ">
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{transaction.userId}</td>
                     <td className="p-1 text-xs font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">${transaction.amount}</td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
+                      <NumericFormat
+                        displayType="text"
+                        prefix={"$"}
+                        valueIsNumericString={true}
+                        thousandSeparator=","
+                        value={transaction.amount.toFixed(2)}
+                      />
+                    </td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
                       {format(new Date(transaction.timestamp), "M/d/yy H:m")}
                     </td>

@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import Footer from "components/footer";
 import CollectiAdmin from "components/CollecticareAdmin";
 //TODO: make all 3 transactions recent down
-//TODO: fix date field for banking.  last digit of time gets cut off
+//TODO: fix money field. negatives are wrong
 export default function Administration() {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState(false);
@@ -13,7 +13,7 @@ export default function Administration() {
   const [customQuotes, setCustomQuotes] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(process.env.NEXT_PUBLIC_specialtyapi, {
+      const response = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/api", {
         method: "GET",
       });
       const data = await response.json();

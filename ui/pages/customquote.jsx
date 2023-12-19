@@ -34,9 +34,6 @@ export default function Quote() {
         "Content-Type": "application/json",
       },
     };
-    // const estimateAiStatus = await fetch("https://your-moms-apim.azure-api.net/scw-webapp-shawnpearson", options);
-    // const estimateAiBody = await estimateAiStatus.json();
-    // console.log(estimateAiBody);
     const apicall = await fetch(process.env.NEXT_PUBLIC_specialtyapi + "/api", options);
     const apicallJson = await apicall.json();
     console.log(apicallJson);

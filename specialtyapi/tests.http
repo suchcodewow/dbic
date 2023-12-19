@@ -1,4 +1,21 @@
-POST http://localhost:3666/status
+GET https://scw-webapp-colossalcactus.azurewebsites.net/
+
+###
+
+POST https://scw-webapp-colossalcactus.azurewebsites.net/
 Content-Type: application/json
 
-{"estimationSvc":"yourmom"}
+{"CreateYear": 1000,
+"Email": "testaccount@suchcodewow.com",
+"InsuranceType":"Water/Fire Damage",
+"ItemDesc": "A sock that is impossible to match.",
+"ItemName": "Lonely Sock",
+"Name": "Test Account",
+"PreviousInsurer": "Goldeneye",
+"ItemValue": 500000,
+"MFREF": 56581,
+"Status": "new",
+"CustRef": "7",
+"CreateTime": "2023-12-18T17:08:42.599Z",
+"UpdateTime": "2023-12-18T17:08:42.599Z"
+}

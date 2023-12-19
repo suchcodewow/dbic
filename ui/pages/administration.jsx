@@ -103,7 +103,7 @@ export default function Administration() {
                     </th>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{item.Status}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {format(new Date(item.UpdateTime), "M/d/yy H:m")}
+                      {format(new Date(item.UpdateTime), "M/d/yy H:mm")}
                     </td>
                   </tr>
                 ))}
@@ -177,7 +177,7 @@ export default function Administration() {
                       />
                     </td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                      {format(new Date(transaction.timestamp), "M/d/yy H:m")}
+                      {format(new Date(transaction.timestamp), "M/d/yy H:mm")}
                     </td>
                   </tr>
                 ))}

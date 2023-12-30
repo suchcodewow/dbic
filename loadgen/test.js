@@ -2,11 +2,11 @@
 import { chromium } from "playwright";
 import pLimit from "p-limit";
 
-const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost";
-const runTotal = process.env.runTotal ? process.env.runTotal : 1;
-const workers = process.env.workers ? process.env.workers : 1;
+const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost:3000";
+const runTotal = process.env.runTotal ? process.env.runTotal : 3000;
+const workers = process.env.workers ? process.env.workers : 3;
 const delay = process.env.delay ? process.env.delay : 0;
-const timeout = process.env.timeout ? process.env.timeout : 15000;
+const timeout = process.env.timeout ? process.env.timeout : 20000;
 const limit = pLimit(parseInt(workers));
 
 console.log("Using", workers, "workers to run", runTotal, "tests with timeout", timeout, "targetting:", frontendURL);

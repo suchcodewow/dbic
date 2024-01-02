@@ -24,23 +24,23 @@ const nextConfig = {
     return [
       {
         source: "/devapi/order/:path*",
-        destination: "http://localhost:8000/api/Order/:path*",
+        destination: "http://127.0.0.1:8000/api/Order/:path*",
       },
       {
         source: "/devapi/catalog/:path*",
-        destination: "http://localhost:8080/api/v1/catalog/:path*",
+        destination: "http://127.0.0.1:8080/api/v1/catalog/:path*",
       },
       {
         source: "/devapi/quote/:path*",
-        destination: "http://localhost:6000/quote/:path*",
+        destination: "http://127.0.0.1:6000/quote/:path*",
       },
       {
         source: "/devapi/api/:path*",
-        destination: "http://localhost:5000/api/:path*",
+        destination: "http://127.0.0.1:5000/api/:path*",
       },
       {
         source: "/devapi/specialtyapi/:path*",
-        destination: "http://localhost:3666/:path*",
+        destination: "http://127.0.0.1:3666/:path*",
       },
       {
         source: "/api/order/:path*",

@@ -1,7 +1,7 @@
 write-host -ForegroundColor green "Pulling any submodules..."
 git submodule update --init --recursive
 
-write-host -ForegroundColor "Checking for java"
+write-host -ForegroundColor green "Checking for java"
 $testJavaHome = Get-ChildItem env:JAVA_HOME
 if ($testJavaHome -like "*17*") {
     write-host "Java 17 SDK found."

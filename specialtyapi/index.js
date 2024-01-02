@@ -32,9 +32,9 @@ database.on("error", (error) => {
 
 var estimationSvc = process.env.ESTIMATION_URL ? "http://" + process.env.ESTIMATION_URL : "";
 if (estimationSvc != "") {
-  console.log("Estimation service online @: " + estimationSvc);
+  console.log("Instamation service online @: " + estimationSvc);
 } else {
-  console.log("Estimation service OFFLINE");
+  console.log("Instamation service: OFFLINE");
 }
 
 // Define quote schema

@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 public class CatalogServiceImpl implements CatalogService{
 
     private CatalogRepository catalogRepository;
-
     public CatalogServiceImpl(CatalogRepository catalogRepository) {
         this.catalogRepository = catalogRepository;
     }
-
     @Override
     public Catalog saveCatalog(Catalog catalog) {
         CatalogEntity catalogEntity = new CatalogEntity();

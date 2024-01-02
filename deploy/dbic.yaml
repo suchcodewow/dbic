@@ -585,4 +585,4 @@ spec:
             - name: delay
               value: "30"
             - name: timeout
-              value: "5000"
+              value: "20000"

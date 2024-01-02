@@ -1,3 +1,3 @@
-$host.ui.RawUI.WindowTitle = "ui/frontend"
+$host.ui.RawUI.WindowTitle = "ui / frontend"
 npm install
 npm run dev

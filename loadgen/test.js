@@ -3,7 +3,7 @@ import { chromium } from "playwright";
 import pLimit from "p-limit";
 
 const frontendURL = process.env.frontendURL ? "http://" + process.env.frontendURL : "http://localhost:3000";
-const runTotal = process.env.runTotal ? process.env.runTotal : 3000;
+const runTotal = process.env.runTotal ? process.env.runTotal : 10000;
 const workers = process.env.workers ? process.env.workers : 3;
 const delay = process.env.delay ? process.env.delay : 0;
 const timeout = process.env.timeout ? process.env.timeout : 20000;
@@ -22,7 +22,13 @@ async function runOne({ browser }) {
   // await context.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
   const page = await context.newPage();
   // Login
-  await page.goto(frontendURL + "/login");
+  try {
+    await page.goto(frontendURL + "/login");
+  } catch (TimeoutException) {
+    console.log("Could not connect. Waiting 10.");
+    await new Promise((resolve) => setTimeout(resolve, 10000));
+    return;
+  }
   await page.getByRole("button", { name: "Sign In" }).click();
   const userName = await page.getByRole("button", { name: "Open user menu " }).textContent();
   console.log(startTime.toLocaleString(), "LOGIN", userName?.substring(14));
@@ -69,9 +75,9 @@ async function runOne({ browser }) {
   console.log(endTime.toLocaleString(), "LOGOUT", userName?.substring(14), Math.abs(endTime - startTime), "ms");
   // Teardown
 }
-
-(async () => {
+async function oneCycle() {
   // Setup
+  console.log("Starting new cycle.");
   const browser = await chromium.launch({
     headless: true,
     timeout: 5000,
@@ -97,7 +103,11 @@ async function runOne({ browser }) {
   // console.log(input);
   await Promise.all(input);
   await browser.close();
-  console.log("All test complete. System should shut down.");
+  console.log("All test complete. Browser closed.");
+}
+
+(async () => {
+  while (true) await oneCycle();
 })();
 
 function randomNumber(min, max) {

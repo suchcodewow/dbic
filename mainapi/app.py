@@ -8,17 +8,14 @@ if "dbHostName" in os.environ:
     dbHostName = os.environ["dbHostName"]
 else:
     dbHostName = "localhost"
-
 if "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT" in os.environ:
     print("OTEL ENDPOINT: " + os.environ["OTEL_EXPORTER_OTLP_TRACES_ENDPOINT"])
 if "OTEL_EXPORTER_OTLP_HEADERS" in os.environ:
     print("OTEL AUTH HEADER: " + os.environ["OTEL_EXPORTER_OTLP_HEADERS"])
-
 def response(a, b):
     _response = app.make_response((jsonify(a), b))
     _response.headers["Content-Type"] = "application/json"
     return _response
-
 app = Flask(__name__)
 db = MongoEngine()
 app.config["MONGODB_SETTINGS"] = [
@@ -39,10 +36,7 @@ class Features:
     failuron_service = False
     transaction_service = False
 
-
 features = Features()
-
-
 @app.route("/api/features", methods=["GET"])
 def api_features():
     global features
@@ -55,13 +49,11 @@ def api_features():
         200,
     )
 
-
 @app.route("/api/features/enable/<feature>", methods=["GET"])
 def enableFeature(feature):
     global features
     setattr(features, feature, True)
     return response({feature: True}, 200)
-
 
 @app.route("/api/features/disable/<feature>", methods=["GET"])
 def api_fraud_off(feature):
@@ -69,12 +61,10 @@ def api_fraud_off(feature):
     setattr(features, feature, False)
     return response({feature: False}, 200)
 
-
 # User API
 class Account(db.EmbeddedDocument):
     name = db.StringField()
     balance = db.FloatField()
-
 
 class Address(db.EmbeddedDocument):
     address1 = db.StringField()
@@ -83,12 +73,10 @@ class Address(db.EmbeddedDocument):
     state = db.StringField()
     zip = db.StringField()
 
-
 class Dynacard(db.EmbeddedDocument):
     ccnum = db.StringField()
     ccv = db.StringField()
     expiration = db.StringField()
-
 
 class Users(db.Document):
     userId = db.StringField()
@@ -111,7 +99,6 @@ def api_users():
     for user in Users.objects:
         users.append(user.to_json())
     return response(users, 200)
-
 
 @app.route("/api/users/<id>", methods=["GET", "PUT", "DELETE"])
 def api_each_user(id):
@@ -144,7 +131,6 @@ def api_each_user(id):
         user.delete()
         return response("user deleted", 200)
 
-
 @app.route("/api/users/login/<id>", methods=["GET"])
 def api_login_user(id):
     user = Users.objects(userId=id).first()
@@ -167,7 +153,6 @@ def api_login_user(id):
     # user exists, just return it
     return response(user.to_json(), 200)
 
-
 # Transaction API
 class Transactions(db.Document):
     userId = db.StringField()
@@ -186,7 +171,6 @@ class Transactions(db.Document):
             "amount": self.amount,
             "timestamp": self.timestamp,
         }
-
 
 @app.route("/api/transactions", methods=["GET", "POST"])
 def api_transactions():
@@ -230,7 +214,6 @@ def api_transactions():
             return response("transaction added", 201)
     pass
 
-
 @app.route("/api/transactions/<id>", methods=["GET", "PUT", "DELETE"])
 def api_each_transaction(id):
     transaction = Transactions.objects(id=id).first()
@@ -252,7 +235,6 @@ def api_each_transaction(id):
         transaction.delete()
         return response("transaction deleted", 200)
 
-
 @app.route("/api/mytransactions/<userId>", methods=["GET"])
 def my_transctions(userId):
     transactions = []
@@ -261,7 +243,6 @@ def my_transctions(userId):
     ):
         transactions.append(transaction.to_json())
     return response(transactions, 200)
-
 
 print("dbHostname=" + dbHostName)
 

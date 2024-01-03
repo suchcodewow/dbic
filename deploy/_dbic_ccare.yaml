@@ -207,7 +207,7 @@ spec:
     spec:
       containers:
         - name: catalogapi
-          image: suchcodewow/dbic-catalogapi:instamation
+          image: suchcodewow/dbic-catalogapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -262,7 +262,7 @@ spec:
     spec:
       containers:
         - name: ordersapi
-          image: suchcodewow/dbic-ordersapi:instamation
+          image: suchcodewow/dbic-ordersapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -319,7 +319,7 @@ spec:
     spec:
       containers:
         - name: quotesapi
-          image: suchcodewow/dbic-quotesapi:instamation
+          image: suchcodewow/dbic-quotesapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 6000
@@ -376,7 +376,7 @@ spec:
     spec:
       containers:
         - name: mainapi
-          image: suchcodewow/dbic-mainapi:instamation
+          image: suchcodewow/dbic-mainapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -448,7 +448,7 @@ spec:
     spec:
       containers:
         - name: specialtyapi
-          image: suchcodewow/dbic-specialtyapi:instamation
+          image: suchcodewow/dbic-specialtyapi:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 3666
@@ -507,7 +507,7 @@ spec:
     spec:
       containers:
         - name: ui
-          image: suchcodewow/dbic-ui:instamation
+          image: suchcodewow/dbic-ui:ccare
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -573,7 +573,7 @@ spec:
             limits:
               memory: "3000Mi"
               cpu: "2200m"
-          image: suchcodewow/dbic-loadgen:instamation
+          image: suchcodewow/dbic-loadgen:ccare
           imagePullPolicy: Always
           env:
             - name: frontendURL

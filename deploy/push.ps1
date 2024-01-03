@@ -1,6 +1,6 @@
 # Push dbic to docker hub
 $repo = "suchcodewow/"
-$tag = "ccare"
+$tag = "instamation"
 $newTag = read-host -prompt "Tag? (<enter>: $tag)"
 $imageName = read-host -prompt "Specific image? (<enter> for all suchcodewow/)"
 if ($newTag) { $tag = $newTag }

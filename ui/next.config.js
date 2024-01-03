@@ -39,7 +39,7 @@ const nextConfig = {
         destination: "http://127.0.0.1:5000/api/:path*",
       },
       {
-        source: "/devapi/specialtyapi/:path*",
+        source: "/devapi/specialty/:path*",
         destination: "http://127.0.0.1:3666/:path*",
       },
       {

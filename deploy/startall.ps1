@@ -1,3 +1,4 @@
+$portList = @(8080, 5000, 8000, 6000, 3666, 5130, 3000, 80)
 write-host -ForegroundColor green "Pulling any submodules..."
 git submodule update --init --recursive
 
@@ -9,6 +10,15 @@ if ($testJavaHome -like "*17*") {
 else {
     write-host "JAVA_HOME variable not found or JAVA 17 not installed.  Maybe try 'winget install Microsoft.OpenJDK.17'?"
     break
+}
+write-host -ForegroundColor green "Checking for ports in use"
+foreach ($port in $portList) {
+    $portUsed = (Get-NetTCPConnection -LocalPort $port).OwningProcess 2>$null
+    if ($portUsed) {
+        Stop-Process -ID $portUsed -Force
+        write-host "Stopped process using port: $port"
+
+    }
 }
 
 write-host -ForegroundColor green "Checking for Docker..."

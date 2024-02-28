@@ -24,7 +24,7 @@ const nextConfig = {
     return [
       {
         source: "/devapi/order/:path*",
-        destination: "http://127.0.0.1:8000/api/Order/:path*",
+        destination: "https://34.36.18.166.nip.io/orders/:path*",
       },
       {
         source: "/devapi/catalog/:path*",
@@ -44,7 +44,7 @@ const nextConfig = {
       },
       {
         source: "/api/order/:path*",
-        destination: "http://ordersapi:8000/api/Order/:path*",
+        destination: "https://34.36.18.166.nip.io/orders/:path*",
       },
       {
         source: "/api/catalog/:path*",

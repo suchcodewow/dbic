@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_suchcodewow_dbic_1710076830660-pr-trigger-input-set
+  identifier: Build_suchcodewow_dbic_1710076830660prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: dynabankcicd
+  pipeline:
+    identifier: Build_suchcodewow_dbic_1710076830660
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
